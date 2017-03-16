@@ -12,6 +12,7 @@ class AdminController extends Zend_Controller_Action
     {
         // action body
     }
+<<<<<<< HEAD
 /******************************* ALL **********************************/
     public function allAction()
     {
@@ -72,3 +73,45 @@ class AdminController extends Zend_Controller_Action
      }
 }
 /*****************************************************************/
+=======
+
+    public function userDetailsAction()
+    {
+        // action body
+        $userModel=new Application_Model_User();
+        $id=$this->_request->getParam('uid');
+        $userData=$userModel->getUserData($id);
+        $this->view->user_data=$userData;
+    }
+
+    public function userListAction()
+    {
+        // action body
+        $userModel=new Application_Model_User();
+        $user_array=$userModel->getAllUsers();
+        $this->view->all_users=$user_array;
+    }
+
+    public function userBlockAction()
+    {
+        // action body
+        $user_model = new Application_Model_User ();
+        $id = $this->_request->getParam('uid');
+        $user_data = $user_model->getUserData($id);
+        $user_model->blockUser($id,$user_data);
+        $this->redirect('/admin/user-list');
+    }
+
+    public function userUnblockAction()
+    {
+        // action body
+        $user_model = new Application_Model_User ();
+        $id = $this->_request->getParam('uid');
+        $user_data = $user_model->getUserData($id);
+        $user_model->unblockUser($id,$user_data);
+        $this->redirect('/admin/user-list');
+    }
+
+
+}
+>>>>>>> 1ce84ce6d3d6c5c55409fd27a25c8897cab88f16

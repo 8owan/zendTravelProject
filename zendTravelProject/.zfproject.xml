@@ -11,6 +11,7 @@
           <actionMethod actionName="index"/>
         </controllerFile>
         <controllerFile controllerName="Error"/>
+<<<<<<< HEAD
         <controllerFile controllerName="Country">
           <actionMethod actionName="index"/>
           <actionMethod actionName="all"/>
@@ -27,13 +28,31 @@
         <formFile formName="Country"/>
         <formFile formName="Countryform"/>
       </formsDirectory>
+=======
+        <controllerFile controllerName="User">
+          <actionMethod actionName="index"/>
+        </controllerFile>
+        <controllerFile controllerName="Admin">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="userDetails"/>
+          <actionMethod actionName="userList"/>
+          <actionMethod actionName="userBlock"/>
+          <actionMethod actionName="userUnblock"/>
+        </controllerFile>
+      </controllersDirectory>
+      <formsDirectory enabled="false"/>
+>>>>>>> 1ce84ce6d3d6c5c55409fd27a25c8897cab88f16
       <layoutsDirectory>
         <layoutScriptsDirectory>
           <layoutScriptFile layoutName="layout"/>
         </layoutScriptsDirectory>
       </layoutsDirectory>
       <modelsDirectory>
+<<<<<<< HEAD
         <modelFile modelName="Country"/>
+=======
+        <modelFile modelName="User"/>
+>>>>>>> 1ce84ce6d3d6c5c55409fd27a25c8897cab88f16
       </modelsDirectory>
       <modulesDirectory enabled="false"/>
       <servicesDirectory enabled="false"/>
@@ -45,16 +64,23 @@
           <viewControllerScriptsDirectory forControllerName="Error">
             <viewScriptFile forActionName="error"/>
           </viewControllerScriptsDirectory>
+<<<<<<< HEAD
           <viewControllerScriptsDirectory forControllerName="Country">
             <viewScriptFile forActionName="index"/>
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Country">
             <viewScriptFile forActionName="all"/>
           </viewControllerScriptsDirectory>
+=======
+          <viewControllerScriptsDirectory forControllerName="User">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+>>>>>>> 1ce84ce6d3d6c5c55409fd27a25c8897cab88f16
           <viewControllerScriptsDirectory forControllerName="Admin">
             <viewScriptFile forActionName="index"/>
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Admin">
+<<<<<<< HEAD
             <viewScriptFile forActionName="all"/>
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Admin">
@@ -65,6 +91,18 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Admin">
             <viewScriptFile forActionName="add"/>
+=======
+            <viewScriptFile forActionName="userDetails"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="userList"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="userBlock"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="userUnblock"/>
+>>>>>>> 1ce84ce6d3d6c5c55409fd27a25c8897cab88f16
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
@@ -103,6 +141,7 @@
           <testApplicationControllerFile forControllerName="Index">
             <testApplicationActionMethod forActionName="index"/>
           </testApplicationControllerFile>
+<<<<<<< HEAD
           <testApplicationControllerFile forControllerName="Country">
             <testApplicationActionMethod forActionName="index"/>
             <testApplicationActionMethod forActionName="all"/>
@@ -113,6 +152,17 @@
             <testApplicationActionMethod forActionName="delete"/>
             <testApplicationActionMethod forActionName="update"/>
             <testApplicationActionMethod forActionName="add"/>
+=======
+          <testApplicationControllerFile forControllerName="User">
+            <testApplicationActionMethod forActionName="index"/>
+          </testApplicationControllerFile>
+          <testApplicationControllerFile forControllerName="Admin">
+            <testApplicationActionMethod forActionName="index"/>
+            <testApplicationActionMethod forActionName="userDetails"/>
+            <testApplicationActionMethod forActionName="userList"/>
+            <testApplicationActionMethod forActionName="userBlock"/>
+            <testApplicationActionMethod forActionName="userUnblock"/>
+>>>>>>> 1ce84ce6d3d6c5c55409fd27a25c8897cab88f16
           </testApplicationControllerFile>
         </testApplicationControllerDirectory>
       </testApplicationDirectory>
