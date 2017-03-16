@@ -19,6 +19,7 @@ class Application_Model_User extends Zend_Db_Table_Abstract
     $userData['user_name']=$Data['user_name'];
     $userData['password']=$Data['password'];
     $userData['email']=$Data['email'];
+    $userData['image']=$Data['image'];
     $userData['type']='blocked';
     $this->update($userData,"id=$id");
 
@@ -29,9 +30,21 @@ class Application_Model_User extends Zend_Db_Table_Abstract
     $userData['user_name']=$Data['user_name'];
     $userData['password']=$Data['password'];
     $userData['email']=$Data['email'];
+    $userData['image']=$Data['image'];
     $userData['type']='normal';
     $this->update($userData,"id=$id");
-    
+
+  }
+
+  function addNewUser($userData)
+  {
+    $row = $this->createRow();
+    $row->user_name = $userData['user_name'];
+    $row->password = $userData['password'];
+    $row->email = $userData['email'];
+    $row->image = $userData['image'];
+    $row->type = 'normal';
+    $row->save();
   }
 
 
