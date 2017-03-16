@@ -16,10 +16,10 @@ foreach ($this->all_users as $key => $value) {
   echo "<tr><td>".$value['user_name']."</td>";
 	echo "<td><a class='btn btn-info' href='/admin/user-details/uid/".$value['id']."'>Details</a></td>";
 	if ($value['type']=='blocked') {
-		echo "<td><a class='btn btn-warning' href='/admin/user-unblock/uid/".$value['id']."'>Un Block</a></td></tr>";
+		echo "<td><a class='btn btn-warning' href='/admin/user-unblock/uid/".$value['id']."'>Un Block</a></td> </tr>";
 	}
 	elseif ($value['type']=='normal') {
-		echo "<td><a class='btn btn-danger' href='/admin/user-block/uid/".$value['id']."'>Block</a></td></tr>";
+		echo "<td><a class='btn btn-danger' href='/admin/user-block/uid/".$value['id']."'>Block</a></td> </tr>";
 	}
 }
  ?>

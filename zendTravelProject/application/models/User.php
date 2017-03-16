@@ -21,6 +21,7 @@ class Application_Model_User extends Zend_Db_Table_Abstract
     $userData['email']=$Data['email'];
     $userData['type']='blocked';
     $this->update($userData,"id=$id");
+
   }
 
   function unblockUser($id,$Data)
@@ -30,6 +31,7 @@ class Application_Model_User extends Zend_Db_Table_Abstract
     $userData['email']=$Data['email'];
     $userData['type']='normal';
     $this->update($userData,"id=$id");
+    
   }
 
 
