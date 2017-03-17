@@ -1,0 +1,23 @@
+<div class='container'>
+    <table class='table table-striped'>
+        <tr>
+            <th>ID</th>
+            <th>Sight Name</th>
+            <th>City</th>
+            <th colspan='2'>Details</th>
+        </tr>
+        <?php
+        foreach($this->allSights as $key => $value)
+        {
+            echo "<tr>
+							<td>".$value['id']."</td>
+							<td>".$value['sight_name']."</td>
+							<td>".$value['city_id']."</td>
+							<td><a class='btn btn-success' href='sightdetails/sightid/".$value['id']."'> Details </a></td>
+							<td><a class='btn btn-primary' href='editsight/sightid/".$value['id']."'> Edit </a></td>
+							<td> <a class='btn btn-danger' href='deletesight/sightid/".$value['id']."'> Delete </a> </td>
+						</tr>";
+        }
+        ?>
+    </table>
+</div>
