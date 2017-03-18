@@ -33,18 +33,23 @@
           <actionMethod actionName="deleteCity"/>
           <actionMethod actionName="cityDetails"/>
           <actionMethod actionName="cityUpdate"/>
-            <actionMethod actionName="index"/>
-            <actionMethod actionName="userDetails"/>
-            <actionMethod actionName="userList"/>
-            <actionMethod actionName="userBlock"/>
-            <actionMethod actionName="userUnblock"/>
-            <actionMethod actionName="userAsadmin"/>
-            <actionMethod actionName="login"/>
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="userDetails"/>
+          <actionMethod actionName="userList"/>
+          <actionMethod actionName="userBlock"/>
+          <actionMethod actionName="userUnblock"/>
+          <actionMethod actionName="userAsadmin"/>
+          <actionMethod actionName="login"/>
+          <actionMethod actionName="addHotel"/>
+          <actionMethod actionName="deleteHotel"/>
+          <actionMethod actionName="listHotel"/>
+          <actionMethod actionName="hotelDetails"/>
+          <actionMethod actionName="updateHotel"/>
         </controllerFile>
-          <controllerFile controllerName="User">
-              <actionMethod actionName="index"/>
-              <actionMethod actionName="addUser"/>
-          </controllerFile>
+        <controllerFile controllerName="User">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="addUser"/>
+        </controllerFile>
         <controllerFile controllerName="Visitor">
           <actionMethod actionName="index"/>
           <actionMethod actionName="hotelReservation"/>
@@ -57,6 +62,8 @@
         <formFile formName="CarRequest"/>
         <formFile formName="SignUp"/>
         <formFile formName="AdminLogin"/>
+        <formFile formName="Addhotel"/>
+        <formFile formName="Datepicker"/>
       </formsDirectory>
       <layoutsDirectory>
         <layoutScriptsDirectory>
@@ -69,6 +76,7 @@
         <modelFile modelName="City"/>
         <modelFile modelName="CarRequest"/>
         <modelFile modelName="User"/>
+        <modelFile modelName="Hotel"/>
       </modelsDirectory>
       <modulesDirectory enabled="false"/>
       <servicesDirectory enabled="false"/>
@@ -137,7 +145,7 @@
           <viewControllerScriptsDirectory forControllerName="Visitor">
             <viewScriptFile forActionName="carRequest"/>
           </viewControllerScriptsDirectory>
-            <viewControllerScriptsDirectory forControllerName="Admin">
+          <viewControllerScriptsDirectory forControllerName="Admin">
             <viewScriptFile forActionName="userDetails"/>
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Admin">
@@ -157,6 +165,21 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Admin">
             <viewScriptFile forActionName="login"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="addHotel"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="deleteHotel"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="listHotel"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="hotelDetails"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="updateHotel"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

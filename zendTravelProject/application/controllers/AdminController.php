@@ -89,10 +89,13 @@ class AdminController extends Zend_Controller_Action
 
     }
 
+   
+
+   
     public function addCityAction()
     {
         // action body
-        $form=new Application_Form_Addcity();
+         $form=new Application_Form_Addcity();
         $request=$this->getRequest();
         if($request->isPost()){
             if($form->isValid($request->getPost())){
@@ -108,14 +111,14 @@ class AdminController extends Zend_Controller_Action
     public function listCityAction()
     {
         // action body
-        $city_model = new Application_Model_City();
+           $city_model = new Application_Model_City();
         $this->view->city = $city_model->listCity();
     }
 
     public function deleteCityAction()
     {
         // action body
-        $city_model = new Application_Model_City();
+          $city_model = new Application_Model_City();
         $city_id = $this->_request->getParam("uid");
         $city_model->deleteCity($city_id);
         $this->redirect("/admin/list-city");
@@ -126,6 +129,7 @@ class AdminController extends Zend_Controller_Action
         // action body
         $city_model=new Application_Model_City();
         $city_id=$this->_request->getParam("uid");
+        $country=new Application_Model_Country();
         $city=$city_model->cityDetails($city_id);
         $this->view->city=$city[0];
     }
@@ -133,22 +137,22 @@ class AdminController extends Zend_Controller_Action
     public function cityUpdateAction()
     {
         // action body
-        $form = new Application_Form_Addcity ();
+             $form = new Application_Form_Addcity ();
         $city_model = new Application_Model_City ();
         $id = $this->_request->getParam('uid');
-        $CityData = $city_model->cityDetails($id)[0];
-
+        $CityData = $city_model-> cityDetails ($id)[0];
+        
         $form->populate($CityData);
         $this->view->city_form = $form;
-        $request = $this->getRequest();
-        if ($request->isPost()) {
-            if ($form->isValid($request->getPost())) {
-                $city_model->updateCity($id, $_POST);
-                $this->redirect('/admin/list-city ');
-            }
-        }
-    }
+        $request = $this->getRequest ();
+        if($request-> isPost()){
+          if($form-> isValid($request-> getPost())){
+            $city_model-> updateCity ($id,$_POST);
+        $this->redirect('/admin/list-city ');
+}
+}
 
+    }
 
     public function userDetailsAction()
     {
@@ -237,6 +241,79 @@ class AdminController extends Zend_Controller_Action
         }
     }
 
+    public function addHotelAction()
+    {
+        // action body
+        $form = new Application_Form_Addhotel();
+        $request = $this->getRequest();
+        if($request->isPost()){
+        if($form->isValid($request->getPost())){
+        $hotel_model = new Application_Model_Hotel();
+        $hotel_model-> addHotel($request->getParams());
+        $this->redirect('/admin/add-hotel');
+        }
+        }
+        $this->view->hotel_form = $form; 
+
+    }
+
+    public function deleteHotelAction()
+    {
+        // action body
+        $Hotel_model = new Application_Model_Hotel();
+        $Hotel_id = $this->_request->getParam("uid");
+        $Hotel_model->deleteHotel($Hotel_id);
+        $this->redirect("/admin/list-hotel");
+    }
+
+    public function listHotelAction()
+    {
+        // action body
+         $hotel_model = new Application_Model_Hotel();
+        $this->view->hotel = $hotel_model->listHotel();
+    }
+
+    public function hotelDetailsAction()
+    {
+        // action body
+        $hotel_model=new Application_Model_Hotel();
+        $hotel_id=$this->_request->getParam("uid");
+        $hotel=$hotel_model->hotelDetails($hotel_id);
+        $city_model=new Application_Model_City();
+        $cityName=$city_model->listCity();
+        $this->view->hotel=$hotel[0];
+        $this->view->city=$cityName[0];
+    }
+
+    public function updateHotelAction()
+    {
+        // action body
+        $form = new Application_Form_Addhotel ();
+        $hotel_model = new Application_Model_Hotel ();
+        $id = $this->_request->getParam('uid');
+        $HotelData = $hotel_model-> hotelDetails ($id)[0];
+        
+        $form->populate($HotelData);
+        $this->view->hotel_form = $form;
+        $request = $this->getRequest ();
+        if($request-> isPost()){
+        if($form-> isValid($request-> getPost())){
+        $hotel_model-> updateHotel ($id,$_POST);
+        $this->redirect('/admin/list-hotel ');
+}
+}
+    }
+
 
 }
+
+
+
+
+
+
+
+
+
+
 

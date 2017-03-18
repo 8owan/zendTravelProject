@@ -1,0 +1,39 @@
+<br /><br />
+
+	
+<div class="container"></div>
+<table class="table table-striped">
+	
+	<tr>
+	<th>Id</th>
+	<th>Hotel Name</th>
+	<th>Available Rooms</th>
+	<th>Action</th>
+
+	</tr>
+	<?php
+
+	
+	foreach ($this->hotel as $key => $value) {
+		# code...
+	
+	echo "<tr>
+	<td>".$value['id']."</td>".
+	"<td>".$value['hotel_name']."</td>".
+	"<td>".$value['avail_room']."</td>".
+	"<td> <a class='btn btn-info' href='/admin/hotel-details/uid/".$value['id']."'> Details </a></td>".
+	"<td> <a class='btn btn-success' href='/admin/Update-hotel/uid/".$value['id']."'> Update </a></td>".
+	"<td> <a class='btn btn-danger' href='/admin/delete-hotel/uid/".$value['id']."'> Delete </a></td>
+	
+
+	</tr>";
+}
+	?>
+
+</table>
+
+<a href='/admin/add-hotel'>create New Hotel</a>
+
+
+
+</div>
