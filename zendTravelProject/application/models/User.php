@@ -36,6 +36,16 @@ class Application_Model_User extends Zend_Db_Table_Abstract
 
   }
 
+  function makeAdminUser($id,$Data)
+  {
+    $userData['user_name']=$Data['user_name'];
+    $userData['password']=$Data['password'];
+    $userData['email']=$Data['email'];
+    $userData['image']=$Data['image'];
+    $userData['type']='admin';
+    $this->update($userData,"id=$id");
+  }
+
   function addNewUser($userData)
   {
     $row = $this->createRow();

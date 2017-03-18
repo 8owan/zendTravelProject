@@ -13,6 +13,23 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
 crossorigin="anonymous"></script>
 </head>
 <title>Zend Project</title>
+
+
+<?php
+$auth=Zend_Auth::getInstance();
+$storage=$auth->getStorage();
+$userData=$storage->read();
+if (empty($userData)) {
+  echo '<a href="/admin/login">Log in as admin</a>';
+}
+else {
+  // echo '<a href="/user/logout">Logout <span class="sr-only">(current)</span></a>';
+}
+ ?>
+
+
+
+
 <?php echo $this->layout()->content; ?>
 <div style ="background:black;">
 <hr>

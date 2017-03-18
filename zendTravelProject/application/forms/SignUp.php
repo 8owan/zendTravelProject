@@ -23,6 +23,7 @@ class Application_Form_SignUp extends Zend_Form
           'placeholder' => 'Example: Ali@yahoo.com',
           'class'=>'form-control'
         ));
+        $email->addValidator('EmailAddress',TRUE);
         $email->setRequired();
 
 

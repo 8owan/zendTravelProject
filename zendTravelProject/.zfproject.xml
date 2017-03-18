@@ -21,10 +21,13 @@
           <actionMethod actionName="userList"/>
           <actionMethod actionName="userBlock"/>
           <actionMethod actionName="userUnblock"/>
+          <actionMethod actionName="userAsadmin"/>
+          <actionMethod actionName="login"/>
         </controllerFile>
       </controllersDirectory>
       <formsDirectory>
         <formFile formName="SignUp"/>
+        <formFile formName="AdminLogin"/>
       </formsDirectory>
       <layoutsDirectory>
         <layoutScriptsDirectory>
@@ -64,6 +67,12 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="User">
             <viewScriptFile forActionName="addUser"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="userAsadmin"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="login"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
@@ -112,6 +121,8 @@
             <testApplicationActionMethod forActionName="userList"/>
             <testApplicationActionMethod forActionName="userBlock"/>
             <testApplicationActionMethod forActionName="userUnblock"/>
+            <testApplicationActionMethod forActionName="userAsadmin"/>
+            <testApplicationActionMethod forActionName="login"/>
           </testApplicationControllerFile>
         </testApplicationControllerDirectory>
       </testApplicationDirectory>

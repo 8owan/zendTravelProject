@@ -24,7 +24,7 @@ class UserController extends Zend_Controller_Action
             $url=dirname(__DIR__,2)."/public/images/";
             $upload->addFilter('Rename', $url.$_POST['user_name'].".jpg");
             $upload->receive();
-            $_POST['image'] = "/images/" . $_POST['user_name'] . ".jpg";
+            $_POST['image'] = "/images/" . $_POST['user_name'].".jpg";
             $user_model = new Application_Model_User();
             $user_model->addNewUser($_POST);
             $this->redirect('/admin/user-list');
