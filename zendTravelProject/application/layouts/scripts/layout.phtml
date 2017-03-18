@@ -1,5 +1,9 @@
 <html>
     <head>
+        <title>Zend Project</title>
+
+
+
         <?php echo $this->headMeta(); ?>
         <?php echo $this->headMeta(); ?>
         <?php echo $this->headTitle . PHP_EOL;
@@ -33,6 +37,30 @@
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
+        <?php
+        $auth=Zend_Auth::getInstance();
+        $storage=$auth->getStorage();
+        $userData=$storage->read();
+        if (empty($userData)) {
+            echo '<a href="/admin/login">Log in as admin</a>';
+        }
+        else {
+            // echo '<a href="/user/logout">Logout <span class="sr-only">(current)</span></a>';
+        }
+        ?>
         <?php echo $this->layout()->content; ?>
+
+        <div style ="background:black;">
+            <hr>
+            <center >
+                <h3 bgcolor="white">Copyright &copy;2017 opensource</h3>
+            </center>
+            <hr>
+        </div>
     </body>
 </html>
+
+
+
+
+

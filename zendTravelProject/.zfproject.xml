@@ -33,7 +33,18 @@
           <actionMethod actionName="deleteCity"/>
           <actionMethod actionName="cityDetails"/>
           <actionMethod actionName="cityUpdate"/>
+            <actionMethod actionName="index"/>
+            <actionMethod actionName="userDetails"/>
+            <actionMethod actionName="userList"/>
+            <actionMethod actionName="userBlock"/>
+            <actionMethod actionName="userUnblock"/>
+            <actionMethod actionName="userAsadmin"/>
+            <actionMethod actionName="login"/>
         </controllerFile>
+          <controllerFile controllerName="User">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="addUser"/>
+          </controllerFile>
         <controllerFile controllerName="Visitor">
           <actionMethod actionName="index"/>
           <actionMethod actionName="hotelReservation"/>
@@ -44,6 +55,8 @@
         <formFile formName="Sights"/>
         <formFile formName="Addcity"/>
         <formFile formName="CarRequest"/>
+        <formFile formName="SignUp"/>
+        <formFile formName="AdminLogin"/>
       </formsDirectory>
       <layoutsDirectory>
         <layoutScriptsDirectory>
@@ -55,6 +68,7 @@
         <modelFile modelName="Sights"/>
         <modelFile modelName="City"/>
         <modelFile modelName="CarRequest"/>
+        <modelFile modelName="User"/>
       </modelsDirectory>
       <modulesDirectory enabled="false"/>
       <servicesDirectory enabled="false"/>
@@ -77,6 +91,9 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Sights">
             <viewScriptFile forActionName="addsight"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="User">
+            <viewScriptFile forActionName="index"/>
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Admin">
             <viewScriptFile forActionName="index"/>
@@ -120,6 +137,27 @@
           <viewControllerScriptsDirectory forControllerName="Visitor">
             <viewScriptFile forActionName="carRequest"/>
           </viewControllerScriptsDirectory>
+            <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="userDetails"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="userList"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="userBlock"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="userUnblock"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="User">
+            <viewScriptFile forActionName="addUser"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="userAsadmin"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="login"/>
+          </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
         <viewFiltersDirectory enabled="false"/>
@@ -156,6 +194,19 @@
         <testApplicationControllerDirectory>
           <testApplicationControllerFile forControllerName="Index">
             <testApplicationActionMethod forActionName="index"/>
+          </testApplicationControllerFile>
+          <testApplicationControllerFile forControllerName="User">
+            <testApplicationActionMethod forActionName="index"/>
+            <testApplicationActionMethod forActionName="addUser"/>
+          </testApplicationControllerFile>
+          <testApplicationControllerFile forControllerName="Admin">
+            <testApplicationActionMethod forActionName="index"/>
+            <testApplicationActionMethod forActionName="userDetails"/>
+            <testApplicationActionMethod forActionName="userList"/>
+            <testApplicationActionMethod forActionName="userBlock"/>
+            <testApplicationActionMethod forActionName="userUnblock"/>
+            <testApplicationActionMethod forActionName="userAsadmin"/>
+            <testApplicationActionMethod forActionName="login"/>
           </testApplicationControllerFile>
         </testApplicationControllerDirectory>
       </testApplicationDirectory>

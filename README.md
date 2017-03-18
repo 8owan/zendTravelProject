@@ -1,6 +1,6 @@
 # zendTravelProject
 
-This is the project of Zend FrameWork Project 
+This is the project of Zend FrameWork Course 
 
 ## Built With
 
