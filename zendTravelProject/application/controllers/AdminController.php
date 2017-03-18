@@ -101,7 +101,11 @@ class AdminController extends Zend_Controller_Action
                 $storage->write($sessionDataObj);
                 $this->redirect('/admin/user-list');
               }
-              else {
+              elseif ($sessionDataObj->type=='blocked') {
+                echo "<script>alert('contact the admin!! you aare blocked');</script>";
+              }
+              elseif ($sessionDataObj->type=='normal')
+              {
                 print_r('Not Admin');
                 die();
               }
