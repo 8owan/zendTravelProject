@@ -1,4 +1,19 @@
 <br /><br />
+
 <div id="view-content">
-	<p>View script for controller <b>Admin</b> and script/action name <b>cityDetails</b></p>
+<div id="view-content">
+
+
+	<?php 
+	extract($this->city);
+
+	echo	"<table class='table'>"
+	."<tr><td>City Name</td><td>".$city_name."</td></tr>"."<tr><td>Country ID</td><td>".$country_id."</td></tr>
+</table>
+";
+?>	
+<!-- echo $this->hotelData;
+ -->
+
+
 </div>

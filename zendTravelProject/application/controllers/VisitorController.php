@@ -16,6 +16,11 @@ class VisitorController extends Zend_Controller_Action
     public function hotelReservationAction()
     {
         // action body
+
+         $form = new Application_Form_Datepicker();
+        
+        $this->view->form = $form;
+
     }
 
     public function carRequestAction()
