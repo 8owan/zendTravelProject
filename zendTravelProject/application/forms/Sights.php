@@ -15,12 +15,18 @@ class Application_Form_Sights extends Zend_Form
         $sightName->setRequired(true);
 
         $city = new Zend_Form_Element_Select('city');
+        $cityModel = new Application_Model_City();
+        $allCities = $cityModel->listCity();
+        foreach ($allCities as $key=>$value){
+            $city->addMultiOption($value['id'],$value['city_name']);
+        }
         $city->setLabel('City : ');
-        $city->addMultiOption(1,'ay 7aga');
-        $city->addMultiOption(2,'ay 7aga tanya');
         $city->setRequired(true);
+        $city->setAttribs(array(
+            'class' => 'form-control',
+        ));
 
-        $submit = new Zend_Form_Element_Submit('submit');
+        $submit = new Zend_Form_Element_Submit('ADD');
         $submit->setAttribs(array(
             'class'=> 'btn btn-success'
         ));

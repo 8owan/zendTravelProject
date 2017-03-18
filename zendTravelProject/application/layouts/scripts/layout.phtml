@@ -1,7 +1,10 @@
 <html>
     <head>
         <?php echo $this->headMeta(); ?>
-        <?php echo $this->headTitle(); ?>
+        <?php echo $this->headMeta(); ?>
+        <?php echo $this->headTitle . PHP_EOL;
+        echo $this->jQuery() . PHP_EOL;
+        ?>
         <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/bootstrap.css'); ?>
 
     </head>

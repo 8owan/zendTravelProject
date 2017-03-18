@@ -34,10 +34,16 @@
           <actionMethod actionName="cityDetails"/>
           <actionMethod actionName="cityUpdate"/>
         </controllerFile>
+        <controllerFile controllerName="Visitor">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="hotelReservation"/>
+          <actionMethod actionName="carRequest"/>
+        </controllerFile>
       </controllersDirectory>
       <formsDirectory>
         <formFile formName="Sights"/>
         <formFile formName="Addcity"/>
+        <formFile formName="CarRequest"/>
       </formsDirectory>
       <layoutsDirectory>
         <layoutScriptsDirectory>
@@ -48,6 +54,7 @@
         <modelFile modelName="Car"/>
         <modelFile modelName="Sights"/>
         <modelFile modelName="City"/>
+        <modelFile modelName="CarRequest"/>
       </modelsDirectory>
       <modulesDirectory enabled="false"/>
       <servicesDirectory enabled="false"/>
@@ -103,6 +110,15 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Admin">
             <viewScriptFile forActionName="cityUpdate"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Visitor">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Visitor">
+            <viewScriptFile forActionName="hotelReservation"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Visitor">
+            <viewScriptFile forActionName="carRequest"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
