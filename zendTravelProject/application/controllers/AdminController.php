@@ -89,9 +89,6 @@ class AdminController extends Zend_Controller_Action
 
     }
 
-   
-
-   
     public function addCityAction()
     {
         // action body
@@ -303,9 +300,77 @@ class AdminController extends Zend_Controller_Action
 }
 }
     }
+/******************************* ALL country **********************************/
+    public function displaycountriesAction()
+    {
+        // action body
+        $country_model = new Application_Model_Country(); //get obj from class user
+        $this->view->countries = $country_model->allCountries();
+    }
+
+    /***************************** DELETE country ************************************/
+
+    public function deletecountryAction()
+    {
+        // action body
+        $country_model = new Application_Model_Country();
+        $country_id = $this->_request->getParam("cid");
+        $country_model->deleteCountry($country_id);
+        $this->redirect("/admin/displaycountries");
+    }
+
+/*********************** ADD country ********************************/
+    public function addcountryAction()
+    {
+        // action body
+        $form = new Application_Form_Countryform();
+            $this->view->country_form= $form;
+
+            $request=$this->getRequest();
+            if($request->isPost())
+            {
+              if($form->isValid($request->getPost()))
+              {
+                $countrydata['country_name']=$form->getValue('country_name');
+                $country_model = new Application_Model_Country();
+                $country_model ->addCountry($countrydata);//($request->getParams());
+                $this->redirect('/admin/displaycountries');
+              }
+            }
+    }
+/**************************** UPDATE country *************************************/
+    public function updatecountryAction()
+    {
+        // action body
+        $form = new Application_Form_Countryform();
+        $id = $this->_request->getParam('cid');
+            $country_model = new Application_Model_Country();
+            $country_data = $country_model->getCountryData($id);
+
+            $form->populate($country_data);
+            $this->view->country_form = $form;
+
+            $request = $this->getRequest();
+            if($request->isPost())
+            {
+            if($form->isValid($request->getPost()))
+                {
+                    $country_model->updateCountry($id, $_POST);
+                    $this->redirect('/admin/displaycountries');
+                }
+        }
+    }
 
 
 }
+
+
+
+
+
+
+
+
 
 
 
