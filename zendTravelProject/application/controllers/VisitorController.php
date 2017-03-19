@@ -18,7 +18,7 @@ class VisitorController extends Zend_Controller_Action
         // action body
 
          $form = new Application_Form_Datepicker();
-        
+
         $this->view->form = $form;
 
     }
@@ -38,10 +38,10 @@ class VisitorController extends Zend_Controller_Action
         $this->view->carRequest = $carRequestForm;
     }
 
+    public function addExperienceAction()
+    {
+        // action body
+    }
+
 
 }
-
-
-
-
-
