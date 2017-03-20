@@ -1,0 +1,20 @@
+
+<br /><br />
+
+	
+<div class="container"></div>
+<table class="table table-striped">
+<?php
+
+	
+	foreach ($this->experience as $key => $value) {
+
+		echo"<div class='text-center'><h1>".$value['title']."<h1></div>".
+			"<div><img src=".$value['photo']."height='140' width='140' class='img-rounded center-block'></div>".
+			"<div><p class='text-left'> ".$value['description']."</p></div>".
+			"<table align ='right'><tr><td> <a class='btn btn-info' href='/visitor/experience-details/uid/".$value['id']."'> Details </a></td>".
+	"<td> <a class='btn btn-success' href='/visitor/update-experience/uid/".$value['id']."'> Update </a></td>".
+	"<td> <a class='btn btn-danger' href='/visitor/delete-experience/uid/".$value['id']."'> Delete </a></td>
+	
+</tr></table><br/><br/>";
+	}

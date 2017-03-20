@@ -58,6 +58,11 @@
           <actionMethod actionName="index"/>
           <actionMethod actionName="hotelReservation"/>
           <actionMethod actionName="carRequest"/>
+          <actionMethod actionName="addExperience"/>
+          <actionMethod actionName="deleteExperience"/>
+          <actionMethod actionName="updateExperience"/>
+          <actionMethod actionName="listExperience"/>
+          <actionMethod actionName="experienceDetails"/>
         </controllerFile>
       </controllersDirectory>
       <formsDirectory>
@@ -187,6 +192,20 @@
           <viewControllerScriptsDirectory forControllerName="Admin">
             <viewScriptFile forActionName="updateHotel"/>
           </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Visitor">
+            <viewScriptFile forActionName="addExperience"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Visitor">
+            <viewScriptFile forActionName="deleteExperience"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Visitor">
+            <viewScriptFile forActionName="updateExperience"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Visitor">
+            <viewScriptFile forActionName="listExperience"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Visitor">
+            <viewScriptFile forActionName="experienceDetails"/>
           <viewControllerScriptsDirectory forControllerName="Admin">
             <viewScriptFile forActionName="displaycountries"/>
           </viewControllerScriptsDirectory>

@@ -217,7 +217,7 @@ class AdminController extends Zend_Controller_Action
 
             $result=$adaptor->authenticate();
             if ($result->isValid()) {
-              $sessionDataObj=$adaptor->getResultRowObject(['user_name','email','image','type']);
+              $sessionDataObj=$adaptor->getResultRowObject(['user_name','email','image','type','id']);
               if ($sessionDataObj->type=='admin') {
                 $auth=Zend_Auth::getInstance();
                 $storage=$auth->getStorage();
