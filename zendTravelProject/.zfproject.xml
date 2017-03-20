@@ -68,7 +68,6 @@
         <formFile formName="AdminLogin"/>
         <formFile formName="Addhotel"/>
         <formFile formName="Datepicker"/>
-        <formFile formName="AddExperience"/>
         <formFile formName="Countryform"/>
       </formsDirectory>
       <layoutsDirectory>
@@ -83,7 +82,6 @@
         <modelFile modelName="CarRequest"/>
         <modelFile modelName="User"/>
         <modelFile modelName="Hotel"/>
-        <modelFile modelName="Experience"/>
         <modelFile modelName="Country"/>
       </modelsDirectory>
       <modulesDirectory enabled="false"/>

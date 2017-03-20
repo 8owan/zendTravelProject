@@ -38,10 +38,5 @@ class VisitorController extends Zend_Controller_Action
         $this->view->carRequest = $carRequestForm;
     }
 
-    public function addExperienceAction()
-    {
-        // action body
-    }
-
 
 }

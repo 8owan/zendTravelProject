@@ -9,7 +9,11 @@
         <?php echo $this->headTitle . PHP_EOL;
         echo $this->jQuery() . PHP_EOL;
         ?>
-        <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/bootstrap.css'); ?>
+        <?php
+            echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/bootstrap.css');
+            echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/style.css');
+            echo $this->headLink()->prependStylesheet($this->baseUrl().'/js/datepicker.js');
+        ?>
 
     </head>
     <body>
