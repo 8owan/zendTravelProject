@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Admin Country Page</title>
+</head>
+<body>
+<div class="container">
+	<div class="panel panel-info">
+	<div class="panel-heading">
+		<h1><center>Countries</h1></center>
+	</div>
+	<table class="table table-bordered">
+		<tr>
+		<!-- <th class="panel-heading">ID</th> -->
+		<th>Country Name</th>
+		<th colspan="2">Action</th>
+		</tr>
+	<?php
+		foreach($this->countries as $key => $value)
+		{
+			echo "<tr>".  //<td>". $value['id']."</td>" .
+			"<td>". $value['country_name'] . "</td>" .
+			// "<td> <a class='btn btn-info' href='add/cid/".$value['id']."'> Add </a>".
+			"<td> <a class='btn btn-danger' href='deletecountry/cid/".$value['id']."'> Delete </a>".
+			"<td> <a class='btn btn-success' href='updatecountry/cid/".$value['id']."'> Update </a>".
+			"</tr>";
+		}
+
+	?>
+
+	</div>
+	</table>
+  </div>
+	<a class='btn btn-info' href='/admin/addcountry'> Add Country </a>
+	</body>
+	</html>

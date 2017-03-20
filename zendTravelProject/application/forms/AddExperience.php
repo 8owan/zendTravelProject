@@ -18,6 +18,7 @@ class Application_Form_AddExperience extends Zend_Form
         $description->setAttribs(array('class'=>'form-control'));
         $description->setRequired();
 
+
         $photo = new Zend_Form_Element_File('photo');
         $photo->setLabel('Upload an image:');
         $photo->addValidator('Count', false, 1);
@@ -47,7 +48,6 @@ class Application_Form_AddExperience extends Zend_Form
         // {
         //     $user_id->addMultiOption($value['id'], $value['city_name']);
         // }
-
 
         $submit=new Zend_Form_Element_Submit('Submit');
         $submit->setAttribs(array(

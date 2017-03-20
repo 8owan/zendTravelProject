@@ -45,6 +45,10 @@
           <actionMethod actionName="listHotel"/>
           <actionMethod actionName="hotelDetails"/>
           <actionMethod actionName="updateHotel"/>
+          <actionMethod actionName="displaycountries"/>
+          <actionMethod actionName="deletecountry"/>
+          <actionMethod actionName="addcountry"/>
+          <actionMethod actionName="updatecountry"/>
         </controllerFile>
         <controllerFile controllerName="User">
           <actionMethod actionName="index"/>
@@ -70,6 +74,7 @@
         <formFile formName="Addhotel"/>
         <formFile formName="Datepicker"/>
         <formFile formName="AddExperience"/>
+        <formFile formName="Countryform"/>
       </formsDirectory>
       <layoutsDirectory>
         <layoutScriptsDirectory>
@@ -84,6 +89,7 @@
         <modelFile modelName="User"/>
         <modelFile modelName="Hotel"/>
         <modelFile modelName="Experience"/>
+        <modelFile modelName="Country"/>
       </modelsDirectory>
       <modulesDirectory enabled="false"/>
       <servicesDirectory enabled="false"/>
@@ -202,6 +208,17 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Visitor">
             <viewScriptFile forActionName="experienceDetails"/>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="displaycountries"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="deletecountry"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="addcountry"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="updatecountry"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
@@ -252,6 +269,10 @@
             <testApplicationActionMethod forActionName="userUnblock"/>
             <testApplicationActionMethod forActionName="userAsadmin"/>
             <testApplicationActionMethod forActionName="login"/>
+            <testApplicationActionMethod forActionName="displaycountries"/>
+            <testApplicationActionMethod forActionName="deletecountry"/>
+            <testApplicationActionMethod forActionName="addcountry"/>
+            <testApplicationActionMethod forActionName="updatecountry"/>
           </testApplicationControllerFile>
         </testApplicationControllerDirectory>
       </testApplicationDirectory>
