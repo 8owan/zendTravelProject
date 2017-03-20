@@ -18,8 +18,8 @@ This is the project of Zend FrameWork Course
 
 ## Supervisors
 
-* **Eng.Mohamed Ramdan** - *Team Leader* - [mohamed-ramdan](https://github.com/mohamed-ramdan)
+* **Eng.Mohamed Ramdan**  [mohamed-ramdan](https://github.com/mohamed-ramdan)
 
-* **Eng.Ahmed Abd El fatah** - *Team Member* - [Te7a-Houdini](https://github.com/Te7a-Houdini)
+* **Eng.Ahmed Abd El fatah**  [Te7a-Houdini](https://github.com/Te7a-Houdini)
 
 See also the list of [contributors](https://github.com/8owan/zendTravelProject/graphs/contributors) who participated in this project.
