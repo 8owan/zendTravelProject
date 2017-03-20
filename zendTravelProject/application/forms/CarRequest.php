@@ -31,7 +31,7 @@ class Application_Form_CarRequest extends ZendX_JQuery_Form
 //            'class'=> 'form-inline'
 //        ));
 
-        $textElement = new ZendX_JQuery_Form_Element_DatePicker('dtPicker', array("label" => 'Date Picker :'." (yyyy-mm-dd)"));
+        $textElement = new ZendX_JQuery_Form_Element_DatePicker('datepicker', array("label" => 'Date Picker :'." (yyyy-mm-dd)"));
         $textElement->setJQueryParams(array(
             'dateFormat'=>'yy-mm-dd',
             'changeMonth'=> true,
@@ -52,7 +52,7 @@ class Application_Form_CarRequest extends ZendX_JQuery_Form
 
 
 
-        $textElement2 = new ZendX_JQuery_Form_Element_DatePicker('dtPicker', array("label" => 'Date Picker :'." (yyyy-mm-dd)"));
+        $textElement2 = new ZendX_JQuery_Form_Element_DatePicker('datepicker', array("label" => 'Date Picker :'." (yyyy-mm-dd)"));
         $textElement2->setJQueryParams(array(
             'dateFormat'=>'yy-mm-dd',
             'changeMonth'=> true,
@@ -67,7 +67,8 @@ class Application_Form_CarRequest extends ZendX_JQuery_Form
         $this->addElement('datePicker','movie_release_date', array(
                 'label' => 'Release Date:',
                 'required'=> false,
-                'class' => 'dtPicker',
+                'id' => 'datepicker',
+                'class' => 'datepicker',
             )
         );
 

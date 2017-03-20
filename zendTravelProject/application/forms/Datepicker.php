@@ -7,8 +7,8 @@ class Application_Form_Datepicker extends ZendX_JQuery_Form
     public function init()
     {
         /* Form Elements & Other Definitions Here ... */
- 	$hotel_name= new Zend_Form_Element_Select('hotel_name');
-    $hotel_name->setLabel('Hotels :');
+	 	$hotel_name= new Zend_Form_Element_Select('hotel_name');
+	    $hotel_name->setLabel('Hotels :');
      
      
         $from = new ZendX_JQuery_Form_Element_DatePicker('dtPicker', array("label" => 'from'." (yyyy-mm-dd)"));
