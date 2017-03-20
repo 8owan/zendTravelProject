@@ -1,6 +1,6 @@
 <?php
 
-class UserControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
+class CountryControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
 {
 
     public function setUp()
@@ -11,7 +11,7 @@ class UserControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
 
     public function testIndexAction()
     {
-        $params = array('action' => 'index', 'controller' => 'User', 'module' => 'default');
+        $params = array('action' => 'index', 'controller' => 'Country', 'module' => 'default');
         $urlParams = $this->urlizeOptions($params);
         $url = $this->url($urlParams);
         $this->dispatch($url);
@@ -26,9 +26,9 @@ class UserControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
             );
     }
 
-    public function testListAction()
+    public function testDisplaycitiesAction()
     {
-        $params = array('action' => 'list', 'controller' => 'User', 'module' => 'default');
+        $params = array('action' => 'displaycities', 'controller' => 'Country', 'module' => 'default');
         $urlParams = $this->urlizeOptions($params);
         $url = $this->url($urlParams);
         $this->dispatch($url);
@@ -43,43 +43,9 @@ class UserControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
             );
     }
 
-    public function testDetailsAction()
+    public function testShowcountriesAction()
     {
-        $params = array('action' => 'details', 'controller' => 'User', 'module' => 'default');
-        $urlParams = $this->urlizeOptions($params);
-        $url = $this->url($urlParams);
-        $this->dispatch($url);
-        
-        // assertions
-        $this->assertModule($urlParams['module']);
-        $this->assertController($urlParams['controller']);
-        $this->assertAction($urlParams['action']);
-        $this->assertQueryContentContains(
-            'div#view-content p',
-            'View script for controller <b>' . $params['controller'] . '</b> and script/action name <b>' . $params['action'] . '</b>'
-            );
-    }
-
-    public function testAddUserAction()
-    {
-        $params = array('action' => 'addUser', 'controller' => 'User', 'module' => 'default');
-        $urlParams = $this->urlizeOptions($params);
-        $url = $this->url($urlParams);
-        $this->dispatch($url);
-        
-        // assertions
-        $this->assertModule($urlParams['module']);
-        $this->assertController($urlParams['controller']);
-        $this->assertAction($urlParams['action']);
-        $this->assertQueryContentContains(
-            'div#view-content p',
-            'View script for controller <b>' . $params['controller'] . '</b> and script/action name <b>' . $params['action'] . '</b>'
-            );
-    }
-
-    public function testEdituserdataAction()
-    {
-        $params = array('action' => 'edituserdata', 'controller' => 'User', 'module' => 'default');
+        $params = array('action' => 'showcountries', 'controller' => 'Country', 'module' => 'default');
         $urlParams = $this->urlizeOptions($params);
         $url = $this->url($urlParams);
         $this->dispatch($url);
@@ -96,10 +62,6 @@ class UserControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
 
 
 }
-
-
-
-
 
 
 

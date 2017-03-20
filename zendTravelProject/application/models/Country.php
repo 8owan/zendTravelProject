@@ -3,7 +3,7 @@
 class Application_Model_Country extends Zend_Db_Table_Abstract
 {
 	  protected $_name = 'country';
-	
+
 
 	  function allCountries()
 	  	{
@@ -19,6 +19,7 @@ class Application_Model_Country extends Zend_Db_Table_Abstract
 	  	{
 	  		$row = $this->createRow();
 	  		$row ->country_name = $countryData['country_name'];
+				$row ->image = $countryData['image'];
 	  		$row ->save();
 	  	}
 	///////////// Update country ////////////////////////////
@@ -34,7 +35,6 @@ class Application_Model_Country extends Zend_Db_Table_Abstract
 	  	{
 	  		return $this->find($id)->toArray()[0];
 	  	}
-	  
+
 
 }
-

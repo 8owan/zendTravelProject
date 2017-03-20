@@ -138,7 +138,7 @@ class AdminController extends Zend_Controller_Action
         $city_model = new Application_Model_City ();
         $id = $this->_request->getParam('uid');
         $CityData = $city_model-> cityDetails ($id)[0];
-        
+
         $form->populate($CityData);
         $this->view->city_form = $form;
         $request = $this->getRequest ();
@@ -217,7 +217,7 @@ class AdminController extends Zend_Controller_Action
 
             $result=$adaptor->authenticate();
             if ($result->isValid()) {
-              $sessionDataObj=$adaptor->getResultRowObject(['user_name','email','image','type']);
+         $sessionDataObj=$adaptor->getResultRowObject(['user_name','email','image','type','id']);
               if ($sessionDataObj->type=='admin') {
                 $auth=Zend_Auth::getInstance();
                 $storage=$auth->getStorage();
@@ -225,7 +225,7 @@ class AdminController extends Zend_Controller_Action
                 $this->redirect('/admin/user-list');
               }
               elseif ($sessionDataObj->type=='blocked') {
-                echo "<script>alert('contact the admin!! you aare blocked');</script>";
+                echo "<script>alert('contact the admin!! you are blocked');</script>";
               }
               elseif ($sessionDataObj->type=='normal')
               {
@@ -250,7 +250,7 @@ class AdminController extends Zend_Controller_Action
         $this->redirect('/admin/add-hotel');
         }
         }
-        $this->view->hotel_form = $form; 
+        $this->view->hotel_form = $form;
 
     }
 
@@ -289,7 +289,7 @@ class AdminController extends Zend_Controller_Action
         $hotel_model = new Application_Model_Hotel ();
         $id = $this->_request->getParam('uid');
         $HotelData = $hotel_model-> hotelDetails ($id)[0];
-        
+
         $form->populate($HotelData);
         $this->view->hotel_form = $form;
         $request = $this->getRequest ();
@@ -332,6 +332,15 @@ class AdminController extends Zend_Controller_Action
               if($form->isValid($request->getPost()))
               {
                 $countrydata['country_name']=$form->getValue('country_name');
+
+                $upload = new Zend_File_Transfer_Adapter_Http();
+                $url=dirname(__DIR__,2)."/public/images/";
+                // print_r($url);
+                // die();
+                $upload->addFilter('Rename', $url.$_POST['country_name'].".jpg");
+                $upload->receive();
+                $countrydata['image'] = "/images/" . $_POST['country_name'].".jpg";
+
                 $country_model = new Application_Model_Country();
                 $country_model ->addCountry($countrydata);//($request->getParams());
                 $this->redirect('/admin/displaycountries');
@@ -363,22 +372,3 @@ class AdminController extends Zend_Controller_Action
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -33,4 +33,39 @@ class UserController extends Zend_Controller_Action
         $this->view->user_form = $form;
     }
 
+    public function edituserdataAction()
+    {
+        // action body
+        $form = new Application_Form_SignUp();
+
+        $auth=Zend_Auth::getInstance();
+        $identity = $auth->getStorage();
+        $userData=$identity->read();
+        $user_id=$userData->id;
+        // print_r($user_id);
+        // die();
+
+
+        //  $user_id = $this->_request->getParam('id');
+          $this->view->uid = $user_id;
+
+        $user_model = new Application_Model_User ();
+
+        $user_data = $user_model->getUserData($user_id);
+        $form->populate($user_data);
+
+    		$this->view->signup_form = $form;
+
+        $request = $this->getRequest();
+    		if($request->isPost())
+    		{
+      		if($form->isValid($request->getPost()))
+      			{
+      				$user_model->editUserData($user_id, $_POST);
+      				//  $this->redirect('/user/add-user');
+
+      			}
+       	}
+    }
+
 }

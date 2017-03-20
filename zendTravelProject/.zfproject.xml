@@ -49,16 +49,21 @@
           <actionMethod actionName="deletecountry"/>
           <actionMethod actionName="addcountry"/>
           <actionMethod actionName="updatecountry"/>
-          
         </controllerFile>
         <controllerFile controllerName="User">
           <actionMethod actionName="index"/>
           <actionMethod actionName="addUser"/>
+          <actionMethod actionName="edituserdata"/>
         </controllerFile>
         <controllerFile controllerName="Visitor">
           <actionMethod actionName="index"/>
           <actionMethod actionName="hotelReservation"/>
           <actionMethod actionName="carRequest"/>
+        </controllerFile>
+        <controllerFile controllerName="Country">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="displaycities"/>
+          <actionMethod actionName="showcountries"/>
         </controllerFile>
       </controllersDirectory>
       <formsDirectory>
@@ -200,6 +205,18 @@
           <viewControllerScriptsDirectory forControllerName="Admin">
             <viewScriptFile forActionName="updatecountry"/>
           </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Country">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Country">
+            <viewScriptFile forActionName="displaycities"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Country">
+            <viewScriptFile forActionName="showcountries"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="User">
+            <viewScriptFile forActionName="edituserdata"/>
+          </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
         <viewFiltersDirectory enabled="false"/>
@@ -240,6 +257,7 @@
           <testApplicationControllerFile forControllerName="User">
             <testApplicationActionMethod forActionName="index"/>
             <testApplicationActionMethod forActionName="addUser"/>
+            <testApplicationActionMethod forActionName="edituserdata"/>
           </testApplicationControllerFile>
           <testApplicationControllerFile forControllerName="Admin">
             <testApplicationActionMethod forActionName="index"/>
@@ -253,6 +271,11 @@
             <testApplicationActionMethod forActionName="deletecountry"/>
             <testApplicationActionMethod forActionName="addcountry"/>
             <testApplicationActionMethod forActionName="updatecountry"/>
+          </testApplicationControllerFile>
+          <testApplicationControllerFile forControllerName="Country">
+            <testApplicationActionMethod forActionName="index"/>
+            <testApplicationActionMethod forActionName="displaycities"/>
+            <testApplicationActionMethod forActionName="showcountries"/>
           </testApplicationControllerFile>
         </testApplicationControllerDirectory>
       </testApplicationDirectory>

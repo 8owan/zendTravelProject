@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Admin Country Page</title>
+</head>
+<body>
+<div class="container">
+	<div class="panel panel-info">
+	<div class="panel-heading">
+		<h1><center>Countries</h1></center>
+
+	</div>
+	<table class="table table-bordered">
+		<tr>
+		<!-- <th class="panel-heading">ID</th> -->
+		<th>Cities Names</th>
+
+		</tr>
+	<?php
+	$country= new Application_Model_Country();
+	$data=$country->getCountryData($this->co_id);
+	echo '<img src="'.$data['image'].'" alt="no image" height="250" width="500" class="img-rounded center-block">';
+		 foreach($this->cities as $key => $value)
+		 {
+			 echo "<tr><td>". $value['city_name'] ."</td></tr>";
+			// print_r($this->cities);
+
+		 }
+
+	?>
+
+	</div>
+	</table>
+
+  </div>
+	<a class='btn btn-info' href='/country/showcountries'> Back </a>
+	</body>
+	</html>
