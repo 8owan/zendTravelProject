@@ -83,12 +83,14 @@
 <!--************************* login with facebook layout***************-->
                     <?php
   $authAdapter = Zend_Auth::getInstance();
+  $storage=$authAdapter->getStorage();
+  $userData=$storage->read();
   $identity = $authAdapter->getIdentity();
   $fbsession= new Zend_Session_Namespace('facebook');
 
-  if (!empty($identity))
+  if (!empty($userData))
     {
-      $name = $identity->fname;
+      $name = $userData->user_name;
       echo '<li class="active" style="color:white;margin-right:30px;margin-top:10px;font-size:20px;"> Welcome '. $name. '</li>';
       echo '<li class="active"><a href="/admin/logout"> Logout<span class="sr-only">(current)</span></a></li>';
     ?>
