@@ -90,6 +90,7 @@
         <modelFile modelName="Hotel"/>
         <modelFile modelName="Experience"/>
         <modelFile modelName="Country"/>
+        <modelFile modelName="HotelRequest"/>
       </modelsDirectory>
       <modulesDirectory enabled="false"/>
       <servicesDirectory enabled="false"/>
@@ -208,6 +209,7 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Visitor">
             <viewScriptFile forActionName="experienceDetails"/>
+          </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Admin">
             <viewScriptFile forActionName="displaycountries"/>
           </viewControllerScriptsDirectory>

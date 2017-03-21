@@ -5,9 +5,9 @@
 <table class="table table-striped">
 	
 	<tr>
-	<th>Id</th>
+	
 	<th>city Name</th>
-	<th>CountryID</th>
+	
 	<th>Action</th>
 
 	</tr>
@@ -18,9 +18,7 @@
 		# code...
 	
 	echo "<tr>
-	<td>".$value['id']."</td>".
-	"<td>".$value['city_name']."</td>".
-	"<td>".$value['country_id']."</td>".
+	<td>".$value['city_name']."</td>".
 	"<td> <a class='btn btn-info' href='/admin/city-details/uid/".$value['id']."'> Details </a></td>".
 	"<td> <a class='btn btn-success' href='/admin/city-Update/uid/".$value['id']."'> Update </a></td>".
 	"<td> <a class='btn btn-danger' href='/admin/delete-city/uid/".$value['id']."'> Delete </a></td>

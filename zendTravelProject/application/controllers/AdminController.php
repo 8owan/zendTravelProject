@@ -108,7 +108,7 @@ class AdminController extends Zend_Controller_Action
     public function listCityAction()
     {
         // action body
-           $city_model = new Application_Model_City();
+        $city_model = new Application_Model_City();
         $this->view->city = $city_model->listCity();
     }
 
@@ -126,9 +126,14 @@ class AdminController extends Zend_Controller_Action
         // action body
         $city_model=new Application_Model_City();
         $city_id=$this->_request->getParam("uid");
-        $country=new Application_Model_Country();
         $city=$city_model->cityDetails($city_id);
+
+        $country=new Application_Model_Country();
+        $countryName=$country->allCountries();
+
         $this->view->city=$city[0];
+        $this->view->countryName=$countryName[0];
+
     }
 
     public function cityUpdateAction()
