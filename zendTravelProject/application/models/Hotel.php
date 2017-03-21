@@ -41,7 +41,6 @@ class Application_Model_Hotel extends Zend_Db_Table_Abstract
 		$hotel_data['avail_room']=$HotelData['avail_room'];
 		$this->update($hotel_data,"id=$id");
 		}
-	
 // 	function chooseHotel($id){
 
 // 			 	return $this->fetchAll()->toArray();

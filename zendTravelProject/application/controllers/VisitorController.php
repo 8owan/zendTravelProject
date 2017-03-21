@@ -3,9 +3,29 @@
 class VisitorController extends Zend_Controller_Action
 {
 
+    public $fpS = null;
+
     public function init()
     {
         /* Initialize action controller here */
+        $authorization = Zend_Auth::getInstance();
+    		$this->fpS = new Zend_Session_Namespace('facebook');
+
+    		$request=$this->getRequest();
+    		$actionName=$request->getActionName();
+
+    		if ((!$authorization->hasIdentity() && !isset($this->fpS->fname)) &&
+        ($actionName != 'login' && $actionName != 'fblogin' && $actionName !='fbcallback'))
+    		{
+    		    $this->redirect('/admin/login');
+    		}
+
+
+    		if (($authorization->hasIdentity() || isset($this->fpS->fname))
+        && ($actionName == 'login' || $actionName == 'fblogin'))
+    		{
+    		    $this->redirect('/admin/user-list');
+    		}
     }
 
     public function indexAction()
@@ -19,6 +39,14 @@ class VisitorController extends Zend_Controller_Action
 
          $form = new Application_Form_Datepicker();
 
+          $request = $this->getRequest();
+        if($request->isPost()){
+            if($form->isValid($request->getPost())){
+                $hotelModel = new Application_Model_HotelRequest();
+                $hotelModel->addHotelRequest($request->getParams());
+                $this->redirect('/visitor/hotel-reservation');
+            }
+        }
         $this->view->form = $form;
 
     }
@@ -115,5 +143,12 @@ class VisitorController extends Zend_Controller_Action
         $this->view->experience=$experience[0];
     }
 
+    public function profileAction()
+    {
+        // action body
+    }
+
 
 }
+
+

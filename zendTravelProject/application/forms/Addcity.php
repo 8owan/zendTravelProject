@@ -23,11 +23,22 @@ class Application_Form_Addcity extends Zend_Form
 
 
         $country_obj= new Application_Model_Country();
-        $allCountries = $city_obj->listCity();
+        $allCountries = $country_obj->allCountries();
+        $country_id= new Zend_Form_Element_Select('country_id');
 
-         $country_id->setLabel('Country Id :');
-         $country_id->setAttribs(array('class'=>'form-control'));
-        $country_id->setRequired();
+         $country_id->setLabel('Country Name :');
+
+
+foreach($allCountries as $key=>$value)
+    {
+      $country_id->addMultiOption($value['id'], $value['country_name']);
+    }
+
+
+
+
+        //  $country_id->setAttribs(array('class'=>'form-control'));
+        // $country_id->setRequired();
 
 
 
