@@ -22,7 +22,7 @@ class Application_Form_Addcity extends Zend_Form
         // $id->setRequired();
 
 
-        $country_obj== new Application_Model_Country();
+        $country_obj= new Application_Model_Country();
         $allCountries = $city_obj->listCity();
 
          $country_id->setLabel('Country Id :');
@@ -56,7 +56,7 @@ $reset=new Zend_Form_Element_Reset('reset');
 $this->addElements(array($city_name,$country_id,$submit,$reset));
 
 
- 
+
 
     }
 

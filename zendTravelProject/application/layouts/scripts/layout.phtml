@@ -6,7 +6,11 @@
         <?php echo $this->headTitle . PHP_EOL;
         echo $this->jQuery() . PHP_EOL;
         ?>
-        <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/bootstrap.css'); ?>
+        <?php
+            echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/bootstrap.css');
+            echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/style.css');
+            echo $this->headLink()->prependStylesheet($this->baseUrl().'/js/datepicker.js');
+        ?>
 
     </head>
     <body>
@@ -28,8 +32,24 @@
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
                         <li><a href="#">About</a></li>
-                        <li><a href="#">Portofolio</a></li>
                         <li><a href="#">Contact Us</a></li>
+  <!--********************** destnation in navbar *****************************  -->
+                      <li>
+                        <select onChange="window.location.href=this.value">
+                          <option value="#">Destnation</option>
+                        <?php
+                        $country_model=new Application_Model_Country();
+                        $all=$country_model->allCountries();
+                        foreach($all as $key => $value)
+                    		{
+                          // echo $this->formSelect('test', 'Option 1');
+                          // echo  "<li><a href='#'></a></li>";
+                          echo "<option value='/country/displaycities/coid/".$value['id']."'>".$value['country_name']."</option>";
+                        }
+                        ?>
+                      </select>
+                    </li>
+
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
