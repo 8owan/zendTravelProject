@@ -15,7 +15,7 @@ class UserControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
         $urlParams = $this->urlizeOptions($params);
         $url = $this->url($urlParams);
         $this->dispatch($url);
-        
+
         // assertions
         $this->assertModule($urlParams['module']);
         $this->assertController($urlParams['controller']);
@@ -32,7 +32,7 @@ class UserControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
         $urlParams = $this->urlizeOptions($params);
         $url = $this->url($urlParams);
         $this->dispatch($url);
-        
+
         // assertions
         $this->assertModule($urlParams['module']);
         $this->assertController($urlParams['controller']);
@@ -49,7 +49,7 @@ class UserControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
         $urlParams = $this->urlizeOptions($params);
         $url = $this->url($urlParams);
         $this->dispatch($url);
-        
+
         // assertions
         $this->assertModule($urlParams['module']);
         $this->assertController($urlParams['controller']);
@@ -66,7 +66,7 @@ class UserControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
         $urlParams = $this->urlizeOptions($params);
         $url = $this->url($urlParams);
         $this->dispatch($url);
-        
+
         // assertions
         $this->assertModule($urlParams['module']);
         $this->assertController($urlParams['controller']);
@@ -77,13 +77,17 @@ class UserControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
             );
     }
 
+    public function testHomeAction()
+    {
+        $params = array('action' => 'home', 'controller' => 'User', 'module' => 'default');
+    }
     public function testEdituserdataAction()
     {
         $params = array('action' => 'edituserdata', 'controller' => 'User', 'module' => 'default');
         $urlParams = $this->urlizeOptions($params);
         $url = $this->url($urlParams);
         $this->dispatch($url);
-        
+
         // assertions
         $this->assertModule($urlParams['module']);
         $this->assertController($urlParams['controller']);
@@ -96,14 +100,3 @@ class UserControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
 
 
 }
-
-
-
-
-
-
-
-
-
-
-

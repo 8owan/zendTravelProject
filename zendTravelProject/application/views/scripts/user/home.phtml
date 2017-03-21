@@ -1,0 +1,12 @@
+<?php
+foreach ($this->topExp as $keyT => $valueT) {
+	foreach ($this->allCitys as $keyC => $valueC) {
+		if ($keyT == $valueC['id']) {
+			print_r($valueC['city_name']);
+		}
+	}
+
+}
+
+
+ ?>

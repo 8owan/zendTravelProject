@@ -56,6 +56,8 @@
         <controllerFile controllerName="User">
           <actionMethod actionName="index"/>
           <actionMethod actionName="addUser"/>
+          <actionMethod actionName="home"/>
+          <actionMethod actionName="edituserdata"/>
         </controllerFile>
         <controllerFile controllerName="Visitor">
           <actionMethod actionName="index"/>
@@ -67,9 +69,6 @@
           <actionMethod actionName="listExperience"/>
           <actionMethod actionName="experienceDetails"/>
           <actionMethod actionName="profile"/>
-        </controllerFile>
-        <controllerFile controllerName="Dummy">
-          <actionMethod actionName="index"/>
         </controllerFile>
       </controllersDirectory>
       <formsDirectory>
@@ -97,6 +96,7 @@
         <modelFile modelName="Hotel"/>
         <modelFile modelName="Country"/>
         <modelFile modelName="Comment"/>
+        <modelFile modelName="HotelRequest"/>
       </modelsDirectory>
       <modulesDirectory enabled="false"/>
       <servicesDirectory enabled="false"/>
@@ -231,14 +231,17 @@
           <viewControllerScriptsDirectory forControllerName="Admin">
             <viewScriptFile forActionName="fblogin"/>
           </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="User">
+            <viewScriptFile forActionName="home"/>
+            </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Country">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Admin">
             <viewScriptFile forActionName="fbcallback"/>
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Admin">
             <viewScriptFile forActionName="logout"/>
-          </viewControllerScriptsDirectory>
-          <viewControllerScriptsDirectory forControllerName="Dummy">
-            <viewScriptFile forActionName="index"/>
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Visitor">
             <viewScriptFile forActionName="profile"/>
@@ -283,6 +286,11 @@
           <testApplicationControllerFile forControllerName="User">
             <testApplicationActionMethod forActionName="index"/>
             <testApplicationActionMethod forActionName="addUser"/>
+<<<<<<< HEAD
+=======
+            <testApplicationActionMethod forActionName="home"/>
+            <testApplicationActionMethod forActionName="edituserdata"/>
+>>>>>>> f977ed24a36ffb1bac5a39140cbe2e883a7955dd
           </testApplicationControllerFile>
           <testApplicationControllerFile forControllerName="Admin">
             <testApplicationActionMethod forActionName="index"/>
@@ -310,9 +318,6 @@
             <testApplicationActionMethod forActionName="experienceDetails"/>
             <testApplicationActionMethod forActionName="hotelReservation"/>
             <testApplicationActionMethod forActionName="profile"/>
-          </testApplicationControllerFile>
-          <testApplicationControllerFile forControllerName="Dummy">
-            <testApplicationActionMethod forActionName="index"/>
           </testApplicationControllerFile>
         </testApplicationControllerDirectory>
       </testApplicationDirectory>

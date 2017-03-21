@@ -39,6 +39,14 @@ class VisitorController extends Zend_Controller_Action
 
          $form = new Application_Form_Datepicker();
 
+          $request = $this->getRequest();
+        if($request->isPost()){
+            if($form->isValid($request->getPost())){
+                $hotelModel = new Application_Model_HotelRequest();
+                $hotelModel->addHotelRequest($request->getParams());
+                $this->redirect('/visitor/hotel-reservation');
+            }
+        }
         $this->view->form = $form;
 
     }
