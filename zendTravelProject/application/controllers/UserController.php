@@ -38,9 +38,14 @@ class UserController extends Zend_Controller_Action
         // action body
         $city=new Application_Model_City();
         $allCitys=$city->listCity();
+
         $exp=new Application_Model_Experience();
         $top=$exp->getTopExperience($allCitys);
 
+        $country=new Application_Model_Country();
+        $allCountries=$country->allCountries();
+
+        $this->view->allCountries = $allCountries;
         $this->view->allCitys = $allCitys;
         $this->view->topExp = $top;
     }
