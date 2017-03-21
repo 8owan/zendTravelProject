@@ -67,7 +67,7 @@ $reset=new Zend_Form_Element_Reset('reset');
 $this->addElements(array($city_name,$country_id,$submit,$reset));
 
 
- 
+
 
     }
 

@@ -56,6 +56,13 @@ class Application_Model_User extends Zend_Db_Table_Abstract
     $row->type = 'normal';
     $row->save();
   }
-
+  function editUserData($id,$userData)
+  {
+    $user_data['user_name'] = $userData['user_name'];
+		$user_data['email'] = $userData['email'];
+		$user_data['password'] = $userData['password'];
+    $user_data['image'] = $userData['image'];
+		$this->update($user_data,"id=$id");
+  }
 
 }
