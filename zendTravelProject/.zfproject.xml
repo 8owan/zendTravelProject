@@ -53,6 +53,7 @@
         <controllerFile controllerName="User">
           <actionMethod actionName="index"/>
           <actionMethod actionName="addUser"/>
+          <actionMethod actionName="home"/>
         </controllerFile>
         <controllerFile controllerName="Visitor">
           <actionMethod actionName="index"/>
@@ -201,6 +202,9 @@
           <viewControllerScriptsDirectory forControllerName="Admin">
             <viewScriptFile forActionName="updatecountry"/>
           </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="User">
+            <viewScriptFile forActionName="home"/>
+          </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
         <viewFiltersDirectory enabled="false"/>
@@ -241,6 +245,7 @@
           <testApplicationControllerFile forControllerName="User">
             <testApplicationActionMethod forActionName="index"/>
             <testApplicationActionMethod forActionName="addUser"/>
+            <testApplicationActionMethod forActionName="home"/>
           </testApplicationControllerFile>
           <testApplicationControllerFile forControllerName="Admin">
             <testApplicationActionMethod forActionName="index"/>

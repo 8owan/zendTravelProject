@@ -33,4 +33,17 @@ class UserController extends Zend_Controller_Action
         $this->view->user_form = $form;
     }
 
+    public function homeAction()
+    {
+        // action body
+        $city=new Application_Model_City();
+        $allCitys=$city->listCity();
+        $exp=new Application_Model_Experience();
+        $top=$exp->getTopExperience($allCitys);
+
+        $this->view->allCitys = $allCitys;
+        $this->view->topExp = $top;
+    }
+
+
 }
