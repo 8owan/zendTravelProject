@@ -3,23 +3,43 @@
 class AdminController extends Zend_Controller_Action
 {
 
+    public $fpS = null;
+
     public function init()
     {
-        $authorization = Zend_Auth::getInstance();
+      $authorization = Zend_Auth::getInstance();
+  		$this->fpS = new Zend_Session_Namespace('facebook');
 
-        $request=$this->getRequest();
-        $actionName=$request->getActionName();
+  		$request=$this->getRequest();
+  		$actionName=$request->getActionName();
 
-        if (!$authorization->hasIdentity() && $actionName != 'login')
-        {
-            $this->redirect('/admin/login');
-        }
+  		if ((!$authorization->hasIdentity() && !isset($this->fpS->fname))
+      && ($actionName != 'login' && $actionName != 'fblogin' && $actionName !='fbcallback'))
+  		{
+  		    $this->redirect('/admin/login');
+  		}
 
 
-        if ($authorization->hasIdentity()&& $actionName == 'login')
-        {
-            $this->redirect('/admin/user-list');
-        }
+  		if (($authorization->hasIdentity() || isset($this->fpS->fname))
+       && ($actionName == 'login' || $actionName == 'fblogin'))
+  		{
+  		    $this->redirect('/admin/user-list');
+  		}
+        // $authorization = Zend_Auth::getInstance();
+        //
+        // $request=$this->getRequest();
+        // $actionName=$request->getActionName();
+        //
+        // if (!$authorization->hasIdentity() && $actionName != 'login')
+        // {
+        //     $this->redirect('/admin/login');
+        // }
+        //
+        //
+        // if ($authorization->hasIdentity()&& $actionName == 'login')
+        // {
+        //     $this->redirect('/admin/user-list');
+        // }
     }
 
     public function indexAction()
@@ -108,7 +128,7 @@ class AdminController extends Zend_Controller_Action
     public function listCityAction()
     {
         // action body
-           $city_model = new Application_Model_City();
+        $city_model = new Application_Model_City();
         $this->view->city = $city_model->listCity();
     }
 
@@ -126,9 +146,14 @@ class AdminController extends Zend_Controller_Action
         // action body
         $city_model=new Application_Model_City();
         $city_id=$this->_request->getParam("uid");
-        $country=new Application_Model_Country();
         $city=$city_model->cityDetails($city_id);
+
+        $country=new Application_Model_Country();
+        $countryName=$country->allCountries();
+
         $this->view->city=$city[0];
+        $this->view->countryName=$countryName[0];
+
     }
 
     public function cityUpdateAction()
@@ -138,7 +163,7 @@ class AdminController extends Zend_Controller_Action
         $city_model = new Application_Model_City ();
         $id = $this->_request->getParam('uid');
         $CityData = $city_model-> cityDetails ($id)[0];
-        
+
         $form->populate($CityData);
         $this->view->city_form = $form;
         $request = $this->getRequest ();
@@ -218,6 +243,7 @@ class AdminController extends Zend_Controller_Action
             $result=$adaptor->authenticate();
             if ($result->isValid()) {
               $sessionDataObj=$adaptor->getResultRowObject(['user_name','email','image','type','id']);
+
               if ($sessionDataObj->type=='admin') {
                 $auth=Zend_Auth::getInstance();
                 $storage=$auth->getStorage();
@@ -225,7 +251,7 @@ class AdminController extends Zend_Controller_Action
                 $this->redirect('/admin/user-list');
               }
               elseif ($sessionDataObj->type=='blocked') {
-                echo "<script>alert('contact the admin!! you aare blocked');</script>";
+                echo "<script>alert('contact the admin!! you are blocked');</script>";
               }
               elseif ($sessionDataObj->type=='normal')
               {
@@ -236,6 +262,15 @@ class AdminController extends Zend_Controller_Action
           }
 
         }
+        $fb = new Facebook\Facebook([
+  			'app_id' => '1836874743221542', // Replace {app-id} with your app id
+  			'app_secret' => '9ee8b295986c9c5091df073eccff3f4e',
+  			'default_graph_version' => 'v2.2',
+  			]);
+  			$helper = $fb->getRedirectLoginHelper();
+
+  			$loginUrl = $helper->getLoginUrl($this->view->serverUrl() .'/admin/fbcallback');
+  			$this->view->facebookUrl = $loginUrl;
     }
 
     public function addHotelAction()
@@ -250,7 +285,7 @@ class AdminController extends Zend_Controller_Action
         $this->redirect('/admin/add-hotel');
         }
         }
-        $this->view->hotel_form = $form; 
+        $this->view->hotel_form = $form;
 
     }
 
@@ -289,7 +324,7 @@ class AdminController extends Zend_Controller_Action
         $hotel_model = new Application_Model_Hotel ();
         $id = $this->_request->getParam('uid');
         $HotelData = $hotel_model-> hotelDetails ($id)[0];
-        
+
         $form->populate($HotelData);
         $this->view->hotel_form = $form;
         $request = $this->getRequest ();
@@ -300,15 +335,13 @@ class AdminController extends Zend_Controller_Action
 }
 }
     }
-/******************************* ALL country **********************************/
+
     public function displaycountriesAction()
     {
         // action body
         $country_model = new Application_Model_Country(); //get obj from class user
         $this->view->countries = $country_model->allCountries();
     }
-
-    /***************************** DELETE country ************************************/
 
     public function deletecountryAction()
     {
@@ -319,7 +352,6 @@ class AdminController extends Zend_Controller_Action
         $this->redirect("/admin/displaycountries");
     }
 
-/*********************** ADD country ********************************/
     public function addcountryAction()
     {
         // action body
@@ -332,13 +364,22 @@ class AdminController extends Zend_Controller_Action
               if($form->isValid($request->getPost()))
               {
                 $countrydata['country_name']=$form->getValue('country_name');
+
+                $upload = new Zend_File_Transfer_Adapter_Http();
+                $url=dirname(__DIR__,2)."/public/images/";
+                // print_r($url);
+                // die();
+                $upload->addFilter('Rename', $url.$_POST['country_name'].".jpg");
+                $upload->receive();
+                $countrydata['image'] = "/images/" . $_POST['country_name'].".jpg";
+
                 $country_model = new Application_Model_Country();
                 $country_model ->addCountry($countrydata);//($request->getParams());
                 $this->redirect('/admin/displaycountries');
               }
             }
     }
-/**************************** UPDATE country *************************************/
+
     public function updatecountryAction()
     {
         // action body
@@ -361,24 +402,93 @@ class AdminController extends Zend_Controller_Action
         }
     }
 
+    public function fbloginAction()
+    {
+        // action body
+      // $fb = new Facebook\Facebook([
+			// 'app_id' => '1836874743221542', // Replace {app-id} with your app id
+			// 'app_secret' => '9ee8b295986c9c5091df073eccff3f4e',
+			// 'default_graph_version' => 'v2.2',
+			// ]);
+			// $helper = $fb->getRedirectLoginHelper();
+      //
+			// $loginUrl = $helper->getLoginUrl($this->view->serverUrl() .'/admin/fbcallback');
+			// $this->view->facebookUrl = $loginUrl;
+    }
+
+    public function fbcallbackAction()
+    {
+          // action body
+      $fb = new Facebook\Facebook([
+  		'app_id' => '1836874743221542', // Replace {app-id} with your app id
+  		'app_secret' => '9ee8b295986c9c5091df073eccff3f4e',
+  		'default_graph_version' => 'v2.2',
+  		]);
+  		$helper = $fb->getRedirectLoginHelper();
+  		try {
+  		$accessToken = $helper->getAccessToken();
+  		} catch(Facebook\Exceptions\FacebookResponseException $e) {
+  		// When Graph returns an error
+  		echo 'Graph returned an error: ' . $e->getMessage();
+		  exit;
+		} catch(Facebook\Exceptions\FacebookSDKException $e) {
+		// When validation fails or other local issues
+  		echo 'Facebook SDK returned an error: ' . $e->getMessage();
+  		exit;
+		}
+		if (! isset($accessToken)) {
+  		if ($helper->getError()) {
+    		header('HTTP/1.0 401 Unauthorized');
+    		echo "Error: " . $helper->getError() . "\n";
+    		echo "Error Code: " . $helper->getErrorCode() . "\n";
+    		echo "Error Reason: " . $helper->getErrorReason() . "\n";
+    		echo "Error Description: " . $helper->getErrorDescription() . "\n";
+  		} else {
+    		header('HTTP/1.0 400 Bad Request');
+    		echo 'Bad request';
+  		}
+		exit;
+		}
+		// The OAuth 2.0 client handler helps us manage access tokens
+		$oAuth2Client = $fb->getOAuth2Client();
+		if (! $accessToken->isLongLived()) {
+		// Exchanges a short-lived access token for a long-lived one
+		try {
+		    $accessToken = $oAuth2Client->getLongLivedAccessToken($accessToken);
+		} catch (Facebook\Exceptions\FacebookSDKException $e) {
+  		echo "<p>Error getting long-lived access token: " . $helper->getMessage() . "</p>\n\n";
+  		exit;
+		}
+		  echo '<h3>Long-lived</h3>';
+		}
+  		$fb->setDefaultAccessToken($accessToken);
+  		try {
+  		$response = $fb->get('/me');
+  		$userNode = $response->getGraphUser();
+		}
+  		catch (Facebook\Exceptions\FacebookResponseException $e) {
+  		// When Graph returns an error
+  		echo 'Graph returned an error: ' . $e->getMessage();
+  		Exit;
+		}
+  		catch (Facebook\Exceptions\FacebookSDKException $e) {
+  		// When validation fails or other local issues
+  		echo 'Facebook SDK returned an error: ' . $e->getMessage();
+  		Exit;
+		}
+		  $this->fpS->fname = $userNode['name'];
+    }
+
+    public function logoutAction()
+    {
+        // action body
+        $authAdapter=Zend_Auth::getInstance();
+    		$authAdapter->clearIdentity();
+    		Zend_Session::namespaceUnset('facebook');
+    		$this->redirect('/admin/login');
+    }
+
+    
+
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

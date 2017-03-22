@@ -49,10 +49,15 @@
           <actionMethod actionName="deletecountry"/>
           <actionMethod actionName="addcountry"/>
           <actionMethod actionName="updatecountry"/>
+          <actionMethod actionName="fblogin"/>
+          <actionMethod actionName="fbcallback"/>
+          <actionMethod actionName="logout"/>
         </controllerFile>
         <controllerFile controllerName="User">
           <actionMethod actionName="index"/>
           <actionMethod actionName="addUser"/>
+          <actionMethod actionName="home"/>
+          <actionMethod actionName="edituserdata"/>
         </controllerFile>
         <controllerFile controllerName="Visitor">
           <actionMethod actionName="index"/>
@@ -63,7 +68,7 @@
           <actionMethod actionName="updateExperience"/>
           <actionMethod actionName="listExperience"/>
           <actionMethod actionName="experienceDetails"/>
-          <actionMethod actionName="test"/>
+          <actionMethod actionName="profile"/>
         </controllerFile>
       </controllersDirectory>
       <formsDirectory>
@@ -91,6 +96,7 @@
         <modelFile modelName="Hotel"/>
         <modelFile modelName="Country"/>
         <modelFile modelName="Comment"/>
+        <modelFile modelName="HotelRequest"/>
       </modelsDirectory>
       <modulesDirectory enabled="false"/>
       <servicesDirectory enabled="false"/>
@@ -225,6 +231,24 @@
           <viewControllerScriptsDirectory forControllerName="Visitor">
             <viewScriptFile forActionName="test"/>
           </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="fblogin"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="User">
+            <viewScriptFile forActionName="home"/>
+            </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Country">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="fbcallback"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="logout"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Visitor">
+            <viewScriptFile forActionName="profile"/>
+          </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
         <viewFiltersDirectory enabled="false"/>
@@ -265,6 +289,8 @@
           <testApplicationControllerFile forControllerName="User">
             <testApplicationActionMethod forActionName="index"/>
             <testApplicationActionMethod forActionName="addUser"/>
+            <testApplicationActionMethod forActionName="home"/>
+            <testApplicationActionMethod forActionName="edituserdata"/>
           </testApplicationControllerFile>
           <testApplicationControllerFile forControllerName="Admin">
             <testApplicationActionMethod forActionName="index"/>
@@ -278,6 +304,20 @@
             <testApplicationActionMethod forActionName="deletecountry"/>
             <testApplicationActionMethod forActionName="addcountry"/>
             <testApplicationActionMethod forActionName="updatecountry"/>
+            <testApplicationActionMethod forActionName="fblogin"/>
+            <testApplicationActionMethod forActionName="fbcallback"/>
+            <testApplicationActionMethod forActionName="logout"/>
+          </testApplicationControllerFile>
+          <testApplicationControllerFile forControllerName="Visitor">
+            <testApplicationActionMethod forActionName="index"/>
+            <testApplicationActionMethod forActionName="carRequest"/>
+            <testApplicationActionMethod forActionName="addExperience"/>
+            <testApplicationActionMethod forActionName="deleteExperience"/>
+            <testApplicationActionMethod forActionName="updateExperience"/>
+            <testApplicationActionMethod forActionName="listExperience"/>
+            <testApplicationActionMethod forActionName="experienceDetails"/>
+            <testApplicationActionMethod forActionName="hotelReservation"/>
+            <testApplicationActionMethod forActionName="profile"/>
           </testApplicationControllerFile>
         </testApplicationControllerDirectory>
       </testApplicationDirectory>
