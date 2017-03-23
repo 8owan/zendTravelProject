@@ -228,6 +228,9 @@
           <viewControllerScriptsDirectory forControllerName="Admin">
             <viewScriptFile forActionName="updatecountry"/>
           </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Visitor">
+            <viewScriptFile forActionName="test"/>
+          </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Admin">
             <viewScriptFile forActionName="fblogin"/>
           </viewControllerScriptsDirectory>
@@ -286,11 +289,8 @@
           <testApplicationControllerFile forControllerName="User">
             <testApplicationActionMethod forActionName="index"/>
             <testApplicationActionMethod forActionName="addUser"/>
-<<<<<<< HEAD
-=======
             <testApplicationActionMethod forActionName="home"/>
             <testApplicationActionMethod forActionName="edituserdata"/>
->>>>>>> f977ed24a36ffb1bac5a39140cbe2e883a7955dd
           </testApplicationControllerFile>
           <testApplicationControllerFile forControllerName="Admin">
             <testApplicationActionMethod forActionName="index"/>

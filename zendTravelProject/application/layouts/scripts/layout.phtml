@@ -16,13 +16,29 @@
 
         <?php echo $this->headMeta(); ?>
         <?php echo $this->headMeta(); ?>
-        <?php echo $this->headTitle . PHP_EOL;
+        <?php //echo $this->headTitle() . PHP_EOL;
+//                if($this->jQuery()->isEnabled()){
+//                    $this->jQuery()->setLocalPath($this->baseUrl().'/js/datepicker.js')
+//                                    ->setUiLocalPath($this->baseUrl().'/css/bootstrap.css');
+//                }
         echo $this->jQuery() . PHP_EOL;
         ?>
         <?php
-            echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/bootstrap.css');
-            echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/style.css');
-            echo $this->headLink()->prependStylesheet($this->baseUrl().'/js/datepicker.js');
+            echo $this->headLink()->appendStylesheet($this->baseUrl().'/css/bootstrap.css')
+                                    ->prependStylesheet($this->baseUrl().'/css/style.css','screen',true);
+            //echo $this->headLink()->prependStylesheet($this->baseUrl().'/js/datepicker.js');
+//       // setting links in a view script:
+//            $this->headLink()->appendStylesheet('/styles/basic.css')
+//                ->headLink(array('rel' => 'favicon',
+//                    'href' => '/img/favicon.ico'),
+//                    'PREPEND')
+//                ->prependStylesheet('/styles/moz.css',
+//                    'screen',
+//                    true,
+//                    array('id' => 'my_stylesheet'));
+//
+//                    <?php // rendering the links:
+
         ?>
     </head>
     <body>
