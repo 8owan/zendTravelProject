@@ -14,14 +14,14 @@ class VisitorController extends Zend_Controller_Action
     		$request=$this->getRequest();
     		$actionName=$request->getActionName();
 
-    		if ((!$authorization->hasIdentity() && !isset($this->fpS->fname)) &&
+    		if ((!$authorization->hasIdentity() && !isset($this->fpS->user_name)) &&
         ($actionName != 'login' && $actionName != 'fblogin' && $actionName !='fbcallback'))
     		{
     		    $this->redirect('/admin/login');
     		}
 
 
-    		if (($authorization->hasIdentity() || isset($this->fpS->fname))
+    		if (($authorization->hasIdentity() || isset($this->fpS->user_name))
         && ($actionName == 'login' || $actionName == 'fblogin'))
     		{
     		    $this->redirect('/admin/user-list');
@@ -146,9 +146,57 @@ class VisitorController extends Zend_Controller_Action
     public function profileAction()
     {
         // action body
+        $userModel=new Application_Model_User();
+        $auth=Zend_Auth::getInstance();
+            $identity = $auth->getStorage();
+            $userData=$identity->read();
+            $user_id=$userData->id;
+        // $id=$this->_request->getParam('uid');
+        $userData=$userModel->getUserData($user_id);
+        $this->view->user_data=$userData;
+
+        $car_model = new Application_Model_CarRequest();
+        $car_req = $car_model->getCarReq($user_id);
+        // print_r($car_req);
+        // die();
+        $this->view->car_req = $car_req;
+
+        $hotel_model = new Application_Model_HotelRequest();
+        $hotel_req = $hotel_model->getHotelReq($user_id);
+        $this->view->hotel_req = $hotel_req;
+
+    }
+
+    public function editprofileAction()
+    {
+        // action body
+        $form = new Application_Form_SignUp();
+
+        $auth=Zend_Auth::getInstance();
+        $identity = $auth->getStorage();
+        $userData=$identity->read();
+        $user_id=$userData->id;
+
+        $this->view->uid = $user_id;
+
+        $user_model = new Application_Model_User();
+
+        $user_data = $user_model->getUserData($user_id);
+        $form->populate($user_data);
+
+    		$this->view->signup_form = $form;
+
+        $request = $this->getRequest();
+    		if($request->isPost())
+    		{
+      		if($form->isValid($request->getPost()))
+      			{
+      				$user_model->editUserData($user_id, $_POST);
+      				 $this->redirect('/user/home');
+
+      			}
+       	}
     }
 
 
 }
-
-

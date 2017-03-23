@@ -69,6 +69,7 @@
           <actionMethod actionName="listExperience"/>
           <actionMethod actionName="experienceDetails"/>
           <actionMethod actionName="profile"/>
+          <actionMethod actionName="editprofile"/>
         </controllerFile>
       </controllersDirectory>
       <formsDirectory>
@@ -233,7 +234,7 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="User">
             <viewScriptFile forActionName="home"/>
-            </viewControllerScriptsDirectory>
+          </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Country">
             <viewScriptFile forActionName="index"/>
           </viewControllerScriptsDirectory>
@@ -245,6 +246,9 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Visitor">
             <viewScriptFile forActionName="profile"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Visitor">
+            <viewScriptFile forActionName="editprofile"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
@@ -286,11 +290,8 @@
           <testApplicationControllerFile forControllerName="User">
             <testApplicationActionMethod forActionName="index"/>
             <testApplicationActionMethod forActionName="addUser"/>
-<<<<<<< HEAD
-=======
             <testApplicationActionMethod forActionName="home"/>
             <testApplicationActionMethod forActionName="edituserdata"/>
->>>>>>> f977ed24a36ffb1bac5a39140cbe2e883a7955dd
           </testApplicationControllerFile>
           <testApplicationControllerFile forControllerName="Admin">
             <testApplicationActionMethod forActionName="index"/>
@@ -318,6 +319,7 @@
             <testApplicationActionMethod forActionName="experienceDetails"/>
             <testApplicationActionMethod forActionName="hotelReservation"/>
             <testApplicationActionMethod forActionName="profile"/>
+            <testApplicationActionMethod forActionName="editprofile"/>
           </testApplicationControllerFile>
         </testApplicationControllerDirectory>
       </testApplicationDirectory>
