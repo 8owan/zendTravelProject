@@ -3,9 +3,30 @@
 class VisitorController extends Zend_Controller_Action
 {
 
+    public $fpS = null;
+
     public function init()
     {
         /* Initialize action controller here */
+        $authorization = Zend_Auth::getInstance();
+        $this->fpS = new Zend_Session_Namespace('facebook');
+
+        $request=$this->getRequest();
+        $actionName=$request->getActionName();
+
+    		if ((!$authorization->hasIdentity() && !isset($this->fpS->user_name)) &&
+        ($actionName != 'login' && $actionName != 'fblogin' && $actionName !='fbcallback'))
+    		{
+    		    $this->redirect('/admin/login');
+    		}
+
+
+    		if (($authorization->hasIdentity() || isset($this->fpS->user_name))
+        && ($actionName == 'login' || $actionName == 'fblogin'))
+    		{
+    		    $this->redirect('/admin/user-list');
+    		}
+
     }
 
     public function indexAction()
@@ -109,9 +130,60 @@ class VisitorController extends Zend_Controller_Action
 
     public function listExperienceAction()
     {
-        // action body
+        // action bodyica
         $experience_model = new Application_Model_Experience();
         $this->view->experience = $experience_model->listExperience();
+
+        //getting exp_id
+        $experience_id = $this->_request->getParam("exp_id");
+        $commentModel = new Application_Model_Comment();
+
+//        //displaying all comments on experiences
+//        $commentModel = new Application_Model_Comment();
+//        $exp_comments = $commentModel->listComments();
+//        $this->view->expComments = $exp_comments;
+
+        // geting info about the logged in user
+
+        $auth=Zend_Auth::getInstance();
+        $identity = $auth->getStorage();
+        $userData=$identity->read();
+        $user_id=$userData->id;
+
+        //user info of each comment
+        $allCommentData = $commentModel->allCommentsData();
+        $this->view->allCommentData = $allCommentData;
+
+        // displaying comment form for each experience
+        $commentForm = new Application_Form_Comment();
+        $request = $this->getRequest();
+        if($this->_request->getParam("delexpid")){
+            $commentId = $this->_request->getParam("delexpid");
+            $commentModel->deleteComment($commentId);
+            $this->redirect("/visitor/list-experience");
+        }
+        if($this->_request->getParam("editexpid")){
+            $commentId = $this->_request->getParam("editexpid");
+            $commentData = $commentModel-> commentDetails ($commentId)[0];
+            $commentForm->populate($commentData);
+            $this->view->commentForm = $commentForm;
+            $request = $this->getRequest ();
+            if($request->isPost()){
+                if($commentForm-> isValid($request-> getPost())){
+                    $commentModel-> editComment($commentId, $_POST);
+                    $this->redirect("/visitor/list-experience");
+                }
+            }
+        }
+        if($request->isPost()){
+            if($commentForm->isValid($request->getPost())){
+
+                $commentModel->addComment($request->getParams(),$user_id,$experience_id);
+                $this->redirect('/visitor/list-Experience');
+            }
+        }
+        $this->view->commentForm = $commentForm;
+
     }
 
     public function experienceDetailsAction()
@@ -121,6 +193,61 @@ class VisitorController extends Zend_Controller_Action
         $experience_id=$this->_request->getParam("uid");
         $experience=$experience_model->experienceDetails($experience_id);
         $this->view->experience=$experience[0];
+    }
+
+    public function profileAction()
+    {
+        // action body
+        $userModel=new Application_Model_User();
+        $auth=Zend_Auth::getInstance();
+            $identity = $auth->getStorage();
+            $userData=$identity->read();
+            $user_id=$userData->id;
+        // $id=$this->_request->getParam('uid');
+        $userData=$userModel->getUserData($user_id);
+        $this->view->user_data=$userData;
+
+        $car_model = new Application_Model_CarRequest();
+        $car_req = $car_model->getCarReq($user_id);
+        // print_r($car_req);
+        // die();
+        $this->view->car_req = $car_req;
+
+        $hotel_model = new Application_Model_HotelRequest();
+        $hotel_req = $hotel_model->getHotelReq($user_id);
+        $this->view->hotel_req = $hotel_req;
+
+    }
+
+    public function editprofileAction()
+    {
+        // action body
+        $form = new Application_Form_SignUp();
+
+        $auth=Zend_Auth::getInstance();
+        $identity = $auth->getStorage();
+        $userData=$identity->read();
+        $user_id=$userData->id;
+
+        $this->view->uid = $user_id;
+
+        $user_model = new Application_Model_User();
+
+        $user_data = $user_model->getUserData($user_id);
+        $form->populate($user_data);
+
+    		$this->view->signup_form = $form;
+
+        $request = $this->getRequest();
+    		if($request->isPost())
+    		{
+      		if($form->isValid($request->getPost()))
+      			{
+      				$user_model->editUserData($user_id, $_POST);
+      				 $this->redirect('/user/home');
+
+      			}
+       	}
     }
 
 

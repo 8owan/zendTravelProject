@@ -43,12 +43,12 @@ class Application_Form_CarRequest extends ZendX_JQuery_Form
                 array('HtmlTag', array('tag' => 'div', 'class'=>'span-11 last')),
                 array('Label', array('tag' => 'div', 'class'=>'span-5 clear'))
             ));
-//        $this->addElement('datePicker','movie_release_date', array(
-//                'label' => 'Release Date:',
-//                'required'=> false,
-//                'class' => 'dtPicker',
-//            )
-//        );
+        $this->addElement('datePicker','movie_release_date', array(
+                'label' => 'Release Date:',
+                'required'=> false,
+                'class' => 'dtPicker',
+            )
+        );
 
 
 

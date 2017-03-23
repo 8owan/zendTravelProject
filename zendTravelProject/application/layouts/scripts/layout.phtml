@@ -1,17 +1,45 @@
 <html>
     <head>
         <title>Zend Project</title>
+        <!-- Latest compiled and minified CSS -->
+
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+         <!-- jQuery library -->
+
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+         <!-- Latest compiled JavaScript -->
+
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
         <?php echo $this->headMeta(); ?>
         <?php echo $this->headMeta(); ?>
-        <?php echo $this->headTitle . PHP_EOL;
+        <?php //echo $this->headTitle() . PHP_EOL;
+//                if($this->jQuery()->isEnabled()){
+//                    $this->jQuery()->setLocalPath($this->baseUrl().'/js/datepicker.js')
+//                                    ->setUiLocalPath($this->baseUrl().'/css/bootstrap.css');
+//                }
         echo $this->jQuery() . PHP_EOL;
         ?>
         <?php
-            echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/bootstrap.css');
-            echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/style.css');
-            echo $this->headLink()->prependStylesheet($this->baseUrl().'/js/datepicker.js');
-        ?>
+            echo $this->headLink()->appendStylesheet($this->baseUrl().'/css/bootstrap.css')
+                                    ->prependStylesheet($this->baseUrl().'/css/style.css','screen',true);
+            //echo $this->headLink()->prependStylesheet($this->baseUrl().'/js/datepicker.js');
+//       // setting links in a view script:
+//            $this->headLink()->appendStylesheet('/styles/basic.css')
+//                ->headLink(array('rel' => 'favicon',
+//                    'href' => '/img/favicon.ico'),
+//                    'PREPEND')
+//                ->prependStylesheet('/styles/moz.css',
+//                    'screen',
+//                    true,
+//                    array('id' => 'my_stylesheet'));
+//
+//                    <?php // rendering the links:
 
+        ?>
     </head>
     <body>
         <nav class="navbar navbar-inverse">
@@ -30,41 +58,73 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
+                        <li class="active"><a href="/admin/user-list">Home <span class="sr-only">(current)</span></a></li>
                         <li><a href="#">About</a></li>
-                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="/visitor/profile">Profile</a></li>
   <!--********************** destnation in navbar *****************************  -->
-                      <li>
-                        <select onChange="window.location.href=this.value">
-                          <option value="#">Destnation</option>
+                      <!-- <li>
+                        <select onChange="window.location.href=this.value"  >
+                          <option value="#" >Destnation</option>
                         <?php
-                        $country_model=new Application_Model_Country();
-                        $all=$country_model->allCountries();
-                        foreach($all as $key => $value)
-                    		{
-                          // echo $this->formSelect('test', 'Option 1');
-                          // echo  "<li><a href='#'></a></li>";
-                          echo "<option value='/country/displaycities/coid/".$value['id']."'>".$value['country_name']."</option>";
-                        }
+                        // $country_model=new Application_Model_Country();
+                        // $all=$country_model->allCountries();
+                        // foreach($all as $key => $value)
+                    		// {
+                        //   // echo $this->formSelect('test', 'Option 1');
+                        //   // echo  "<li><a href='#'></a></li>";
+                        //   echo "<option value='/country/displaycities/coid/".$value['id']."'>".$value['country_name']."</option>";
+                        // }
                         ?>
                       </select>
-                    </li>
+                    </li> -->
+                    <li class="dropdown">
 
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Destnation<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                          <?php
+                          $country_model=new Application_Model_Country();
+                          $all=$country_model->allCountries();
+                          foreach($all as $key => $value)
+                      		{
+
+                        ?>
+                        <li><a href="/country/displaycities/coid/<?= $value['id']?>"><?= $value['country_name']?></a></li>
+                        <?php
+
+                          }
+                          ?>
+
+                          </ul>
+                        </li>
                     </ul>
+<!--************************* login with facebook layout***************-->
+<?php
+  $authAdapter = Zend_Auth::getInstance();
+  $storage=$authAdapter->getStorage();
+  $userData=$storage->read();
+  $identity = $authAdapter->getIdentity();
+  $fbsession= new Zend_Session_Namespace('facebook');
+
+  if (!empty($userData))
+    {
+      $name = $identity->user_name;
+      echo '<li class="active" style="color:white;margin-right:30px;margin-top:10px;font-size:18px;list-style-type:none;"> Welcome '. $name. '</li>';
+      echo '<li class="active" style="list-style-type:none;"><a href="/user/logout"> Logout<span class="sr-only">(current)</span></a></li>';
+    ?>
+
+<?php
+    }
+    elseif ($fbsession->user_name)
+    {
+      echo '<li class="active" style="color:white;margin-right:30px;margin-top:10px;font-size:18px;list-style-type:none;"> Welcome '. $fbsession->user_name. '</li>';
+      echo '<li class="active style="list-style-type:none;"><a href="/user/logout"> Logout<span class="sr-only">(current)</span></a></li>';
+
+    }
+?>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
-        <?php
-        $auth=Zend_Auth::getInstance();
-        $storage=$auth->getStorage();
-        $userData=$storage->read();
-        if (empty($userData)) {
-            echo '<a href="/admin/login">Log in as admin</a>';
-        }
-        else {
-            // echo '<a href="/user/logout">Logout <span class="sr-only">(current)</span></a>';
-        }
-        ?>
+
         <?php echo $this->layout()->content; ?>
 
         <div style ="background:black;">

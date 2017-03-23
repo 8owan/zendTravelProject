@@ -7,7 +7,10 @@
 <div class="container">
 	<div class="panel panel-info">
 	<div class="panel-heading">
-		<h1><center>Countries</h1></center>
+		<?php
+		$country= new Application_Model_Country();
+		$data=$country->getCountryData($this->co_id); ?>
+		<h1><center>	<?php echo $data['country_name'] ?>	</h1></center>
 
 	</div>
 	<table class="table table-bordered">
@@ -17,8 +20,6 @@
 
 		</tr>
 	<?php
-	$country= new Application_Model_Country();
-	$data=$country->getCountryData($this->co_id);
 	echo '<img src="'.$data['image'].'" alt="no image" height="250" width="500" class="img-rounded center-block">';
 		 foreach($this->cities as $key => $value)
 		 {

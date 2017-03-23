@@ -3,23 +3,51 @@
 class AdminController extends Zend_Controller_Action
 {
 
+    public $fpS = null;
+
     public function init()
     {
-        $authorization = Zend_Auth::getInstance();
+      $authorization = Zend_Auth::getInstance();
+  		$this->fpS = new Zend_Session_Namespace('facebook');
 
-        $request=$this->getRequest();
-        $actionName=$request->getActionName();
+  		$request=$this->getRequest();
+  		$actionName=$request->getActionName();
 
-        if (!$authorization->hasIdentity() && $actionName != 'login')
-        {
-            $this->redirect('/admin/login');
+  		if ((!$authorization->hasIdentity() && !isset($this->fpS->user_name))
+      && ($actionName != 'login' && $actionName != 'fblogin' && $actionName !='fbcallback'))
+  		{
+  		    $this->redirect('/admin/login');
+  		}
+
+
+  		if (($authorization->hasIdentity() || isset($this->fpS->user_name))
+       && ($actionName == 'login' || $actionName == 'fblogin'))
+  		{
+  		    $this->redirect('/admin/user-list');
+  		}
+
+      if ($authorization->hasIdentity()) {
+        $storage=$authorization->getStorage();
+        $userData=$storage->read();
+        if ($userData->type!='admin') {
+          $this->redirect('/user/home');
         }
-
-
-        if ($authorization->hasIdentity()&& $actionName == 'login')
-        {
-            $this->redirect('/admin/user-list');
-        }
+      }
+        // $authorization = Zend_Auth::getInstance();
+        //
+        // $request=$this->getRequest();
+        // $actionName=$request->getActionName();
+        //
+        // if (!$authorization->hasIdentity() && $actionName != 'login')
+        // {
+        //     $this->redirect('/admin/login');
+        // }
+        //
+        //
+        // if ($authorization->hasIdentity()&& $actionName == 'login')
+        // {
+        //     $this->redirect('/admin/user-list');
+        // }
     }
 
     public function indexAction()
@@ -251,13 +279,24 @@ class AdminController extends Zend_Controller_Action
               }
               elseif ($sessionDataObj->type=='normal')
               {
-                print_r('Not Admin');
-                die();
+                $auth=Zend_Auth::getInstance();
+                $storage=$auth->getStorage();
+                $storage->write($sessionDataObj);
+                $this->redirect('/user/home');
               }
             }
           }
 
         }
+        $fb = new Facebook\Facebook([
+  			'app_id' => '1836874743221542', // Replace {app-id} with your app id
+  			'app_secret' => '9ee8b295986c9c5091df073eccff3f4e',
+  			'default_graph_version' => 'v2.2',
+  			]);
+  			$helper = $fb->getRedirectLoginHelper();
+
+  			$loginUrl = $helper->getLoginUrl($this->view->serverUrl() .'/admin/fbcallback');
+  			$this->view->facebookUrl = $loginUrl;
     }
 
     public function addHotelAction()
@@ -322,15 +361,13 @@ class AdminController extends Zend_Controller_Action
 }
 }
     }
-/******************************* ALL country **********************************/
+
     public function displaycountriesAction()
     {
         // action body
         $country_model = new Application_Model_Country(); //get obj from class user
         $this->view->countries = $country_model->allCountries();
     }
-
-    /***************************** DELETE country ************************************/
 
     public function deletecountryAction()
     {
@@ -341,7 +378,6 @@ class AdminController extends Zend_Controller_Action
         $this->redirect("/admin/index");
     }
 
-/*********************** ADD country ********************************/
     public function addcountryAction()
     {
         // action body
@@ -369,7 +405,7 @@ class AdminController extends Zend_Controller_Action
               }
             }
     }
-/**************************** UPDATE country *************************************/
+
     public function updatecountryAction()
     {
         // action body
@@ -390,6 +426,83 @@ class AdminController extends Zend_Controller_Action
                     $this->redirect('/admin/index');
                 }
         }
+    }
+
+    public function fbloginAction()
+    {
+        // action body
+      // $fb = new Facebook\Facebook([
+			// 'app_id' => '1836874743221542', // Replace {app-id} with your app id
+			// 'app_secret' => '9ee8b295986c9c5091df073eccff3f4e',
+			// 'default_graph_version' => 'v2.2',
+			// ]);
+			// $helper = $fb->getRedirectLoginHelper();
+      //
+			// $loginUrl = $helper->getLoginUrl($this->view->serverUrl() .'/admin/fbcallback');
+			// $this->view->facebookUrl = $loginUrl;
+    }
+
+    public function fbcallbackAction()
+    {
+          // action body
+      $fb = new Facebook\Facebook([
+  		'app_id' => '1836874743221542', // Replace {app-id} with your app id
+  		'app_secret' => '9ee8b295986c9c5091df073eccff3f4e',
+  		'default_graph_version' => 'v2.2',
+  		]);
+  		$helper = $fb->getRedirectLoginHelper();
+  		try {
+  		$accessToken = $helper->getAccessToken();
+  		} catch(Facebook\Exceptions\FacebookResponseException $e) {
+  		// When Graph returns an error
+  		echo 'Graph returned an error: ' . $e->getMessage();
+		  exit;
+		} catch(Facebook\Exceptions\FacebookSDKException $e) {
+		// When validation fails or other local issues
+  		echo 'Facebook SDK returned an error: ' . $e->getMessage();
+  		exit;
+		}
+		if (! isset($accessToken)) {
+  		if ($helper->getError()) {
+    		header('HTTP/1.0 401 Unauthorized');
+    		echo "Error: " . $helper->getError() . "\n";
+    		echo "Error Code: " . $helper->getErrorCode() . "\n";
+    		echo "Error Reason: " . $helper->getErrorReason() . "\n";
+    		echo "Error Description: " . $helper->getErrorDescription() . "\n";
+  		} else {
+    		header('HTTP/1.0 400 Bad Request');
+    		echo 'Bad request';
+  		}
+		exit;
+		}
+		// The OAuth 2.0 client handler helps us manage access tokens
+		$oAuth2Client = $fb->getOAuth2Client();
+		if (! $accessToken->isLongLived()) {
+		// Exchanges a short-lived access token for a long-lived one
+		try {
+		    $accessToken = $oAuth2Client->getLongLivedAccessToken($accessToken);
+		} catch (Facebook\Exceptions\FacebookSDKException $e) {
+  		echo "<p>Error getting long-lived access token: " . $helper->getMessage() . "</p>\n\n";
+  		exit;
+		}
+		  echo '<h3>Long-lived</h3>';
+		}
+  		$fb->setDefaultAccessToken($accessToken);
+  		try {
+  		$response = $fb->get('/me');
+  		$userNode = $response->getGraphUser();
+		}
+  		catch (Facebook\Exceptions\FacebookResponseException $e) {
+  		// When Graph returns an error
+  		echo 'Graph returned an error: ' . $e->getMessage();
+  		Exit;
+		}
+  		catch (Facebook\Exceptions\FacebookSDKException $e) {
+  		// When validation fails or other local issues
+  		echo 'Facebook SDK returned an error: ' . $e->getMessage();
+  		Exit;
+		}
+		  $this->fpS->user_name = $userNode['name'];
     }
 
 
