@@ -30,9 +30,11 @@ protected $_name = 'hotel_request';
     $sql = $this->select()->from(array('h' => 'hotels'),
         array('hReq.id','hReq.start_date', 'hReq.end_date' , 'h.hotel_name'))
         ->join(array('hReq' => 'hotel_request'),
-            'hReq.hotel_id = h.id')->setIntegrityCheck(false);
+            'hReq.hotel_id = h.id')
+            ->where("user_id=$user_id")
+            ->setIntegrityCheck(false);
       $query = $sql->query();
-      $result = $query->fetchAll();
+     $result = $query->fetchAll();
       return $result;
   }
 

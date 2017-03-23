@@ -33,7 +33,9 @@ class Application_Model_CarRequest extends Zend_Db_Table_Abstract
       $sql = $this->select()->from(array('sight' => 'sights'),
           array('cReq.id','cReq.start_date', 'cReq.end_date' , 'sight.sight_name'))
           ->join(array('cReq' => 'car_request'),
-              'cReq.sight_id = sight.id')->setIntegrityCheck(false);
+              'cReq.sight_id = sight.id')
+              ->where("user_id=$user_id")
+              ->setIntegrityCheck(false);
         $query = $sql->query();
         $result = $query->fetchAll();
         return $result;

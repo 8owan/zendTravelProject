@@ -9,10 +9,10 @@ class VisitorController extends Zend_Controller_Action
     {
         /* Initialize action controller here */
         $authorization = Zend_Auth::getInstance();
-    		$this->fpS = new Zend_Session_Namespace('facebook');
+        $this->fpS = new Zend_Session_Namespace('facebook');
 
-    		$request=$this->getRequest();
-    		$actionName=$request->getActionName();
+        $request=$this->getRequest();
+        $actionName=$request->getActionName();
 
     		if ((!$authorization->hasIdentity() && !isset($this->fpS->user_name)) &&
         ($actionName != 'login' && $actionName != 'fblogin' && $actionName !='fbcallback'))
@@ -26,6 +26,7 @@ class VisitorController extends Zend_Controller_Action
     		{
     		    $this->redirect('/admin/user-list');
     		}
+
     }
 
     public function indexAction()
@@ -129,9 +130,60 @@ class VisitorController extends Zend_Controller_Action
 
     public function listExperienceAction()
     {
-        // action body
+        // action bodyica
         $experience_model = new Application_Model_Experience();
         $this->view->experience = $experience_model->listExperience();
+
+        //getting exp_id
+        $experience_id = $this->_request->getParam("exp_id");
+        $commentModel = new Application_Model_Comment();
+
+//        //displaying all comments on experiences
+//        $commentModel = new Application_Model_Comment();
+//        $exp_comments = $commentModel->listComments();
+//        $this->view->expComments = $exp_comments;
+
+        // geting info about the logged in user
+
+        $auth=Zend_Auth::getInstance();
+        $identity = $auth->getStorage();
+        $userData=$identity->read();
+        $user_id=$userData->id;
+
+        //user info of each comment
+        $allCommentData = $commentModel->allCommentsData();
+        $this->view->allCommentData = $allCommentData;
+
+        // displaying comment form for each experience
+        $commentForm = new Application_Form_Comment();
+        $request = $this->getRequest();
+        if($this->_request->getParam("delexpid")){
+            $commentId = $this->_request->getParam("delexpid");
+            $commentModel->deleteComment($commentId);
+            $this->redirect("/visitor/list-experience");
+        }
+        if($this->_request->getParam("editexpid")){
+            $commentId = $this->_request->getParam("editexpid");
+            $commentData = $commentModel-> commentDetails ($commentId)[0];
+            $commentForm->populate($commentData);
+            $this->view->commentForm = $commentForm;
+            $request = $this->getRequest ();
+            if($request->isPost()){
+                if($commentForm-> isValid($request-> getPost())){
+                    $commentModel-> editComment($commentId, $_POST);
+                    $this->redirect("/visitor/list-experience");
+                }
+            }
+        }
+        if($request->isPost()){
+            if($commentForm->isValid($request->getPost())){
+
+                $commentModel->addComment($request->getParams(),$user_id,$experience_id);
+                $this->redirect('/visitor/list-Experience');
+            }
+        }
+        $this->view->commentForm = $commentForm;
+
     }
 
     public function experienceDetailsAction()
