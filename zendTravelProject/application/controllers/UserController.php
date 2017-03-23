@@ -2,7 +2,9 @@
 
 class UserController extends Zend_Controller_Action
 {
+
     public $fpS = null;
+
     public function init()
     {
         /* Initialize action controller here */
@@ -45,7 +47,7 @@ class UserController extends Zend_Controller_Action
             $_POST['image'] = "/images/" . $_POST['user_name'].".jpg";
             $user_model = new Application_Model_User();
             $user_model->addNewUser($_POST);
-            $this->redirect('/admin/user-list');
+            $this->redirect('/user/home');
           }
         }
         $this->view->user_form = $form;
@@ -102,4 +104,15 @@ class UserController extends Zend_Controller_Action
       			}
        	}
     }
+
+    public function logoutAction()
+    {
+        // action body
+        $authAdapter=Zend_Auth::getInstance();
+        $authAdapter->clearIdentity();
+        Zend_Session::namespaceUnset('facebook');
+        $this->redirect('/admin/login');
+    }
+
+
 }

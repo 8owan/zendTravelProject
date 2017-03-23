@@ -25,7 +25,7 @@ class AdminController extends Zend_Controller_Action
   		{
   		    $this->redirect('/admin/user-list');
   		}
-      
+
       if ($authorization->hasIdentity()) {
         $storage=$authorization->getStorage();
         $userData=$storage->read();
@@ -488,17 +488,6 @@ class AdminController extends Zend_Controller_Action
 		}
 		  $this->fpS->fname = $userNode['name'];
     }
-
-    public function logoutAction()
-    {
-        // action body
-        $authAdapter=Zend_Auth::getInstance();
-    		$authAdapter->clearIdentity();
-    		Zend_Session::namespaceUnset('facebook');
-    		$this->redirect('/admin/login');
-    }
-
-
 
 
 }

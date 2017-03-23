@@ -108,12 +108,12 @@
     {
       $name = $userData->user_name;
       echo '<li class="active" style="color:white;margin-right:30px;margin-top:10px;font-size:20px;"> Welcome '. $name. '</li>';
-      echo '<li class="active"><a href="/admin/logout"> Logout<span class="sr-only">(current)</span></a></li>';
+      echo '<li class="active"><a href="/user/logout"> Logout<span class="sr-only">(current)</span></a></li>';
     }
     elseif ($fbsession->fname)
     {
       echo '<li class="active" style="color:white;margin-right:30px;margin-top:10px;font-size:20px;"> Welcome '. $fbsession->fname. '</li>';
-      echo '<li class="active"><a href="/admin/logout"> Logout<span class="sr-only">(current)</span></a></li>';
+      echo '<li class="active"><a href="/user/logout"> Logout<span class="sr-only">(current)</span></a></li>';
     }
   //   else {
   //   echo '<li class="active"><a href="/admin/login">Login<span class="sr-only">(current)</span></a></li>';
