@@ -25,6 +25,14 @@ class AdminController extends Zend_Controller_Action
   		{
   		    $this->redirect('/admin/user-list');
   		}
+      
+      if ($authorization->hasIdentity()) {
+        $storage=$authorization->getStorage();
+        $userData=$storage->read();
+        if ($userData->type!='admin') {
+          $this->redirect('/user/home');
+        }
+      }
         // $authorization = Zend_Auth::getInstance();
         //
         // $request=$this->getRequest();
@@ -255,8 +263,10 @@ class AdminController extends Zend_Controller_Action
               }
               elseif ($sessionDataObj->type=='normal')
               {
-                print_r('Not Admin');
-                die();
+                $auth=Zend_Auth::getInstance();
+                $storage=$auth->getStorage();
+                $storage->write($sessionDataObj);
+                $this->redirect('/user/home');
               }
             }
           }
@@ -488,7 +498,7 @@ class AdminController extends Zend_Controller_Action
     		$this->redirect('/admin/login');
     }
 
-    
+
 
 
 }

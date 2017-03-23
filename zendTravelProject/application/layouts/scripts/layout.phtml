@@ -81,7 +81,7 @@
                         </li>
                     </ul>
 <!--************************* login with facebook layout***************-->
-                    <?php
+<?php
   $authAdapter = Zend_Auth::getInstance();
   $storage=$authAdapter->getStorage();
   $userData=$storage->read();
@@ -93,17 +93,11 @@
       $name = $userData->user_name;
       echo '<li class="active" style="color:white;margin-right:30px;margin-top:10px;font-size:20px;"> Welcome '. $name. '</li>';
       echo '<li class="active"><a href="/admin/logout"> Logout<span class="sr-only">(current)</span></a></li>';
-    ?>
-
-<?php
     }
     elseif ($fbsession->fname)
     {
       echo '<li class="active" style="color:white;margin-right:30px;margin-top:10px;font-size:20px;"> Welcome '. $fbsession->fname. '</li>';
       echo '<li class="active"><a href="/admin/logout"> Logout<span class="sr-only">(current)</span></a></li>';
-    ?>
-
-<?php
     }
   //   else {
   //   echo '<li class="active"><a href="/admin/login">Login<span class="sr-only">(current)</span></a></li>';
@@ -112,17 +106,7 @@
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
-        <?php
-        // $auth=Zend_Auth::getInstance();
-        // $storage=$auth->getStorage();
-        // $userData=$storage->read();
-        // if (empty($userData)) {
-        //     echo '<a href="/admin/login">Log in as admin</a>';
-        // }
-        // else {
-        //      echo '<a href="/user/logout">Logout <span class="sr-only">(current)</span></a>';
-        // }
-        ?>
+
         <?php echo $this->layout()->content; ?>
 
         <div style ="background:black;">
