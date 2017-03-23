@@ -1,4 +1,55 @@
-<br /><br />
-<div id="view-content">
-	<p>View script for controller <b>Visitor</b> and script/action name <b>profile</b></p>
+<div class="container">
+<div class="panel panel-primary">
+  <div class="panel-heading">
+		<h1><center>
+		<?php
+			echo $this->user_data['user_name'];
+		?>
+		</center></h1>
+	</div>
+
+<div class="panel-body" border="1">
+  <img src="<?php echo $this->user_data['image']?>" alt="no image" height='140' width='140' class="img-rounded center-block">
+	<h4> Email : <?php echo $this->user_data['email'] ?> </h4>
+  <!-- <h4>User Name : <?php echo $this->user_data['user_name'] ?> </h4> -->
+
 </div>
+</div>
+<a class='btn btn-info' href='/visitor/editprofile'> Edit </a>
+</div>
+
+<div class="container">
+<div class="panel panel-primary">
+  <div class="panel-heading">
+		<h1><center>Car Requests</center></h1>
+	</div>
+  <div class="panel-body" border="1">
+    <?php
+      foreach ($this->car_req as $key => $value) {
+        echo "  <h4> Sight Name : ".$value['sight_name']." </h4>";
+        echo "  <h4> Start Date :".$value['start_date']." </h4>";
+        echo "  <h4>  End Date :".$value['end_date']." </h4>";
+      }
+     ?>
+   </div>
+   </div>
+   </div>
+
+
+   <div class="container">
+   <div class="panel panel-primary">
+     <div class="panel-heading">
+   		<h1><center>Hotel Requests</center></h1>
+   	</div>
+     <div class="panel-body" border="1">
+       <?php
+         foreach ($this->hotel_req as $key => $value) {
+           echo "  <h4> Hotel Name : ".$value['hotel_name']." </h4>";
+           echo "  <h4> Start Date : ".$value['start_date']." </h4>";
+           echo "  <h4>  End Date :".$value['end_date']." </h4>";
+         }
+        ?>
+      </div>
+      </div>
+      <a class='btn btn-primary' href='/user/home'> Home </a>
+      </div>

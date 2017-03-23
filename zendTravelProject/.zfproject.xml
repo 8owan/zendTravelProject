@@ -69,6 +69,7 @@
           <actionMethod actionName="listExperience"/>
           <actionMethod actionName="experienceDetails"/>
           <actionMethod actionName="profile"/>
+          <actionMethod actionName="editprofile"/>
         </controllerFile>
       </controllersDirectory>
       <formsDirectory>
@@ -248,6 +249,8 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="User">
             <viewScriptFile forActionName="logout"/>
+          <viewControllerScriptsDirectory forControllerName="Visitor">
+            <viewScriptFile forActionName="editprofile"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
@@ -318,6 +321,7 @@
             <testApplicationActionMethod forActionName="experienceDetails"/>
             <testApplicationActionMethod forActionName="hotelReservation"/>
             <testApplicationActionMethod forActionName="profile"/>
+            <testApplicationActionMethod forActionName="editprofile"/>
           </testApplicationControllerFile>
         </testApplicationControllerDirectory>
       </testApplicationDirectory>

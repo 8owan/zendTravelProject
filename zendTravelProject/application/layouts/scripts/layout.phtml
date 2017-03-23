@@ -60,7 +60,7 @@
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="/admin/user-list">Home <span class="sr-only">(current)</span></a></li>
                         <li><a href="#">About</a></li>
-                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="/visitor/profile">Profile</a></li>
   <!--********************** destnation in navbar *****************************  -->
                       <!-- <li>
                         <select onChange="window.location.href=this.value"  >
@@ -78,6 +78,7 @@
                       </select>
                     </li> -->
                     <li class="dropdown">
+
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Destnation<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                           <?php
@@ -106,18 +107,19 @@
 
   if (!empty($userData))
     {
-      $name = $userData->user_name;
-      echo '<li class="active" style="color:white;margin-right:30px;margin-top:10px;font-size:20px;"> Welcome '. $name. '</li>';
-      echo '<li class="active"><a href="/user/logout"> Logout<span class="sr-only">(current)</span></a></li>';
+      $name = $identity->user_name;
+      echo '<li class="active" style="color:white;margin-right:30px;margin-top:10px;font-size:18px;list-style-type:none;"> Welcome '. $name. '</li>';
+      echo '<li class="active" style="list-style-type:none;"><a href="/user/logout"> Logout<span class="sr-only">(current)</span></a></li>';
+    ?>
+
+<?php
     }
-    elseif ($fbsession->fname)
+    elseif ($fbsession->user_name)
     {
-      echo '<li class="active" style="color:white;margin-right:30px;margin-top:10px;font-size:20px;"> Welcome '. $fbsession->fname. '</li>';
-      echo '<li class="active"><a href="/user/logout"> Logout<span class="sr-only">(current)</span></a></li>';
+      echo '<li class="active" style="color:white;margin-right:30px;margin-top:10px;font-size:18px;list-style-type:none;"> Welcome '. $fbsession->user_name. '</li>';
+      echo '<li class="active style="list-style-type:none;"><a href="/user/logout"> Logout<span class="sr-only">(current)</span></a></li>';
+
     }
-  //   else {
-  //   echo '<li class="active"><a href="/admin/login">Login<span class="sr-only">(current)</span></a></li>';
-  // }
 ?>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->

@@ -28,6 +28,17 @@ class Application_Model_CarRequest extends Zend_Db_Table_Abstract
     {
         return $this->find($id)->toArray();
     }
+    function getCarReq($user_id)
+    {
+      $sql = $this->select()->from(array('sight' => 'sights'),
+          array('cReq.id','cReq.start_date', 'cReq.end_date' , 'sight.sight_name'))
+          ->join(array('cReq' => 'car_request'),
+              'cReq.sight_id = sight.id')
+              ->where("user_id=$user_id")
+              ->setIntegrityCheck(false);
+        $query = $sql->query();
+        $result = $query->fetchAll();
+        return $result;
+    }
 
 }
-

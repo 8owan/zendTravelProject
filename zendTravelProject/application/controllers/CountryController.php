@@ -12,14 +12,14 @@ class CountryController extends Zend_Controller_Action
     		$request=$this->getRequest();
     		$actionName=$request->getActionName();
 
-    		if ((!$authorization->hasIdentity() && !isset($this->fpS->fname))
+    		if ((!$authorization->hasIdentity() && !isset($this->fpS->user_name))
         && ($actionName != 'login' && $actionName != 'fblogin' && $actionName !='fbcallback'))
     		{
     		    $this->redirect('/admin/login');
     		}
 
 
-    		if (($authorization->hasIdentity() || isset($this->fpS->fname))
+    		if (($authorization->hasIdentity() || isset($this->fpS->user_name))
         && ($actionName == 'login' || $actionName == 'fblogin'))
     		{
     		    $this->redirect('/admin/user-list');
@@ -40,6 +40,7 @@ class CountryController extends Zend_Controller_Action
   		$cities = $cities_model->getCities($co_id);
       $this->view->co_id=$co_id;
   		$this->view->cities = $cities;
+      
       // var_dump($cities);
       // die();
 
@@ -48,6 +49,7 @@ class CountryController extends Zend_Controller_Action
     {
       $country_model = new Application_Model_Country();
       $this->view->countries = $country_model->allCountries();
+
     }
 
 }

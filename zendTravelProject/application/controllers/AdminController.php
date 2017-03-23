@@ -13,14 +13,14 @@ class AdminController extends Zend_Controller_Action
   		$request=$this->getRequest();
   		$actionName=$request->getActionName();
 
-  		if ((!$authorization->hasIdentity() && !isset($this->fpS->fname))
+  		if ((!$authorization->hasIdentity() && !isset($this->fpS->user_name))
       && ($actionName != 'login' && $actionName != 'fblogin' && $actionName !='fbcallback'))
   		{
   		    $this->redirect('/admin/login');
   		}
 
 
-  		if (($authorization->hasIdentity() || isset($this->fpS->fname))
+  		if (($authorization->hasIdentity() || isset($this->fpS->user_name))
        && ($actionName == 'login' || $actionName == 'fblogin'))
   		{
   		    $this->redirect('/admin/user-list');
@@ -486,7 +486,7 @@ class AdminController extends Zend_Controller_Action
   		echo 'Facebook SDK returned an error: ' . $e->getMessage();
   		Exit;
 		}
-		  $this->fpS->fname = $userNode['name'];
+		  $this->fpS->user_name = $userNode['name'];
     }
 
 

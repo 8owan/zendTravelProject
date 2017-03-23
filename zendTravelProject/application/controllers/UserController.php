@@ -14,14 +14,14 @@ class UserController extends Zend_Controller_Action
     		$request=$this->getRequest();
     		$actionName=$request->getActionName();
 
-    		if ((!$authorization->hasIdentity() && !isset($this->fpS->fname))
+    		if ((!$authorization->hasIdentity() && !isset($this->fpS->user_name))
          && ($actionName != 'login' && $actionName != 'fblogin' && $actionName !='fbcallback'))
     		{
     		    $this->redirect('/admin/login');
     		}
 
 
-    		if (($authorization->hasIdentity() || isset($this->fpS->fname))
+    		if (($authorization->hasIdentity() || isset($this->fpS->user_name))
         && ($actionName == 'login' || $actionName == 'fblogin'))
     		{
     		    $this->redirect('/admin/user-list');
@@ -70,41 +70,6 @@ class UserController extends Zend_Controller_Action
         $this->view->topExp = $top;
     }
 
-    public function edituserdataAction()
-    {
-        // action body
-        $form = new Application_Form_SignUp();
-
-        $auth=Zend_Auth::getInstance();
-        $identity = $auth->getStorage();
-        $userData=$identity->read();
-        $user_id=$userData->id;
-        // print_r($user_id);
-        // die();
-
-
-        //  $user_id = $this->_request->getParam('id');
-          $this->view->uid = $user_id;
-
-        $user_model = new Application_Model_User ();
-
-        $user_data = $user_model->getUserData($user_id);
-        $form->populate($user_data);
-
-    		$this->view->signup_form = $form;
-
-        $request = $this->getRequest();
-    		if($request->isPost())
-    		{
-      		if($form->isValid($request->getPost()))
-      			{
-      				$user_model->editUserData($user_id, $_POST);
-      				//  $this->redirect('/user/add-user');
-
-      			}
-       	}
-    }
-
     public function logoutAction()
     {
         // action body
@@ -113,6 +78,5 @@ class UserController extends Zend_Controller_Action
         Zend_Session::namespaceUnset('facebook');
         $this->redirect('/admin/login');
     }
-
 
 }
