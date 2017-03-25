@@ -114,7 +114,18 @@
                 $actionName=Zend_Controller_Front::getInstance()->getRequest()->getActionName();
                 if($actionName == 'city'):
                     ?>
-                    <li><a href="#">BOOKING</a></li>
+                    <!-- <li><a href="#">BOOKING</a></li> -->
+                    <li class="dropdown">
+                               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">BOOKING<span class="caret"></span></a>
+                               <ul class="dropdown-menu">
+                                   <li>
+                                       <a href="/visitor/hotel-Reservation">Hotel</a>
+                                   </li>
+                                   <li>
+                                       <a href="/visitor/car-Request">Car Rental</a>
+                                   </li>
+                               </ul>
+                           </li>
                 <?php endif; ?>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Destnation<span class="caret"></span></a>

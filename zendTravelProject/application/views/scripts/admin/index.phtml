@@ -80,7 +80,7 @@
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="'.<?php echo $image ?>.'" class="img-circle" alt="User Image">
+                <img src="<?php echo $image ?>" class="img-circle" alt="User Image">
 
                 <p>
                   <?php echo $name?> - Web Developer
@@ -336,7 +336,7 @@ echo $this->track_form;
 
   <th>city Name</th>
 
-  <th>Action</th>
+  <th colspan="3">Action</th>
 
   </tr>
   <?php
@@ -357,14 +357,15 @@ echo $this->track_form;
   ?>
 
 </table>
-<a class="btn btn-info" href='/admin/add-city'>create New City</a>
+<a class="btn btn-info" href='/admin/add-city'>Add New City</a>
             </div>
             </div>
 
 
 
 
-          <div id="hotels" class="box box-info">
+          <div id="
+          s" class="box box-info">
 
             <div  class="box-header with-border">
               <h3 class="box-title">Latest Hotel</h3>
@@ -374,7 +375,7 @@ echo $this->track_form;
 
   <tr>
   <th>Hotel Name</th>
-  <th>Action</th>
+  <th colspan="3">Action</th>
 
   </tr>
   <?php
@@ -397,7 +398,7 @@ echo $this->track_form;
   ?>
 
 </table>
-  <a class="btn btn-info" href='/admin/add-hotel'>create New Hotel</a>
+  <a class="btn btn-info" href='/admin/add-hotel'>Add New Hotel</a>
 
 
               <div class="box-tools pull-right">
