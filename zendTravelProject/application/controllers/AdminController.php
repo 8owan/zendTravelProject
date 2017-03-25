@@ -33,21 +33,6 @@ class AdminController extends Zend_Controller_Action
           $this->redirect('/user/home');
         }
       }
-        // $authorization = Zend_Auth::getInstance();
-        //
-        // $request=$this->getRequest();
-        // $actionName=$request->getActionName();
-        //
-        // if (!$authorization->hasIdentity() && $actionName != 'login')
-        // {
-        //     $this->redirect('/admin/login');
-        // }
-        //
-        //
-        // if ($authorization->hasIdentity()&& $actionName == 'login')
-        // {
-        //     $this->redirect('/admin/user-list');
-        // }
     }
 
     public function indexAction()
@@ -310,7 +295,7 @@ class AdminController extends Zend_Controller_Action
   			]);
   			$helper = $fb->getRedirectLoginHelper();
 
-  			$loginUrl = $helper->getLoginUrl($this->view->serverUrl() .'/admin/fbcallback');
+  			$loginUrl = $helper->getLoginUrl($this->view->serverUrl() .'/admin/fbcallback',array('scope'=>'email'));
   			$this->view->facebookUrl = $loginUrl;
     }
 
@@ -504,8 +489,10 @@ class AdminController extends Zend_Controller_Action
 		}
   		$fb->setDefaultAccessToken($accessToken);
   		try {
-  		$response = $fb->get('/me');
+  		$response = $fb->get('/me? fields=id,name,email');
   		$userNode = $response->getGraphUser();
+      // print_r($userNode);
+      // die();
 		}
   		catch (Facebook\Exceptions\FacebookResponseException $e) {
   		// When Graph returns an error
@@ -517,8 +504,35 @@ class AdminController extends Zend_Controller_Action
   		echo 'Facebook SDK returned an error: ' . $e->getMessage();
   		Exit;
 		}
-		  $this->fpS->user_name = $userNode['name'];
+      $data['user_name'] = $userNode['name'];
+      $data['email'] = $userNode['email'];
+      $data['image'] = "";
+      $data['password'] = "";
+      $data['type']='normal';
+      $userfc = new Application_Model_User();
+      if(!$userfc->checkEmail($data['email']))
+      {
+        $userfc->addNewUser($data);
+      }
+        $ret = $userfc->checkEmail($data['email']);
+        // var_dump($ret[0]);exit;
+          // $auth=Zend_Auth::getInstance();
+          // $identity = $auth->getStorage();
+          // $user_id_s = (object)["id"=>$ret[0]['id']];
+          // // var_dump($user_id_s);exit;
+          // $identity->write($user_id_s);
+      $this->fpS->user_name = $userNode['name'];
+
+      $this->redirect('/user/home');
     }
 
+    // public function logoutAction()
+    // {
+    //     // action body
+    //     $authAdapter=Zend_Auth::getInstance();
+    // 		$authAdapter->clearIdentity();
+    // 		Zend_Session::namespaceUnset('facebook');
+    // 		$this->redirect('/admin/login');
+    // }
 
 }

@@ -58,25 +58,10 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="/admin/user-list">Home <span class="sr-only">(current)</span></a></li>
-                        <li><a href="#">About</a></li>
+                        <li class="active"><a href="/user/home">Home <span class="sr-only">(current)</span></a></li>
+                        <!-- <li><a href="/vis">About</a></li> -->
                         <li><a href="/visitor/profile">Profile</a></li>
   <!--********************** destnation in navbar *****************************  -->
-                      <!-- <li>
-                        <select onChange="window.location.href=this.value"  >
-                          <option value="#" >Destnation</option>
-                        <?php
-                        // $country_model=new Application_Model_Country();
-                        // $all=$country_model->allCountries();
-                        // foreach($all as $key => $value)
-                    		// {
-                        //   // echo $this->formSelect('test', 'Option 1');
-                        //   // echo  "<li><a href='#'></a></li>";
-                        //   echo "<option value='/country/displaycities/coid/".$value['id']."'>".$value['country_name']."</option>";
-                        // }
-                        ?>
-                      </select>
-                    </li> -->
                     <li class="dropdown">
 
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Destnation<span class="caret"></span></a>
@@ -96,7 +81,6 @@
 
                           </ul>
                         </li>
-                    </ul>
 <!--************************* login with facebook layout***************-->
 <?php
   $authAdapter = Zend_Auth::getInstance();
@@ -108,19 +92,24 @@
   if (!empty($userData))
     {
       $name = $identity->user_name;
-      echo '<li class="active" style="color:white;margin-right:30px;margin-top:10px;font-size:18px;list-style-type:none;"> Welcome '. $name. '</li>';
-      echo '<li class="active" style="list-style-type:none;"><a href="/user/logout"> Logout<span class="sr-only">(current)</span></a></li>';
-    ?>
-
-<?php
+      $type = $identity->type;
+      if ($type=='admin') {
+        echo '<li class="" style="list-style-type:none;"><a href="/admin"> Dash Board<span class="sr-only">(current)</span></a></li>';
+      }
+      echo '<li class="" style="list-style-type:none;"><a href="/user/logout"> Logout<span class="sr-only">(current)</span></a></li>';
+      echo '<li class="active navbar-text navbar-right" style="color:white;margin-right:30px;margin-top:10px;font-size:18px;list-style-type:none;"> Welcome '. $name. '</li>';
     }
     elseif ($fbsession->user_name)
     {
-      echo '<li class="active" style="color:white;margin-right:30px;margin-top:10px;font-size:18px;list-style-type:none;"> Welcome '. $fbsession->user_name. '</li>';
-      echo '<li class="active style="list-style-type:none;"><a href="/user/logout"> Logout<span class="sr-only">(current)</span></a></li>';
-
+      echo '<li class="" style="list-style-type:none;"><a href="/user/logout"> Logout<span class="sr-only">(current)</span></a></li>';
+      echo '<li class="" style="color:white;margin-right:30px;margin-top:10px;font-size:18px;list-style-type:none;"> Welcome '. $fbsession->user_name. '</li>';
+    }
+    else {
+      echo '<li class="" style="list-style-type:none;"><a href="/admin/login"> Log in<span class="sr-only">(current)</span></a></li>';
+      echo '<li class="" style="list-style-type:none;"><a href="/user/add-user"> Sign Up<span class="sr-only">(current)</span></a></li>';
     }
 ?>
+  </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>

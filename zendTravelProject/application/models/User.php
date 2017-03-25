@@ -64,7 +64,19 @@ class Application_Model_User extends Zend_Db_Table_Abstract
     $user_data['image'] = $userData['image'];
 		$this->update($user_data,"id=$id");
   }
+  function checkEmail($email)
+  {
+    $sql = $this->select()
+    ->from(array('user'),array('id'))
+    ->where("email='$email'")
+    ->setIntegrityCheck(false);
+    $result =$sql->query()->fetchAll();
+    print_r( $result);
+    //die();
+    return $result;
 
+    // return $this->find($email)->toArray();
+  }
 
 
 }
