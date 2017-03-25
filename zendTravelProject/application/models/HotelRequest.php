@@ -37,5 +37,18 @@ protected $_name = 'hotel_request';
      $result = $query->fetchAll();
       return $result;
   }
+  function updateRequest($hotel_id){
+    // $hotel_request=new Application_Model_Hotel()
+  $sql=$this->select()
+            ->from(array('H' => 'hotels' ), array('H.id' ,'H.avail_room'))
+            ->join(array('Hr'=>'hotel_request'),'Hr.hotel_id=H.id ')
+            ->update('hotels','H.avail_room=H.avail_room-Hr.no_of_rooms','H.id=$hotel_id')
+             ->setIntegrityCheck(false);
+                $query = $sql->query();
+     $result = $query->fetchAll();
+      return $result;
+
+
+  }
 
 }

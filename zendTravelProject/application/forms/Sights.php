@@ -7,7 +7,7 @@ class Application_Form_Sights extends Zend_Form
     {
         /* Form Elements & Other Definitions Here ... */
         $this->setMethod('POST');
-        $sightName = new Zend_Form_Element_Text('sightName');
+        $sightName = new Zend_Form_Element_Text('sight_name');
         $sightName->setLabel('Sight Name : ');
         $sightName->setAttribs(array(
             'class' => 'form-control',

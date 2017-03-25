@@ -23,7 +23,7 @@ class AdminController extends Zend_Controller_Action
   		if (($authorization->hasIdentity() || isset($this->fpS->user_name))
        && ($actionName == 'login' || $actionName == 'fblogin'))
   		{
-  		    $this->redirect('/admin/user-list');
+  		    $this->redirect('/admin/index');
   		}
 
       if ($authorization->hasIdentity()) {
@@ -84,7 +84,7 @@ class AdminController extends Zend_Controller_Action
         if($request->isPost()){
             if($sightForm-> isValid($request-> getPost())){
                 $sightModel-> editSight($sightId, $_POST);
-                $this->redirect('/admin/index');
+                $this->redirect('/admin');
             }
         }
 
@@ -103,8 +103,17 @@ class AdminController extends Zend_Controller_Action
 
         $sightModel = new Application_Model_Sights();
         $sightId = $this->_request->getParam('sightid');
+
+
         $sightData = $sightModel->sightDetails($sightId);
+
         $this->view->sightData = $sightData[0];
+
+
+        $city=new Application_Model_City();
+
+        $cityName=$city->cityDetails($sightData[0]['city_id']);
+        $this->view->cityName= $cityName[0]['city_name'];
 
     }
 
@@ -114,7 +123,7 @@ class AdminController extends Zend_Controller_Action
         $sightModel = new Application_Model_Sights();
         $sightId = $this->_request->getParam('sightid');
         $sightModel->deleteSight($sightId);
-        $this->redirect("/admin/index");
+        $this->redirect("/admin");
 
     }
 
@@ -125,9 +134,15 @@ class AdminController extends Zend_Controller_Action
         $request=$this->getRequest();
         if($request->isPost()){
             if($form->isValid($request->getPost())){
+                $upload = new Zend_File_Transfer_Adapter_Http();
+            $url=dirname(__DIR__,2)."/public/images/";
+            $upload->addFilter('Rename', $url.$_POST['city_name'].".jpg");
+            $upload->receive();
+            $_POST['photo'] = "/images/" . $_POST['city_name'].".jpg";
+
                 $city_model=new Application_Model_City();
                 $city_model->addCity($request->getParams());
-                $this->redirect('/admin/index');
+                $this->redirect('/admin');
             }
         }
 
@@ -147,7 +162,7 @@ class AdminController extends Zend_Controller_Action
           $city_model = new Application_Model_City();
         $city_id = $this->_request->getParam("uid");
         $city_model->deleteCity($city_id);
-        $this->redirect("/admin/index");
+        $this->redirect("/admin");
     }
 
     public function cityDetailsAction()
@@ -179,7 +194,7 @@ class AdminController extends Zend_Controller_Action
         if($request-> isPost()){
           if($form-> isValid($request-> getPost())){
             $city_model-> updateCity ($id,$_POST);
-        $this->redirect('/admin/index ');
+        $this->redirect('/admin');
 }
 }
 
@@ -209,7 +224,7 @@ class AdminController extends Zend_Controller_Action
         $id = $this->_request->getParam('uid');
         $user_data = $user_model->getUserData($id);
         $user_model->blockUser($id,$user_data);
-        $this->redirect('/admin/index');
+        $this->redirect('/admin');
     }
 
     public function userUnblockAction()
@@ -219,7 +234,7 @@ class AdminController extends Zend_Controller_Action
         $id = $this->_request->getParam('uid');
         $user_data = $user_model->getUserData($id);
         $user_model->unblockUser($id,$user_data);
-        $this->redirect('/admin/index');
+        $this->redirect('/admin');
     }
 
     public function userAsadminAction()
@@ -229,7 +244,7 @@ class AdminController extends Zend_Controller_Action
         $id = $this->_request->getParam('uid');
         $user_data = $user_model->getUserData($id);
         $user_model->makeAdminUser($id,$user_data);
-        $this->redirect('/admin/index');
+        $this->redirect('/admin');
     }
 
     public function loginAction()
@@ -257,7 +272,7 @@ class AdminController extends Zend_Controller_Action
                 $auth=Zend_Auth::getInstance();
                 $storage=$auth->getStorage();
                 $storage->write($sessionDataObj);
-                $this->redirect('/admin/user-list');
+                $this->redirect('/admin');
               }
               elseif ($sessionDataObj->type=='blocked') {
                 echo "<script>alert('contact the admin!! you are blocked');</script>";
@@ -293,7 +308,7 @@ class AdminController extends Zend_Controller_Action
         if($form->isValid($request->getPost())){
         $hotel_model = new Application_Model_Hotel();
         $hotel_model-> addHotel($request->getParams());
-        $this->redirect('/admin/index');
+        $this->redirect('/admin');
         }
         }
         $this->view->hotel_form = $form;
@@ -306,7 +321,7 @@ class AdminController extends Zend_Controller_Action
         $Hotel_model = new Application_Model_Hotel();
         $Hotel_id = $this->_request->getParam("uid");
         $Hotel_model->deleteHotel($Hotel_id);
-        $this->redirect("/admin/index");
+        $this->redirect("/admin");
     }
 
     public function listHotelAction()
@@ -342,7 +357,7 @@ class AdminController extends Zend_Controller_Action
         if($request-> isPost()){
         if($form-> isValid($request-> getPost())){
         $hotel_model-> updateHotel ($id,$_POST);
-        $this->redirect('/admin/index');
+        $this->redirect('/admin');
 }
 }
     }
@@ -360,7 +375,7 @@ class AdminController extends Zend_Controller_Action
         $country_model = new Application_Model_Country();
         $country_id = $this->_request->getParam("cid");
         $country_model->deleteCountry($country_id);
-        $this->redirect("/admin/index");
+        $this->redirect("/admin");
     }
 
     public function addcountryAction()
@@ -386,7 +401,7 @@ class AdminController extends Zend_Controller_Action
 
                 $country_model = new Application_Model_Country();
                 $country_model ->addCountry($countrydata);//($request->getParams());
-                $this->redirect('/admin/index');
+                $this->redirect('/admin');
               }
             }
     }
@@ -408,7 +423,7 @@ class AdminController extends Zend_Controller_Action
             if($form->isValid($request->getPost()))
                 {
                     $country_model->updateCountry($id, $_POST);
-                    $this->redirect('/admin/index');
+                    $this->redirect('/admin');
                 }
         }
     }

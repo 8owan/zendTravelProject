@@ -39,7 +39,6 @@ class VisitorController extends Zend_Controller_Action
         // action body
 
          $form = new Application_Form_Datepicker();
-
           $request = $this->getRequest();
         if($request->isPost()){
             if($form->isValid($request->getPost())){
@@ -135,7 +134,9 @@ class VisitorController extends Zend_Controller_Action
         $this->view->experience = $experience_model->listExperience();
 
         //getting exp_id
-        $experience_id = $this->_request->getParam("exp_id");
+        if($this->_request->getParam("exp_id")){
+            $experience_id = $this->_request->getParam("exp_id");
+        }
         $commentModel = new Application_Model_Comment();
 
 //        //displaying all comments on experiences

@@ -10,7 +10,7 @@
         <controllerFile controllerName="Index">
           <actionMethod actionName="index"/>
         </controllerFile>
-        <controllerFile controllerName="Error"/>
+        <!-- <controllerFile controllerName="Error"/> -->
         <controllerFile controllerName="Car">
           <actionMethod actionName="index"/>
         </controllerFile>
@@ -70,6 +70,12 @@
           <actionMethod actionName="experienceDetails"/>
           <actionMethod actionName="profile"/>
           <actionMethod actionName="editprofile"/>
+        </controllerFile>
+        <controllerFile controllerName="Country">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="displaycities"/>
+          <actionMethod actionName="showcountries"/>
+          <actionMethod actionName="city"/>
         </controllerFile>
       </controllersDirectory>
       <formsDirectory>
@@ -252,6 +258,9 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="User">
             <viewScriptFile forActionName="login"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Country">
+            <viewScriptFile forActionName="city"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

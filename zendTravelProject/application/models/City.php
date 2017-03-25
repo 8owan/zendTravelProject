@@ -14,7 +14,10 @@ class Application_Model_City extends Zend_Db_Table_Abstract
         // $row->id=$CityData['id'];
         $row->city_name=$CityData['city_name'];
         $row->country_id=$CityData['country_id'];
-        $row->save();
+       $row->photo=$CityData['photo'];
+        $row->description=$CityData['description'];
+
+            $row->save();
 
     }
     function deleteCity($id){
