@@ -51,5 +51,15 @@ class Application_Model_Experience extends Zend_Db_Table_Abstract
 			return $this->find($id)->toArray();
 
 	}
+	function getMaxId(){
+        return $this->fetchAll(
+            $this->select()
+                ->from($this, array(new Zend_Db_Expr('max(id) as maxId')))
+        )->toArray();
+    }
+
+    function expInSpeceficCity($cityId){
+	    return $this->fetchAll("city_id=$cityId")->toArray();
+    }
 
 }

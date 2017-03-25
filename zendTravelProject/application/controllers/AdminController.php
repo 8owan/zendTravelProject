@@ -23,7 +23,7 @@ class AdminController extends Zend_Controller_Action
   		if (($authorization->hasIdentity() || isset($this->fpS->user_name))
        && ($actionName == 'login' || $actionName == 'fblogin'))
   		{
-  		    $this->redirect('/admin/user-list');
+  		    $this->redirect('/admin/index');
   		}
 
       if ($authorization->hasIdentity()) {
@@ -103,8 +103,17 @@ class AdminController extends Zend_Controller_Action
 
         $sightModel = new Application_Model_Sights();
         $sightId = $this->_request->getParam('sightid');
+
+
         $sightData = $sightModel->sightDetails($sightId);
+
         $this->view->sightData = $sightData[0];
+
+
+        $city=new Application_Model_City();
+
+        $cityName=$city->cityDetails($sightData[0]['city_id']);
+        $this->view->cityName= $cityName[0]['city_name'];
 
     }
 
@@ -125,6 +134,12 @@ class AdminController extends Zend_Controller_Action
         $request=$this->getRequest();
         if($request->isPost()){
             if($form->isValid($request->getPost())){
+                $upload = new Zend_File_Transfer_Adapter_Http();
+            $url=dirname(__DIR__,2)."/public/images/";
+            $upload->addFilter('Rename', $url.$_POST['city_name'].".jpg");
+            $upload->receive();
+            $_POST['photo'] = "/images/" . $_POST['city_name'].".jpg";
+
                 $city_model=new Application_Model_City();
                 $city_model->addCity($request->getParams());
                 $this->redirect('/admin');
@@ -280,7 +295,7 @@ class AdminController extends Zend_Controller_Action
   			]);
   			$helper = $fb->getRedirectLoginHelper();
 
-  			$loginUrl = $helper->getLoginUrl($this->view->serverUrl() .'/admin/fbcallback');
+  			$loginUrl = $helper->getLoginUrl($this->view->serverUrl() .'/admin/fbcallback',array('scope'=>'email'));
   			$this->view->facebookUrl = $loginUrl;
     }
 
@@ -474,8 +489,10 @@ class AdminController extends Zend_Controller_Action
 		}
   		$fb->setDefaultAccessToken($accessToken);
   		try {
-  		$response = $fb->get('/me');
+  		$response = $fb->get('/me? fields=id,name,email');
   		$userNode = $response->getGraphUser();
+      // print_r($userNode);
+      // die();
 		}
   		catch (Facebook\Exceptions\FacebookResponseException $e) {
   		// When Graph returns an error
@@ -487,8 +504,35 @@ class AdminController extends Zend_Controller_Action
   		echo 'Facebook SDK returned an error: ' . $e->getMessage();
   		Exit;
 		}
-		  $this->fpS->user_name = $userNode['name'];
+      $data['user_name'] = $userNode['name'];
+      $data['email'] = $userNode['email'];
+      $data['image'] = "";
+      $data['password'] = "";
+      $data['type']='normal';
+      $userfc = new Application_Model_User();
+      if(!$userfc->checkEmail($data['email']))
+      {
+        $userfc->addNewUser($data);
+      }
+        $ret = $userfc->checkEmail($data['email']);
+        // var_dump($ret[0]);exit;
+          // $auth=Zend_Auth::getInstance();
+          // $identity = $auth->getStorage();
+          // $user_id_s = (object)["id"=>$ret[0]['id']];
+          // // var_dump($user_id_s);exit;
+          // $identity->write($user_id_s);
+      $this->fpS->user_name = $userNode['name'];
+
+      $this->redirect('/user/home');
     }
 
+    // public function logoutAction()
+    // {
+    //     // action body
+    //     $authAdapter=Zend_Auth::getInstance();
+    // 		$authAdapter->clearIdentity();
+    // 		Zend_Session::namespaceUnset('facebook');
+    // 		$this->redirect('/admin/login');
+    // }
 
 }

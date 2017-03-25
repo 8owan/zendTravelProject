@@ -1,7 +1,14 @@
 <br /><br />
 
-<div id="view-content">
-<div id="view-content">
+<div class="container">
+<div class="panel panel-primary">
+  <div class="panel-heading">
+		<h1><center>
+		<?php
+			echo $this->user_data['user_name'];
+		?>
+		</center></h1>
+	</div>
 
 
 	<?php 
@@ -9,11 +16,17 @@
 	// echo $city_name;
 	// print_r($this->city);
 	// die();
-	echo	"<table class='table'>"
-	."<tr><td>City Name</td><td>".$city_name."</td></tr>"."<tr><td>Country Name</td><td>".$this->countryName['country_name']."</td></tr>
-</table>
-";
-?>	
+// 	echo	"<table class='table'>"
+// 	."<tr><td>City Name</td><td>".$city_name."</td></tr>"."<tr><td>Country Name</td><td>".$this->countryName['country_name']."</td></tr>
+// </table>
+// ";
+?>
+<div class="panel-body" border="1">
+  <img src="<?php echo $this->city['image']?>" alt="no image" height='140' width='140' class="img-rounded center-block">
+	<h4> <b>City Name :</b> <?php echo $this->city['city_name'] ?> </h4>
+  <h4> <b>Country :</b> <?php echo $this->countryName['country_name']?> </h4>
+  <h4><b>Description</b> <?php echo $this->city['description']?> </h4>
+</div>	
 
-
+</div>
 </div>
