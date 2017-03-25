@@ -23,7 +23,7 @@ class AdminController extends Zend_Controller_Action
   		if (($authorization->hasIdentity() || isset($this->fpS->user_name))
        && ($actionName == 'login' || $actionName == 'fblogin'))
   		{
-  		    $this->redirect('/admin/index');
+  		    $this->redirect('/admin');
   		}
 
       if ($authorization->hasIdentity()) {
@@ -55,7 +55,12 @@ class AdminController extends Zend_Controller_Action
         $this->view->all_users=$user_array;
 
     }
+    public function preDispatch(){
+        $this->_helper->layout()->disableLayout();
 
+        // $this->_helper->viewRenderer->setNoRender(true);
+    }
+    
     public function addsightAction()
     {
 
