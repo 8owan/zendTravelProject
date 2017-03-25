@@ -321,7 +321,7 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
-       
+
        <li class="treeview">
             <i class="fa fa-files-o"></i>
             <a href="#users">
@@ -356,7 +356,7 @@
             <li><a href="/admin/update-hotel"><i class="fa fa-circle-o"></i>Update Hotel Data</a></li>
             <li class="active"><a href="/admin/list-hotel"><i class="fa fa-circle-o"></i>List Hotels</a></li>
           </ul> -->
-        
+
         <li class="treeview">
             <i class="fa fa-files-o"></i>
             <a href="#city">
@@ -401,7 +401,7 @@
     <!-- Main content -->
     <section class="content">
       <!-- Info boxes -->
-      
+
       <!-- /.row -->
 
       <!-- /.row -->
@@ -411,14 +411,14 @@
         <!-- Left col -->
         <div class="col-md-8">
           <!-- MAP & BOX PANE -->
-     
+
           <!-- /.box -->
-        
+
           <!-- /.row -->
 
           <!-- TABLE: LATEST ORDERS -->
 <div id="users" class="box box-info">
-          
+
             <div class="box-header with-border">
 
 <table class="table table-bordered table-striped">
@@ -450,7 +450,7 @@ echo $this->track_form;
 
 
  <div id="sights" class="box box-info">
-          
+
             <div class="box-header with-border">
 
     <table class='table table-striped'>
@@ -465,9 +465,9 @@ echo $this->track_form;
             echo "<tr>
               <td>".$value['sight_name']."</td>
               <td>".$value['city_id']."</td>
-              <td><a class='btn btn-success' href='sightdetails/sightid/".$value['id']."'> Details </a></td>
-              <td><a class='btn btn-primary' href='editsight/sightid/".$value['id']."'> Edit </a></td>
-              <td> <a class='btn btn-danger' href='deletesight/sightid/".$value['id']."'> Delete </a> </td>
+              <td><a class='btn btn-success' href='/admin/sightdetails/sightid/".$value['id']."'> Details </a></td>
+              <td><a class='btn btn-primary' href='/admin/editsight/sightid/".$value['id']."'> Edit </a></td>
+              <td> <a class='btn btn-danger' href='/admin/deletesight/sightid/".$value['id']."'> Delete </a> </td>
             </tr>";
         }
         ?>
@@ -477,7 +477,7 @@ echo $this->track_form;
 </div>
           </div>
  <div id="country" class="box box-info">
-          
+
             <div  class="box-header with-border">
             <table class="table table-bordered">
     <tr>
@@ -491,53 +491,53 @@ echo $this->track_form;
       echo "<tr>".  //<td>". $value['id']."</td>" .
       "<td>". $value['country_name'] . "</td>" .
       // "<td> <a class='btn btn-info' href='add/cid/".$value['id']."'> Add </a>".
-      "<td> <a class='btn btn-danger' href='deletecountry/cid/".$value['id']."'> Delete </a>".
-      "<td> <a class='btn btn-success' href='updatecountry/cid/".$value['id']."'> Update </a>".
+      "<td> <a class='btn btn-danger' href='/admin/deletecountry/cid/".$value['id']."'> Delete </a>".
+      "<td> <a class='btn btn-success' href='/admin/updatecountry/cid/".$value['id']."'> Update </a>".
       "</tr>";
     }
 
   ?>
 
-  
+
   </table>
- 
+
   <a class='btn btn-info' href='/admin/addcountry'> Add Country </a>
             </div>
             </div>
 
 
  <div id="city" class="box box-info">
-          
+
             <div  class="box-header with-border">
 
             <table class="table table-striped">
-  
+
   <tr>
-  
+
   <th>city Name</th>
-  
+
   <th>Action</th>
 
   </tr>
   <?php
 
-  
+
   foreach ($this->city as $key => $value) {
     # code...
-  
+
   echo "<tr>
   <td>".$value['city_name']."</td>".
   "<td> <a class='btn btn-info' href='/admin/city-details/uid/".$value['id']."'> Details </a></td>".
   "<td> <a class='btn btn-success' href='/admin/city-Update/uid/".$value['id']."'> Update </a></td>".
   "<td> <a class='btn btn-danger' href='/admin/delete-city/uid/".$value['id']."'> Delete </a></td>
-  
+
 
   </tr>";
 }
   ?>
 
 </table>
-<a href='/admin/add-city'>create New City</a>
+<a href='/admin/add-city' class="btn btn-info">Add City</a>
             </div>
             </div>
 
@@ -551,7 +551,7 @@ echo $this->track_form;
 
 
   <table class="table table-striped">
-  
+
   <tr>
   <th>Hotel Name</th>
   <th>Action</th>
@@ -563,21 +563,21 @@ echo $this->track_form;
   // die();
   foreach ($this->hotel as $key => $value) {
     # code...
-  
+
   echo "<tr>
-  
+
   <td>".$value['hotel_name']."</td>".
   "<td> <a class='btn btn-info' href='/admin/hotel-details/uid/".$value['id']."'> Details </a></td>".
   "<td> <a class='btn btn-success' href='/admin/Update-hotel/uid/".$value['id']."'> Update </a></td>".
   "<td> <a class='btn btn-danger' href='/admin/delete-hotel/uid/".$value['id']."'> Delete </a></td>
-  
+
 
   </tr>";
 }
   ?>
 
 </table>
-  
+
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -590,16 +590,16 @@ echo $this->track_form;
             <div class="box-body">
               <div class="table-responsive">
                 <table class="table no-margin">
-                 
-                 
+
+
                 </table>
               </div>
               <!-- /.table-responsive -->
             </div>
             <!-- /.box-body -->
             <div class="box-footer clearfix">
-              <a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat pull-left">Place New Order</a>
-              <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-right">View All Orders</a>
+              <a href="/admin/add-hotel" class="btn btn-info">Add Hotel</a>
+              <!-- <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-right">View All Orders</a> -->
             </div>
             <!-- /.box-footer -->
           </div>
@@ -607,7 +607,7 @@ echo $this->track_form;
         </div>
         <!-- /.col -->
 
-      
+
         <!-- /.col -->
       </div>
       <!-- /.row -->

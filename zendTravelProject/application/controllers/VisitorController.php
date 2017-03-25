@@ -203,6 +203,7 @@ class VisitorController extends Zend_Controller_Action
             $identity = $auth->getStorage();
             $userData=$identity->read();
             $user_id=$userData->id;
+
         // $id=$this->_request->getParam('uid');
         $userData=$userModel->getUserData($user_id);
         $this->view->user_data=$userData;
@@ -246,6 +247,11 @@ class VisitorController extends Zend_Controller_Action
         $identity = $auth->getStorage();
         $userData=$identity->read();
         $user_id=$userData->id;
+        $user_type=$userData->type;
+        if($user_type=="blocked")
+        {
+          echo "<script>alert('contact the admin!! you are blocked');window.location.href='/user/home';</script>";
+        }
 
         $this->view->uid = $user_id;
 

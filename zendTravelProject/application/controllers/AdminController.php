@@ -33,21 +33,6 @@ class AdminController extends Zend_Controller_Action
           $this->redirect('/user/home');
         }
       }
-        // $authorization = Zend_Auth::getInstance();
-        //
-        // $request=$this->getRequest();
-        // $actionName=$request->getActionName();
-        //
-        // if (!$authorization->hasIdentity() && $actionName != 'login')
-        // {
-        //     $this->redirect('/admin/login');
-        // }
-        //
-        //
-        // if ($authorization->hasIdentity()&& $actionName == 'login')
-        // {
-        //     $this->redirect('/admin/user-list');
-        // }
     }
 
     public function indexAction()
@@ -80,7 +65,7 @@ class AdminController extends Zend_Controller_Action
             if($sightForm->isValid($request->getPost())){
                 $sight_model = new Application_Model_Sights();
                 $sight_model->addSight($request->getParams());
-                $this->redirect('/admin/index');
+                $this->redirect('/admin');
             }
         }
         $this->view->sightForm = $sightForm;
