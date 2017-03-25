@@ -23,7 +23,7 @@ class AdminController extends Zend_Controller_Action
   		if (($authorization->hasIdentity() || isset($this->fpS->user_name))
        && ($actionName == 'login' || $actionName == 'fblogin'))
   		{
-  		    $this->redirect('/admin/index');
+  		    $this->redirect('/admin');
   		}
 
       if ($authorization->hasIdentity()) {
@@ -54,6 +54,15 @@ class AdminController extends Zend_Controller_Action
         $user_array=$userModel->getAllUsers();
         $this->view->all_users=$user_array;
 
+    }
+    public function preDispatch(){
+        $this->_helper->layout()->disableLayout();
+
+        // $this->_helper->viewRenderer->setNoRender(true);
+    }
+    public function anyAction()
+    {
+         require("/admin");
     }
 
     public function addsightAction()
@@ -224,7 +233,7 @@ class AdminController extends Zend_Controller_Action
         $id = $this->_request->getParam('uid');
         $user_data = $user_model->getUserData($id);
         $user_model->blockUser($id,$user_data);
-        $this->redirect('/admin/index');
+        $this->redirect('/admin');
     }
 
     public function userUnblockAction()
@@ -272,7 +281,7 @@ class AdminController extends Zend_Controller_Action
                 $auth=Zend_Auth::getInstance();
                 $storage=$auth->getStorage();
                 $storage->write($sessionDataObj);
-                $this->redirect('/admin/index');
+                $this->redirect('/admin');
               }
               elseif ($sessionDataObj->type=='blocked') {
                 echo "<script>alert('contact the admin!! you are blocked');</script>";
