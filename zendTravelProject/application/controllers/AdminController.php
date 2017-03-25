@@ -60,11 +60,7 @@ class AdminController extends Zend_Controller_Action
 
         // $this->_helper->viewRenderer->setNoRender(true);
     }
-    public function anyAction()
-    {
-         require("/admin");
-    }
-
+    
     public function addsightAction()
     {
 
