@@ -10,7 +10,7 @@
         <controllerFile controllerName="Index">
           <actionMethod actionName="index"/>
         </controllerFile>
-        <controllerFile controllerName="Error"/>
+        <!-- <controllerFile controllerName="Error"/> -->
         <controllerFile controllerName="Car">
           <actionMethod actionName="index"/>
         </controllerFile>
@@ -51,13 +51,13 @@
           <actionMethod actionName="updatecountry"/>
           <actionMethod actionName="fblogin"/>
           <actionMethod actionName="fbcallback"/>
-          <actionMethod actionName="logout"/>
         </controllerFile>
         <controllerFile controllerName="User">
           <actionMethod actionName="index"/>
           <actionMethod actionName="addUser"/>
           <actionMethod actionName="home"/>
-          <actionMethod actionName="edituserdata"/>
+          <actionMethod actionName="logout"/>
+          <actionMethod actionName="login"/>
         </controllerFile>
         <controllerFile controllerName="Visitor">
           <actionMethod actionName="index"/>
@@ -69,6 +69,7 @@
           <actionMethod actionName="listExperience"/>
           <actionMethod actionName="experienceDetails"/>
           <actionMethod actionName="profile"/>
+          <actionMethod actionName="editprofile"/>
         </controllerFile>
         <controllerFile controllerName="Country">
           <actionMethod actionName="index"/>
@@ -234,9 +235,6 @@
           <viewControllerScriptsDirectory forControllerName="Admin">
             <viewScriptFile forActionName="updatecountry"/>
           </viewControllerScriptsDirectory>
-          <viewControllerScriptsDirectory forControllerName="Visitor">
-            <viewScriptFile forActionName="test"/>
-          </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Admin">
             <viewScriptFile forActionName="fblogin"/>
           </viewControllerScriptsDirectory>
@@ -249,11 +247,17 @@
           <viewControllerScriptsDirectory forControllerName="Admin">
             <viewScriptFile forActionName="fbcallback"/>
           </viewControllerScriptsDirectory>
-          <viewControllerScriptsDirectory forControllerName="Admin">
+          <viewControllerScriptsDirectory forControllerName="Visitor">
+            <viewScriptFile forActionName="profile"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="User">
             <viewScriptFile forActionName="logout"/>
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Visitor">
-            <viewScriptFile forActionName="profile"/>
+            <viewScriptFile forActionName="editprofile"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="User">
+            <viewScriptFile forActionName="login"/>
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Country">
             <viewScriptFile forActionName="city"/>
@@ -300,6 +304,8 @@
             <testApplicationActionMethod forActionName="addUser"/>
             <testApplicationActionMethod forActionName="home"/>
             <testApplicationActionMethod forActionName="edituserdata"/>
+            <testApplicationActionMethod forActionName="logout"/>
+            <testApplicationActionMethod forActionName="login"/>
           </testApplicationControllerFile>
           <testApplicationControllerFile forControllerName="Admin">
             <testApplicationActionMethod forActionName="index"/>
@@ -315,7 +321,6 @@
             <testApplicationActionMethod forActionName="updatecountry"/>
             <testApplicationActionMethod forActionName="fblogin"/>
             <testApplicationActionMethod forActionName="fbcallback"/>
-            <testApplicationActionMethod forActionName="logout"/>
           </testApplicationControllerFile>
           <testApplicationControllerFile forControllerName="Visitor">
             <testApplicationActionMethod forActionName="index"/>
@@ -327,6 +332,7 @@
             <testApplicationActionMethod forActionName="experienceDetails"/>
             <testApplicationActionMethod forActionName="hotelReservation"/>
             <testApplicationActionMethod forActionName="profile"/>
+            <testApplicationActionMethod forActionName="editprofile"/>
           </testApplicationControllerFile>
         </testApplicationControllerDirectory>
       </testApplicationDirectory>

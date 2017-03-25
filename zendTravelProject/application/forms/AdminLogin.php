@@ -23,7 +23,7 @@ class Application_Form_AdminLogin extends Zend_Form
         ));
         $password->setRequired();
 
-        $submit=new Zend_Form_Element_Submit('Submit');
+        $submit=new Zend_Form_Element_Submit('Log in');
         $submit->setAttribs(array(
           'class'=>'btn btn-success'
         ));

@@ -13,38 +13,47 @@ class AdminController extends Zend_Controller_Action
   		$request=$this->getRequest();
   		$actionName=$request->getActionName();
 
-  		if ((!$authorization->hasIdentity() && !isset($this->fpS->fname))
+  		if ((!$authorization->hasIdentity() && !isset($this->fpS->user_name))
       && ($actionName != 'login' && $actionName != 'fblogin' && $actionName !='fbcallback'))
   		{
   		    $this->redirect('/admin/login');
   		}
 
 
-  		if (($authorization->hasIdentity() || isset($this->fpS->fname))
+  		if (($authorization->hasIdentity() || isset($this->fpS->user_name))
        && ($actionName == 'login' || $actionName == 'fblogin'))
   		{
-  		    $this->redirect('/admin/user-list');
+  		    $this->redirect('/admin/index');
   		}
-        // $authorization = Zend_Auth::getInstance();
-        //
-        // $request=$this->getRequest();
-        // $actionName=$request->getActionName();
-        //
-        // if (!$authorization->hasIdentity() && $actionName != 'login')
-        // {
-        //     $this->redirect('/admin/login');
-        // }
-        //
-        //
-        // if ($authorization->hasIdentity()&& $actionName == 'login')
-        // {
-        //     $this->redirect('/admin/user-list');
-        // }
+
+      if ($authorization->hasIdentity()) {
+        $storage=$authorization->getStorage();
+        $userData=$storage->read();
+        if ($userData->type!='admin') {
+          $this->redirect('/user/home');
+        }
+      }
     }
 
     public function indexAction()
     {
         // action body
+       $hotel_model = new Application_Model_Hotel();
+        $this->view->hotel = $hotel_model->listHotel();
+        ///////////////////////////////////////////////////////
+         $city_model = new Application_Model_City();
+        $this->view->city = $city_model->listCity();
+         $country_model = new Application_Model_Country(); //get obj from class user
+        $this->view->countries = $country_model->allCountries();
+        ////////////////////////////////////////////////////////
+         $sightModel = new Application_Model_Sights();
+        $this->view->allSights = $sightModel->listSights();
+/////////////////////////////////////////////////////////////////
+
+     $userModel=new Application_Model_User();
+        $user_array=$userModel->getAllUsers();
+        $this->view->all_users=$user_array;
+
     }
 
     public function addsightAction()
@@ -56,7 +65,7 @@ class AdminController extends Zend_Controller_Action
             if($sightForm->isValid($request->getPost())){
                 $sight_model = new Application_Model_Sights();
                 $sight_model->addSight($request->getParams());
-                $this->redirect('/admin/listsights');
+                $this->redirect('/admin');
             }
         }
         $this->view->sightForm = $sightForm;
@@ -75,7 +84,7 @@ class AdminController extends Zend_Controller_Action
         if($request->isPost()){
             if($sightForm-> isValid($request-> getPost())){
                 $sightModel-> editSight($sightId, $_POST);
-                $this->redirect('/admin/listsights');
+                $this->redirect('/admin');
             }
         }
 
@@ -94,8 +103,17 @@ class AdminController extends Zend_Controller_Action
 
         $sightModel = new Application_Model_Sights();
         $sightId = $this->_request->getParam('sightid');
+
+
         $sightData = $sightModel->sightDetails($sightId);
+
         $this->view->sightData = $sightData[0];
+
+
+        $city=new Application_Model_City();
+     
+        $cityName=$city->cityDetails($sightData[0]['city_id']);
+        $this->view->cityName= $cityName[0]['city_name'];
 
     }
 
@@ -105,7 +123,7 @@ class AdminController extends Zend_Controller_Action
         $sightModel = new Application_Model_Sights();
         $sightId = $this->_request->getParam('sightid');
         $sightModel->deleteSight($sightId);
-        $this->redirect("/admin/listsights");
+        $this->redirect("/admin");
 
     }
 
@@ -116,9 +134,15 @@ class AdminController extends Zend_Controller_Action
         $request=$this->getRequest();
         if($request->isPost()){
             if($form->isValid($request->getPost())){
+                $upload = new Zend_File_Transfer_Adapter_Http();
+            $url=dirname(__DIR__,2)."/public/images/";
+            $upload->addFilter('Rename', $url.$_POST['city_name'].".jpg");
+            $upload->receive();
+            $_POST['photo'] = "/images/" . $_POST['city_name'].".jpg";
+           
                 $city_model=new Application_Model_City();
                 $city_model->addCity($request->getParams());
-                $this->redirect('/admin/add-city');
+                $this->redirect('/admin');
             }
         }
 
@@ -138,7 +162,7 @@ class AdminController extends Zend_Controller_Action
           $city_model = new Application_Model_City();
         $city_id = $this->_request->getParam("uid");
         $city_model->deleteCity($city_id);
-        $this->redirect("/admin/list-city");
+        $this->redirect("/admin");
     }
 
     public function cityDetailsAction()
@@ -170,7 +194,7 @@ class AdminController extends Zend_Controller_Action
         if($request-> isPost()){
           if($form-> isValid($request-> getPost())){
             $city_model-> updateCity ($id,$_POST);
-        $this->redirect('/admin/list-city ');
+        $this->redirect('/admin');
 }
 }
 
@@ -200,7 +224,7 @@ class AdminController extends Zend_Controller_Action
         $id = $this->_request->getParam('uid');
         $user_data = $user_model->getUserData($id);
         $user_model->blockUser($id,$user_data);
-        $this->redirect('/admin/user-list');
+        $this->redirect('/admin/index');
     }
 
     public function userUnblockAction()
@@ -210,7 +234,7 @@ class AdminController extends Zend_Controller_Action
         $id = $this->_request->getParam('uid');
         $user_data = $user_model->getUserData($id);
         $user_model->unblockUser($id,$user_data);
-        $this->redirect('/admin/user-list');
+        $this->redirect('/admin');
     }
 
     public function userAsadminAction()
@@ -220,7 +244,7 @@ class AdminController extends Zend_Controller_Action
         $id = $this->_request->getParam('uid');
         $user_data = $user_model->getUserData($id);
         $user_model->makeAdminUser($id,$user_data);
-        $this->redirect('/admin/user-list');
+        $this->redirect('/admin');
     }
 
     public function loginAction()
@@ -248,15 +272,17 @@ class AdminController extends Zend_Controller_Action
                 $auth=Zend_Auth::getInstance();
                 $storage=$auth->getStorage();
                 $storage->write($sessionDataObj);
-                $this->redirect('/admin/user-list');
+                $this->redirect('/admin/index');
               }
               elseif ($sessionDataObj->type=='blocked') {
                 echo "<script>alert('contact the admin!! you are blocked');</script>";
               }
               elseif ($sessionDataObj->type=='normal')
               {
-                print_r('Not Admin');
-                die();
+                $auth=Zend_Auth::getInstance();
+                $storage=$auth->getStorage();
+                $storage->write($sessionDataObj);
+                $this->redirect('/user/home');
               }
             }
           }
@@ -269,7 +295,7 @@ class AdminController extends Zend_Controller_Action
   			]);
   			$helper = $fb->getRedirectLoginHelper();
 
-  			$loginUrl = $helper->getLoginUrl($this->view->serverUrl() .'/admin/fbcallback');
+  			$loginUrl = $helper->getLoginUrl($this->view->serverUrl() .'/admin/fbcallback',array('scope'=>'email'));
   			$this->view->facebookUrl = $loginUrl;
     }
 
@@ -282,7 +308,7 @@ class AdminController extends Zend_Controller_Action
         if($form->isValid($request->getPost())){
         $hotel_model = new Application_Model_Hotel();
         $hotel_model-> addHotel($request->getParams());
-        $this->redirect('/admin/add-hotel');
+        $this->redirect('/admin');
         }
         }
         $this->view->hotel_form = $form;
@@ -295,7 +321,7 @@ class AdminController extends Zend_Controller_Action
         $Hotel_model = new Application_Model_Hotel();
         $Hotel_id = $this->_request->getParam("uid");
         $Hotel_model->deleteHotel($Hotel_id);
-        $this->redirect("/admin/list-hotel");
+        $this->redirect("/admin");
     }
 
     public function listHotelAction()
@@ -323,7 +349,7 @@ class AdminController extends Zend_Controller_Action
         $form = new Application_Form_Addhotel ();
         $hotel_model = new Application_Model_Hotel ();
         $id = $this->_request->getParam('uid');
-        $HotelData = $hotel_model-> hotelDetails ($id)[0];
+        $HotelData = $hotel_model-> hotelDetails($id)[0];
 
         $form->populate($HotelData);
         $this->view->hotel_form = $form;
@@ -331,7 +357,7 @@ class AdminController extends Zend_Controller_Action
         if($request-> isPost()){
         if($form-> isValid($request-> getPost())){
         $hotel_model-> updateHotel ($id,$_POST);
-        $this->redirect('/admin/list-hotel ');
+        $this->redirect('/admin');
 }
 }
     }
@@ -349,7 +375,7 @@ class AdminController extends Zend_Controller_Action
         $country_model = new Application_Model_Country();
         $country_id = $this->_request->getParam("cid");
         $country_model->deleteCountry($country_id);
-        $this->redirect("/admin/displaycountries");
+        $this->redirect("/admin");
     }
 
     public function addcountryAction()
@@ -375,7 +401,7 @@ class AdminController extends Zend_Controller_Action
 
                 $country_model = new Application_Model_Country();
                 $country_model ->addCountry($countrydata);//($request->getParams());
-                $this->redirect('/admin/displaycountries');
+                $this->redirect('/admin');
               }
             }
     }
@@ -397,7 +423,7 @@ class AdminController extends Zend_Controller_Action
             if($form->isValid($request->getPost()))
                 {
                     $country_model->updateCountry($id, $_POST);
-                    $this->redirect('/admin/displaycountries');
+                    $this->redirect('/admin');
                 }
         }
     }
@@ -463,8 +489,10 @@ class AdminController extends Zend_Controller_Action
 		}
   		$fb->setDefaultAccessToken($accessToken);
   		try {
-  		$response = $fb->get('/me');
+  		$response = $fb->get('/me? fields=id,name,email');
   		$userNode = $response->getGraphUser();
+      // print_r($userNode);
+      // die();
 		}
   		catch (Facebook\Exceptions\FacebookResponseException $e) {
   		// When Graph returns an error
@@ -476,19 +504,35 @@ class AdminController extends Zend_Controller_Action
   		echo 'Facebook SDK returned an error: ' . $e->getMessage();
   		Exit;
 		}
-		  $this->fpS->fname = $userNode['name'];
+      $data['user_name'] = $userNode['name'];
+      $data['email'] = $userNode['email'];
+      $data['image'] = "";
+      $data['password'] = "";
+      $data['type']='normal';
+      $userfc = new Application_Model_User();
+      if(!$userfc->checkEmail($data['email']))
+      {
+        $userfc->addNewUser($data);
+      }
+        $ret = $userfc->checkEmail($data['email']);
+        // var_dump($ret[0]);exit;
+          // $auth=Zend_Auth::getInstance();
+          // $identity = $auth->getStorage();
+          // $user_id_s = (object)["id"=>$ret[0]['id']];
+          // // var_dump($user_id_s);exit;
+          // $identity->write($user_id_s);
+      $this->fpS->user_name = $userNode['name'];
+
+      $this->redirect('/user/home');
     }
 
-    public function logoutAction()
-    {
-        // action body
-        $authAdapter=Zend_Auth::getInstance();
-    		$authAdapter->clearIdentity();
-    		Zend_Session::namespaceUnset('facebook');
-    		$this->redirect('/admin/login');
-    }
-
-    
-
+    // public function logoutAction()
+    // {
+    //     // action body
+    //     $authAdapter=Zend_Auth::getInstance();
+    // 		$authAdapter->clearIdentity();
+    // 		Zend_Session::namespaceUnset('facebook');
+    // 		$this->redirect('/admin/login');
+    // }
 
 }
