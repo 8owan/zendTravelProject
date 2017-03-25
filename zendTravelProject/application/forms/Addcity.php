@@ -16,10 +16,17 @@ class Application_Form_Addcity extends Zend_Form
         $city_name->setAttribs(array('placeholder'=>'city Name','class'=>'form-control'));
         $city_name->setRequired();
 
-        // $id= new Zend_Form_Element_Text('id');
-        //  $id->setLabel('City Id :');
-        // $id->setAttribs(array('class'=>'form-control'));
-        // $id->setRequired();
+      
+
+        $photo = new Zend_Form_Element_File('photo');
+        $photo->setLabel('Upload an image:');
+        $photo->addValidator('Count', false, 1);
+        $photo->addValidator('Extension',false, 'jpg,jpeg,png,gif');
+
+         $description=new Zend_Form_Element_Text('description');
+        $description->setLabel('Description :');
+        $description->setAttribs(array('placeholder'=>'Description','class'=>'form-control'));
+        $description->setRequired();
 
 
         $country_obj= new Application_Model_Country();
@@ -35,36 +42,13 @@ foreach($allCountries as $key=>$value)
     }
 
 
-
-
-        //  $country_id->setAttribs(array('class'=>'form-control'));
-        // $country_id->setRequired();
-
-
-
-        // $city_obj = new Application_Model_City();
-  //       $allCities = $city_obj->listCity();
-
-  //       $city_id = new Zend_Form_Element_Select('city_id');
-  //               $city_id->setLabel('City : ');
-
-  //       foreach($allCities as $key=>$value)
-  //       {
-  //           $city_id->addMultiOption($value['id'], $value['city_name']);
-  //       }
-
-
-
-
-
-
 $submit=new Zend_Form_Element_Submit('submit');
         $submit->setAttribs(array('class'=>'btn btn-success'));
 
 
 $reset=new Zend_Form_Element_Reset('reset');
         $reset->setAttribs(array('class'=>'btn btn-success'));
-$this->addElements(array($city_name,$country_id,$submit,$reset));
+$this->addElements(array($city_name,$country_id,$photo,$description,$submit,$reset));
 
 
 

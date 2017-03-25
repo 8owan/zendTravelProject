@@ -23,7 +23,7 @@ class AdminController extends Zend_Controller_Action
   		if (($authorization->hasIdentity() || isset($this->fpS->user_name))
        && ($actionName == 'login' || $actionName == 'fblogin'))
   		{
-  		    $this->redirect('/admin/user-list');
+  		    $this->redirect('/admin/index');
   		}
 
       if ($authorization->hasIdentity()) {
@@ -140,6 +140,12 @@ class AdminController extends Zend_Controller_Action
         $request=$this->getRequest();
         if($request->isPost()){
             if($form->isValid($request->getPost())){
+                $upload = new Zend_File_Transfer_Adapter_Http();
+            $url=dirname(__DIR__,2)."/public/images/";
+            $upload->addFilter('Rename', $url.$_POST['city_name'].".jpg");
+            $upload->receive();
+            $_POST['photo'] = "/images/" . $_POST['city_name'].".jpg";
+           
                 $city_model=new Application_Model_City();
                 $city_model->addCity($request->getParams());
                 $this->redirect('/admin/index');
@@ -272,7 +278,7 @@ class AdminController extends Zend_Controller_Action
                 $auth=Zend_Auth::getInstance();
                 $storage=$auth->getStorage();
                 $storage->write($sessionDataObj);
-                $this->redirect('/admin/user-list');
+                $this->redirect('/admin/index');
               }
               elseif ($sessionDataObj->type=='blocked') {
                 echo "<script>alert('contact the admin!! you are blocked');</script>";

@@ -65,6 +65,9 @@ class Application_Form_Datepicker extends ZendX_JQuery_Form
         $no_of_rooms->setLabel('no_of_rooms :');
         $no_of_rooms->setAttribs(array('placeholder'=>'no_of_rooms','class'=>'form-control'));
         $no_of_rooms->setRequired();
+        //m7taga anady 3l Hotel moel w an2s el rooms wa7d lw hya b nfs id elhotel
+        // $update_num_of_rooms=new Application_Model_Hotel();
+
 
 $submit=new Zend_Form_Element_Submit('Submit');
         $submit->setAttribs(array(
