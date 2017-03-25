@@ -206,16 +206,34 @@ class VisitorController extends Zend_Controller_Action
         // $id=$this->_request->getParam('uid');
         $userData=$userModel->getUserData($user_id);
         $this->view->user_data=$userData;
-
+/*******************************car request************************************/
         $car_model = new Application_Model_CarRequest();
         $car_req = $car_model->getCarReq($user_id);
         // print_r($car_req);
         // die();
         $this->view->car_req = $car_req;
-
+/*******************************hotel request**********************************/
         $hotel_model = new Application_Model_HotelRequest();
         $hotel_req = $hotel_model->getHotelReq($user_id);
         $this->view->hotel_req = $hotel_req;
+/*******************************experience*************************************/
+        $form = new Application_Form_AddExperience();
+        $request = $this->getRequest();
+        if ($request->isPost())
+        {
+          if ($form->isValid($request->getPost()))
+          {
+            $upload = new Zend_File_Transfer_Adapter_Http();
+            $url=dirname(__DIR__,2)."/public/images/";
+            $upload->addFilter('Rename', $url.$_POST['title'].".jpg");
+            $upload->receive();
+            $_POST['photo'] = "/images/" . $_POST['title'].".jpg";
+
+            $experience_model = new Application_Model_Experience();
+            $experience_model->addExperience($request->getParams(), $user_id);
+          }
+        }
+      $this->view->experience_form = $form;
 
     }
 

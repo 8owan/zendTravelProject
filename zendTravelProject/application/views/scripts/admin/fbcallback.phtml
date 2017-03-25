@@ -1,7 +1,7 @@
 <?php
 	$fbsession = new Zend_Session_Namespace('facebook');
 
-	$name = $fbsession->fname;
+	$name = $fbsession->user_name;
 	echo "<br>";
 	echo "FaceBooK Login by " . $name;
 ?>
