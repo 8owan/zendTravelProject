@@ -51,37 +51,44 @@
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
           <li class="dropdown messages-menu">
-            
+
             <ul class="dropdown-menu">
               <li>
                 <!-- inner menu: contains the actual data -->
-               
+
               </li>
               <li class="footer"><a href="#">See All Messages</a></li>
             </ul>
           </li>
           <!-- Notifications: style can be found in dropdown.less -->
-         
+
           <!-- Tasks: style can be found in dropdown.less -->
-          
+
           <!-- User Account: style can be found in dropdown.less -->
+          <?php
+              $auth=Zend_Auth::getInstance();
+              $identity = $auth->getStorage();
+              $userData=$identity->read();
+              $name=$userData->user_name;
+              $image=$userData->image;
+           ?>
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs">Alexander Pierce</span>
+              <img src="<?php echo $image ?>" class="user-image" alt="User Image">
+              <span class="hidden-xs"><?php echo $name?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="<?php echo $image ?>" class="img-circle" alt="User Image">
 
                 <p>
-                  Alexander Pierce - Web Developer
+                  <?php echo $name?> - Web Developer
                   <small>Member since Nov. 2012</small>
                 </p>
               </li>
               <!-- Menu Body -->
-            
+
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
@@ -109,10 +116,10 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="<?php echo $image ?>" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>e7na k adminssssss fen nfsna</p>
+          <p><?php echo $name?></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
@@ -130,17 +137,14 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
-       
 
 
-<li class="treeview">
-            <i class="fa fa-files-o"></i>
-            <a href="/user/home">
-            <span>Home</span>
-            <span class="pull-right-container">
-            </span>
-          </a>
-          </li>
+        <li class="treeview">
+             <i class="fa fa-files-o"></i>
+             <a href="/user/home">
+             <span>Home</a></span>
+           </a>
+           </li>
 
        <li class="treeview">
             <i class="fa fa-files-o"></i>
@@ -173,7 +177,7 @@
             <li><a href="/admin/update-hotel"><i class="fa fa-circle-o"></i>Update Hotel Data</a></li>
             <li class="active"><a href="/admin/list-hotel"><i class="fa fa-circle-o"></i>List Hotels</a></li>
           </ul> -->
-        
+
         <li class="treeview">
             <i class="fa fa-files-o"></i>
             <a href="#city">
@@ -217,7 +221,7 @@
     <!-- Main content -->
     <section class="content">
       <!-- Info boxes -->
-      
+
       <!-- /.row -->
 
       <!-- /.row -->
@@ -227,14 +231,14 @@
         <!-- Left col -->
         <div class="col-md-8">
           <!-- MAP & BOX PANE -->
-     
+
           <!-- /.box -->
-        
+
           <!-- /.row -->
 
           <!-- TABLE: LATEST ORDERS -->
 <div id="users" class="box box-info">
-          
+
             <div class="box-header with-border">
 
 <table class="table table-bordered table-striped">
@@ -266,7 +270,7 @@ echo $this->track_form;
 
 
  <div id="sights" class="box box-info">
-          
+
             <div class="box-header with-border">
 
     <table class='table table-striped'>
@@ -292,7 +296,7 @@ echo $this->track_form;
 </div>
           </div>
  <div id="country" class="box box-info">
-          
+
             <div  class="box-header with-border">
             <table class="table table-bordered">
     <tr>
@@ -313,63 +317,64 @@ echo $this->track_form;
 
   ?>
 
-  
+
   </table>
- 
+
   <a class='btn btn-info' href='/admin/addcountry'> Add Country </a>
             </div>
             </div>
 
 
  <div id="city" class="box box-info">
-          
+
             <div  class="box-header with-border">
 
             <table class="table table-striped">
-  
+
   <tr>
-  
+
   <th>city Name</th>
-  
-  <th>Action</th>
+
+  <th colspan="3">Action</th>
 
   </tr>
   <?php
 
-  
+
   foreach ($this->city as $key => $value) {
     # code...
-  
+
   echo "<tr>
   <td>".$value['city_name']."</td>".
   "<td> <a class='btn btn-info' href='/admin/city-details/uid/".$value['id']."'> Details </a></td>".
   "<td> <a class='btn btn-success' href='/admin/city-Update/uid/".$value['id']."'> Update </a></td>".
   "<td> <a class='btn btn-danger' href='/admin/delete-city/uid/".$value['id']."'> Delete </a></td>
-  
+
 
   </tr>";
 }
   ?>
 
 </table>
-<a class="btn btn-info" href='/admin/add-city'>create New City</a>
+<a class="btn btn-info" href='/admin/add-city'>Add New City</a>
             </div>
             </div>
 
 
 
 
-          <div id="hotels" class="box box-info">
+          <div id="
+          s" class="box box-info">
 
             <div  class="box-header with-border">
               <h3 class="box-title">Latest Hotel</h3>
 
 
   <table class="table table-striped">
-  
+
   <tr>
   <th>Hotel Name</th>
-  <th>Action</th>
+  <th colspan="3">Action</th>
 
   </tr>
   <?php
@@ -378,21 +383,21 @@ echo $this->track_form;
   // die();
   foreach ($this->hotel as $key => $value) {
     # code...
-  
+
   echo "<tr>
-  
+
   <td>".$value['hotel_name']."</td>".
   "<td> <a class='btn btn-info' href='/admin/hotel-details/uid/".$value['id']."'> Details </a></td>".
   "<td> <a class='btn btn-success' href='/admin/Update-hotel/uid/".$value['id']."'> Update </a></td>".
   "<td> <a class='btn btn-danger' href='/admin/delete-hotel/uid/".$value['id']."'> Delete </a></td>
-  
+
 
   </tr>";
 }
   ?>
 
 </table>
-  <a class="btn btn-info" href='/admin/add-hotel'>create New Hotel</a>
+  <a class="btn btn-info" href='/admin/add-hotel'>Add New Hotel</a>
 
 
               <div class="box-tools pull-right">
@@ -403,16 +408,16 @@ echo $this->track_form;
             </div>
 
             <!-- /.box-header -->
-          
+
             <!-- /.box-body -->
-          
+
             <!-- /.box-footer -->
           </div>
           <!-- /.box -->
         </div>
         <!-- /.col -->
 
-      
+
         <!-- /.col -->
       </div>
       <!-- /.row -->
@@ -425,7 +430,7 @@ echo $this->track_form;
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.3.8
     </div>
-    <strong>Copyright &copy; 2014-2016 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
+    <strong>Copyright &copy; 2017 <a href="http://zendtravel.com/user/home">Zend Travel</a>.</strong> All rights
     reserved.
   </footer>
 

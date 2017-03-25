@@ -116,7 +116,7 @@ class AdminController extends Zend_Controller_Action
 
 
         $city=new Application_Model_City();
-     
+
         $cityName=$city->cityDetails($sightData[0]['city_id']);
         $this->view->cityName= $cityName[0]['city_name'];
 
@@ -144,7 +144,7 @@ class AdminController extends Zend_Controller_Action
             $upload->addFilter('Rename', $url.$_POST['city_name'].".jpg");
             $upload->receive();
             $_POST['photo'] = "/images/" . $_POST['city_name'].".jpg";
-           
+
                 $city_model=new Application_Model_City();
                 $city_model->addCity($request->getParams());
                 $this->redirect('/admin');
@@ -521,11 +521,11 @@ class AdminController extends Zend_Controller_Action
       }
         $ret = $userfc->checkEmail($data['email']);
         // var_dump($ret[0]);exit;
-          // $auth=Zend_Auth::getInstance();
-          // $identity = $auth->getStorage();
-          // $user_id_s = (object)["id"=>$ret[0]['id']];
-          // // var_dump($user_id_s);exit;
-          // $identity->write($user_id_s);
+          $auth=Zend_Auth::getInstance();
+          $identity = $auth->getStorage();
+          $user_id_s = (object)["id"=>$ret[0]['id']];
+          // var_dump($user_id_s);exit;
+          $identity->write($user_id_s);
       $this->fpS->user_name = $userNode['name'];
 
       $this->redirect('/user/home');
