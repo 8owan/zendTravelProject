@@ -81,6 +81,7 @@ class UserControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
     {
         $params = array('action' => 'home', 'controller' => 'User', 'module' => 'default');
     }
+
     public function testEdituserdataAction()
     {
         $params = array('action' => 'edituserdata', 'controller' => 'User', 'module' => 'default');
@@ -98,5 +99,24 @@ class UserControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
             );
     }
 
+    public function testLogoutAction()
+    {
+        $params = array('action' => 'logout', 'controller' => 'User', 'module' => 'default');
+        $urlParams = $this->urlizeOptions($params);
+        $url = $this->url($urlParams);
+        $this->dispatch($url);
+        
+        // assertions
+        $this->assertModule($urlParams['module']);
+        $this->assertController($urlParams['controller']);
+        $this->assertAction($urlParams['action']);
+        $this->assertQueryContentContains(
+            'div#view-content p',
+            'View script for controller <b>' . $params['controller'] . '</b> and script/action name <b>' . $params['action'] . '</b>'
+            );
+    }
+
 
 }
+
+
