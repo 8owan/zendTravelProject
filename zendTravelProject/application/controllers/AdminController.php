@@ -501,11 +501,11 @@ class AdminController extends Zend_Controller_Action
       }
         $ret = $userfc->checkEmail($data['email']);
         // var_dump($ret[0]);exit;
-          // $auth=Zend_Auth::getInstance();
-          // $identity = $auth->getStorage();
-          // $user_id_s = (object)["id"=>$ret[0]['id']];
-          // // var_dump($user_id_s);exit;
-          // $identity->write($user_id_s);
+          $auth=Zend_Auth::getInstance();
+          $identity = $auth->getStorage();
+          $user_id_s = (object)["id"=>$ret[0]['id']];
+          // var_dump($user_id_s);exit;
+          $identity->write($user_id_s);
       $this->fpS->user_name = $userNode['name'];
 
       $this->redirect('/user/home');
