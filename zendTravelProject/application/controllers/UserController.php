@@ -8,24 +8,25 @@ class UserController extends Zend_Controller_Action
     public function init()
     {
         /* Initialize action controller here */
-        $authorization = Zend_Auth::getInstance();
-    		$this->fpS = new Zend_Session_Namespace('facebook');
+        // $authorization = Zend_Auth::getInstance();
+    		// $this->fpS = new Zend_Session_Namespace('facebook');
+        //
+    		// $request=$this->getRequest();
+    		// $actionName=$request->getActionName();
+        //
+    		// if ((!$authorization->hasIdentity() && !isset($this->fpS->user_name))
+        //  && ($actionName != 'login' && $actionName != 'fblogin' && $actionName !='fbcallback'))
+    		// {
+    		//     $this->redirect('/admin/login');
+    		// }
+        //
+        //
+    		// if (($authorization->hasIdentity() || isset($this->fpS->user_name))
+        // && ($actionName == 'login' || $actionName == 'fblogin'))
+    		// {
+    		//     $this->redirect('/admin/user-list');
+    		// }
 
-    		$request=$this->getRequest();
-    		$actionName=$request->getActionName();
-
-    		if ((!$authorization->hasIdentity() && !isset($this->fpS->user_name))
-         && ($actionName != 'login' && $actionName != 'fblogin' && $actionName !='fbcallback'))
-    		{
-    		    $this->redirect('/admin/login');
-    		}
-
-
-    		if (($authorization->hasIdentity() || isset($this->fpS->user_name))
-        && ($actionName == 'login' || $actionName == 'fblogin'))
-    		{
-    		    $this->redirect('/admin/user-list');
-    		}
     }
 
     public function indexAction()

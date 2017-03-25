@@ -33,21 +33,6 @@ class AdminController extends Zend_Controller_Action
           $this->redirect('/user/home');
         }
       }
-        // $authorization = Zend_Auth::getInstance();
-        //
-        // $request=$this->getRequest();
-        // $actionName=$request->getActionName();
-        //
-        // if (!$authorization->hasIdentity() && $actionName != 'login')
-        // {
-        //     $this->redirect('/admin/login');
-        // }
-        //
-        //
-        // if ($authorization->hasIdentity()&& $actionName == 'login')
-        // {
-        //     $this->redirect('/admin/user-list');
-        // }
     }
 
     public function indexAction()
