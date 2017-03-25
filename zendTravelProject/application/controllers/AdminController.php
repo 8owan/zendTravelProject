@@ -56,7 +56,7 @@ class AdminController extends Zend_Controller_Action
             if($sightForm->isValid($request->getPost())){
                 $sight_model = new Application_Model_Sights();
                 $sight_model->addSight($request->getParams());
-                $this->redirect('/admin/addsight');
+                $this->redirect('/admin/listsights');
             }
         }
         $this->view->sightForm = $sightForm;

@@ -31,12 +31,14 @@ class Application_Model_Comment extends Zend_Db_Table_Abstract
     }
     function allCommentsData()
     {
-        $sql = $this->select()->from(array('u' => 'user'),
-            array('u.id','u.user_name', 'u.image' , 'c.content'))
-            ->join(array('c' => 'comment'),
-                'u.id = c.user_id')->setIntegrityCheck(false);
+        $sql = $this->select()->from(array('c' => 'comment'), array('*'))
+            ->joinLeft(array('u' => 'user'),'u.id = c.user_id', array('user_name', 'image', 'email', 'type'))
+            ->setIntegrityCheck(false);
         $query = $sql->query();
         $result = $query->fetchAll();
+//        echo "<pre>";
+//        print_r($result);
+//        die();
         return $result;
     }
 

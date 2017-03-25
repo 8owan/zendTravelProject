@@ -48,5 +48,10 @@ class Application_Model_Hotel extends Zend_Db_Table_Abstract
 
 
 // }
+    function updateNoOfRooms($id,$noOfRooms){
+        $sql = "Update hotels set avail_room = $noOfRooms   Where id = $id";
+                    $query = $this->getDbTable()->getAdapter()->query($sql);
+                    $query->execute();
+    }
 		
 }

@@ -23,7 +23,7 @@
 	echo '<img src="'.$data['image'].'" alt="no image" height="250" width="500" class="img-rounded center-block">';
 		 foreach($this->cities as $key => $value)
 		 {
-			 echo "<tr><td>". $value['city_name'] ."</td></tr>";
+			 echo "<tr><td><a href='/country/city/cid/".$value['id']."'>". $value['city_name'] ."</a></td></tr>";
 			// print_r($this->cities);
 
 		 }

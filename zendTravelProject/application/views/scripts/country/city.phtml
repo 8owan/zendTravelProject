@@ -1,0 +1,114 @@
+<style>
+    .thumbnail {
+        padding:0px;
+    }
+    .panel {
+        position:relative;
+    }
+    .panel>.panel-heading:after,.panel>.panel-heading:before{
+        position:absolute;
+        top:11px;left:-16px;
+        right:100%;
+        width:0;
+        height:0;
+        display:block;
+        content:" ";
+        border-color:transparent;
+        border-style:solid solid outset;
+        pointer-events:none;
+    }
+    .panel>.panel-heading:after{
+        border-width:7px;
+        border-right-color:#f7f7f7;
+        margin-top:1px;
+        margin-left:2px;
+    }
+    .panel>.panel-heading:before{
+        border-right-color:#ddd;
+        border-width:8px;
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <img src="http://placehold.it/1170x150">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <?php foreach ($this->cityData as $key => $value) : ?>
+                <div class="well well-lg">
+                    <p class="text-primary"><?= $value['city_name'] ?></p>
+
+                </div>
+                <p class="text-primary"><?= $value['description'] ?></p>
+            <?php endforeach; ?>
+
+            <div class="row">
+                <?php foreach ($this->sightsInCity as $key => $value): ?>
+                    <ul>
+                        <li><?= $value['sight_name'] ?></li>
+                    </ul>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <!-- Experience Section -->
+        <?php
+        // geting info about the logged in user
+
+        $auth=Zend_Auth::getInstance();
+        $identity = $auth->getStorage();
+        $userData=$identity->read();
+        $user_id=$userData->id;
+        ?>
+        <?php foreach ($this->experience as $key => $expvalue) : ?>
+            <div class='text-center'><h1><?= $expvalue['title'] ?><h1></div>
+            <div><img src=".$value['photo']."height='140' width='140' class='img-rounded center-block'></div>
+            <div><p class='text-center'> <?= $expvalue['description'] ?> </p></div>
+            <?php if($user_id == $expvalue['user_id']) : ?>
+                <div class="btn-group" role="group" aria-label="">
+                    <a type="button" class="btn btn-info" href='/visitor/experience-details/uid/<?= $expvalue['id'] ?>'> Details </a>
+                    <a type="button" class="btn btn-success" href='/visitor/update-experience/uid/<?= $expvalue['id'] ?>'> Update </a>
+                    <a type="button" class="btn btn-danger" href='/visitor/delete-experience/uid/<?= $expvalue['id'] ?>'> Delete </a>
+                </div>
+            <?php endif; ?>
+
+            <?php foreach ($this->allCommentData as $key => $comvalue):?>
+                <br><br>
+                <div class="row">
+                    <?php if($comvalue['experince_id'] == $expvalue['id'] ) : ?>
+                        <div class="col-sm-1">
+                            <div class="thumbnail">
+                                <img class="img-responsive user-photo" src="<?= $comvalue['image'] ?>">
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <strong><?= $comvalue['user_name'] ?></strong>
+                                </div>
+                                <div class="panel-body">
+                                    <?= $comvalue['content'] ?>
+                                </div>
+                            </div>
+                        </div>
+                        <?php if($user_id == $comvalue['user_id']) : ?>
+                            <div class="btn-group" role="group" aria-label="">
+                                <a type="button" class="btn btn-success" href='/visitor/list-Experience/editexpid/<?= $comvalue['id'] ?>'> Edit </a>
+                                <a type="button" class="btn btn-danger" href='/visitor/list-Experience/delexpid/<?= $comvalue['id'] ?>'> Delete </a>
+                            </div>
+                        <?php endif; ?>
+
+                    <?php endif; ?>
+
+                </div>
+
+            <?php endforeach;?>
+            <?= $this->commentForm->setAction($this->url().'/exp_id/'.$expvalue['id']) ?>
+        <?php endforeach;?>
+    </div>
+
+</div>
+

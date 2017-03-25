@@ -52,6 +52,7 @@
         <?php foreach ($this->allCommentData as $key => $comvalue):?>
             <br><br>
              <div class="row">
+                 <?php if($comvalue['experince_id'] == $expvalue['id'] ) : ?>
                  <div class="col-sm-1">
                      <div class="thumbnail">
                          <img class="img-responsive user-photo" src="<?= $comvalue['image'] ?>">
@@ -74,9 +75,11 @@
                      </div>
                  <?php endif; ?>
 
+                 <?php endif; ?>
+
              </div>
 
         <?php endforeach;?>
-    <?= $this->commentForm->setAction($this->url(array('exp_id',$comvalue['id']))) ?>
+    <?= $this->commentForm->setAction($this->url().'/exp_id/'.$expvalue['id']) ?>
     <?php endforeach;?>
 </div>
