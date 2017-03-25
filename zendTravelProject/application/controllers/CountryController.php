@@ -75,7 +75,7 @@ class CountryController extends Zend_Controller_Action
 
         //getting exp_id
         if($this->_request->getParam("exp_id")){
-            $experience_id = $this->_requexpInSpeceficCityest->getParam("exp_id");
+            $experience_id = $this->_request->getParam("exp_id");
         }
         $commentModel = new Application_Model_Comment();
 
