@@ -3,13 +3,14 @@
     <div class="jumbotron">
         <?php
         extract($this->sightData);
-        echo "<h1>".$sight_name."</h1>";
         echo "<div class='panel panel-primary'>
 							  <div class='panel-heading'>
-							    <h3 class='panel-title'>".$sight_name." </h3>
+							   <h1 style='align:center'>location </h>
 							  </div>
 							  <div class='panel-body'>
-							    <h3>$city_id</h3>
+					   <h4><b>SightName :</b>".$sight_name." </h4>
+
+							    <h4><b>City Name :</b>".$this->cityName."</h4>
 							  </div>
 						</div>";
         ?>
