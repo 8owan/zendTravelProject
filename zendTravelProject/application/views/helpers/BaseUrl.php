@@ -4,5 +4,4 @@ class Zend_View_Helper_BaseUrl{
         $fc = Zend_Controller_Front::getInstance();
         return $fc->getBaseUrl();
     }
-
 }

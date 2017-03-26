@@ -5,9 +5,10 @@ class Application_Model_CarRequest extends Zend_Db_Table_Abstract
   protected $_name = 'car_request';
     function addCarRequest($carRequestData){
         $row = $this->createRow();
+        $row->user_id = $carRequestData['user_id'];
         $row->sight_id = $carRequestData['sightId'];
-        $row->start_date = $carRequestData['startDate'];
-        $row->end_date = $carRequestData['endDate'];
+        $row->start_date = $carRequestData['start_date'];
+        $row->end_date = $carRequestData['end_date'];
         $row->save();
     }
     function editSight($id,$sightData){

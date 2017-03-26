@@ -7,7 +7,8 @@ protected $_name = 'hotel_request';
 
     function addHotelRequest($HotelData)
     {
-    		$row = $this->createRow();
+    	$row = $this->createRow();
+      $row->user_id=$HotelData['user_id'];
 			$row->start_date=$HotelData['start_date'];
 			$row->end_date=$HotelData['end_date'];
 			$row->no_of_rooms=$HotelData['no_of_rooms'];
