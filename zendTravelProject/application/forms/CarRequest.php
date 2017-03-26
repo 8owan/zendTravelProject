@@ -18,21 +18,8 @@ class Application_Form_CarRequest extends ZendX_JQuery_Form
             $sight->addMultiOption($value['id'],$value['sight_name']);
         }
 
-//        $startDate = new Zend_Dojo_Form_Element_DateTextBox('startDate');
-//        $startDate->setLabel('From : ');
-//        $startDate->setRequired(true);
-//        $startDate->setAttribs(array(
-//            'class'=> 'form-inline'
-//        ));
-//        $endDate = new Zend_Dojo_Form_Element_DateTextBox('endDate');
-//        $endDate->setLabel('TO : ');
-//        $endDate->setRequired(true);
-//        $endDate->setAttribs(array(
-//            'class'=> 'form-inline'
-//        ));
-
-        $textElement = new ZendX_JQuery_Form_Element_DatePicker('datepicker', array("label" => 'Date Picker :'." (yyyy-mm-dd)"));
-        $textElement->setJQueryParams(array(
+        $startDate = new ZendX_JQuery_Form_Element_DatePicker('start_date', array("label" => 'Start Date :'));
+        $startDate->setJQueryParams(array(
             'dateFormat'=>'yy-mm-dd',
             'changeMonth'=> true,
             'changeYear'=> true
@@ -43,17 +30,12 @@ class Application_Form_CarRequest extends ZendX_JQuery_Form
                 array('HtmlTag', array('tag' => 'div', 'class'=>'span-11 last')),
                 array('Label', array('tag' => 'div', 'class'=>'span-5 clear'))
             ));
-        $this->addElement('datePicker','movie_release_date', array(
-                'label' => 'Release Date:',
-                'required'=> false,
-                'class' => 'dtPicker',
-            )
-        );
 
 
 
-        $textElement2 = new ZendX_JQuery_Form_Element_DatePicker('datepicker', array("label" => 'Date Picker :'." (yyyy-mm-dd)"));
-        $textElement2->setJQueryParams(array(
+
+        $endDate = new ZendX_JQuery_Form_Element_DatePicker('end_date', array("label" => 'End Date :'));
+        $endDate->setJQueryParams(array(
             'dateFormat'=>'yy-mm-dd',
             'changeMonth'=> true,
             'changeYear'=> true
@@ -64,23 +46,22 @@ class Application_Form_CarRequest extends ZendX_JQuery_Form
                 array('HtmlTag', array('tag' => 'div', 'class'=>'span-11 last')),
                 array('Label', array('tag' => 'div', 'class'=>'span-5 clear'))
             ));
-        $this->addElement('datePicker','movie_release_date', array(
-                'label' => 'Release Date:',
-                'required'=> false,
-                'id' => 'datepicker',
-                'class' => 'datepicker',
-            )
-        );
+        // $this->addElement('datePicker','movie_release_date', array(
+        //         'label' => 'Release Date:',
+        //         'required'=> false,
+        //         'id' => 'datepicker',
+        //         'class' => 'datepicker',
+        //     )
+        // );
 
         $submit = new Zend_Form_Element_Submit('submit');
         $submit->setAttribs(array(
             'class'=> 'btn btn-success'
         ));
 
-        $this->addElements(array($sight,$textElement,$submit));
-        $this->addElement($textElement2);
+        $this->addElements(array($sight,$startDate,$submit));
+        $this->addElement($endDate);
     }
 
 
 }
-

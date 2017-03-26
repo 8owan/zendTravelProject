@@ -43,8 +43,12 @@ class VisitorController extends Zend_Controller_Action
         if($request->isPost()){
             if($form->isValid($request->getPost())){
                 $hotelModel = new Application_Model_HotelRequest();
-                $hotelModel->addHotelRequest($request->getParams());
-                $this->redirect('/visitor/hotel-reservation');
+                $auth=Zend_Auth::getInstance();
+                $identity = $auth->getStorage();
+                $userData=$identity->read();
+                $_POST['user_id']=$userData->id;
+                $hotelModel->addHotelRequest($_POST);
+                $this->redirect('/user/home');
             }
         }
         $this->view->form = $form;
@@ -59,8 +63,12 @@ class VisitorController extends Zend_Controller_Action
         if($request->isPost()){
             if($carRequestForm->isValid($request->getPost())){
                 $carModel = new Application_Model_CarRequest();
-                $carModel->addCarRequest($request->getParams());
-                $this->redirect('/visitor/car-Request');
+                $auth=Zend_Auth::getInstance();
+                $identity = $auth->getStorage();
+                $userData=$identity->read();
+                $_POST['user_id']=$userData->id;
+                $carModel->addCarRequest($_POST);
+                $this->redirect('/user/home');
             }
         }
         $this->view->carRequest = $carRequestForm;
@@ -88,7 +96,7 @@ class VisitorController extends Zend_Controller_Action
 
             $experience_model = new Application_Model_Experience();
             $experience_model->addExperience($request->getParams(), $user_id);
-            $this->redirect('/visitor/add-experience');
+            $this->redirect('/visitor/list-experience');
           }
         }
         $this->view->experience_form = $form;
@@ -122,7 +130,7 @@ class VisitorController extends Zend_Controller_Action
         if($request-> isPost()){
         if($form-> isValid($request-> getPost())){
         $experience_model-> updateExperience ($id,$_POST, $user_id);
-        $this->redirect('/visitor/add-experience ');
+        $this->redirect('/visitor/list-experience ');
 }
 }
     }

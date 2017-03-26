@@ -43,12 +43,31 @@ class UserController extends Zend_Controller_Action
           if ($form->isValid($request->getPost())) {
             $upload = new Zend_File_Transfer_Adapter_Http();
             $url=dirname(__DIR__,2)."/public/images/";
+
             $upload->addFilter('Rename', $url.$_POST['user_name'].".jpg");
             $upload->receive();
             $_POST['image'] = "/images/" . $_POST['user_name'].".jpg";
             $user_model = new Application_Model_User();
             $user_model->addNewUser($_POST);
-            $this->redirect('/user/home');
+
+            $db=Zend_Db_Table::getDefaultAdapter();
+            $adaptor=new Zend_Auth_Adapter_DbTable($db,'user','email','password');
+            $adaptor->setIdentity($_POST['email']);
+            $adaptor->setCredential($_POST['password']);
+            $result=$adaptor->authenticate();
+            if ($result->isValid()) {
+              $sessionDataObj=$adaptor->getResultRowObject(['user_name','email','image','type','id']);
+
+              if ($sessionDataObj->type=='normal')
+              {
+                $auth=Zend_Auth::getInstance();
+                $storage=$auth->getStorage();
+                $storage->write($sessionDataObj);
+                $this->redirect('/user/home');
+              }
+            }
+
+            // $this->redirect('/admin/login');
           }
         }
         $this->view->user_form = $form;

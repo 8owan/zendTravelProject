@@ -3,8 +3,8 @@
     <title>Zend Project</title>
     <!-- Latest compiled and minified CSS -->
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+<?php echo $this->headLink()->prependStylesheet($this->baseUrl()."/css/bootstrap.css"); ?>
     <!-- jQuery library -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -68,8 +68,16 @@
                   $identity = $authAdapter->getIdentity();
                   $fbsession= new Zend_Session_Namespace('facebook');
 
-                  if (!empty($userData))
+                  if ($fbsession->user_name)
+                  {
+                    echo '<li class="" style="list-style-type:none;"><a href="/user/logout"> Logout<span class="sr-only">(current)</span></a></li>';
+                    echo '<li class="" style="color:white;margin-right:30px;margin-top:10px;font-size:18px;list-style-type:none;"> Welcome '. $fbsession->user_name. '</li>';
+                  }
+
+                  elseif (!empty($userData))
                     {
+                      // var_dump($userData);
+                      // die();
                       $name = $identity->user_name;
                       $type = $identity->type;
                       if ($type=='admin') {
@@ -77,11 +85,6 @@
                       }
                       echo '<li class="" style="list-style-type:none;"><a href="/user/logout"> Logout<span class="sr-only">(current)</span></a></li>';
                       echo '<li class="active navbar-text navbar-right" style="color:white;margin-right:30px;margin-top:10px;font-size:18px;list-style-type:none;"> Welcome '. $name. '</li>';
-                    }
-                    elseif ($fbsession->user_name)
-                    {
-                      echo '<li class="" style="list-style-type:none;"><a href="/user/logout"> Logout<span class="sr-only">(current)</span></a></li>';
-                      echo '<li class="" style="color:white;margin-right:30px;margin-top:10px;font-size:18px;list-style-type:none;"> Welcome '. $fbsession->user_name. '</li>';
                     }
                     else {
                       echo '<li class="" style="list-style-type:none;"><a href="/admin/login"> Log in<span class="sr-only">(current)</span></a></li>';
