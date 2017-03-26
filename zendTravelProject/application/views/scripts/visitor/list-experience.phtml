@@ -39,7 +39,7 @@
     ?>
     <?php foreach ($this->experience as $key => $expvalue) : ?>
         <div class='text-center'><h1><?= $expvalue['title'] ?><h1></div>
-        <div><img src=".$value['photo']."height='140' width='140' class='img-rounded center-block'></div>
+        <div><img src="<?= $expvalue['photo'] ?>"height='140' width='140' class='img-rounded center-block'></div>
         <div><p class='text-center'> <?= $expvalue['description'] ?> </p></div>
         <?php if($user_id == $expvalue['user_id']) : ?>
             <div class="btn-group" role="group" aria-label="">
