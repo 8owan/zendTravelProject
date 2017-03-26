@@ -53,6 +53,8 @@ class AdminController extends Zend_Controller_Action
      $userModel=new Application_Model_User();
         $user_array=$userModel->getAllUsers();
         $this->view->all_users=$user_array;
+        ////////////////////////////////////////////////////////
+        
 
     }
     public function preDispatch(){
